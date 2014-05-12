@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/Swipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        android:text="@string/ui_balance_swipes_title"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/SwipeNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="#008000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="85dp"
+        android:background="#000000"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/DBA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/ui_balance_dba_title"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/DBAAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="$609.23"
+        android:textColor="#008000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
