@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DBA-Ok</string>
+    <string name="app_name">DBA-OK</string>
     <string name="action_settings">Settings</string>
     <string name="title_section1">Balance</string>
     <string name="title_section2">Where To Eat</string>
     <string name="title_section3">Daily Dish</string>
     <string name="title_section4">Welcome</string>
+    <string name="title_section5">User Settings</string>
+    
+    
     <string name="ui_cs_picture">Sudi picture</string>
     <string name="ui_love_picture">Love picture</string>
     <!-- Tab Strings -->
@@ -23,7 +26,6 @@
     <string name="ui_menu_feedback">feedback</string>
     <string name="ui_menu_about">about</string>
     <string name="ui_menu_share">share</string>
-    
     <string name="ui_welcome_welcome_title">Welcome to DBA-OK</string>
     <string name="ui_welcome_signin_title">Sign Into ManageMyID</string>
     <string name="ui_welcome_email_title">Email Address</string>
@@ -34,4 +36,16 @@
     <string name="ui_balance_dba_title">DBA Remaining</string>
     <string name="ui_welcome_signin">Sign in</string>
 
+    <!-- PREFERENCES Strings -->
+    <string name="pref_category_notifications">Push Notifications</string>
+    <string name="meal_reminder_preference_key">mealReminder</string>
+    <string name="summary_meal_reminder_checkbox">Notifies you to use meal swipes</string>
+    <string name="title_meal_reminder_checkbox">Meal Swipe Notification</string>
+    <string name="yummy_reminder_preference_key">yummyReminder</string>
+    <string name="summary_yummy_reminder_checkbox">Notifies you when your favorite meal is being served</string>
+	<string name="title_yummy_reminder_checkbox">Favorite Meal Notifications</string>
+	<string name="closing_reminder_preference_key">closingReminder</string>
+	<string name="summary_closing_reminder_checkbox">Notifies you when specific dining halls are going to close</string>
+	<string name="title_closing_reminder_checkbox">Closing Time Notifications</string>
+	
 </resources>

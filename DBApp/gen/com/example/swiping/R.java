@@ -17,8 +17,14 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f040002;
+        public static final int activity_vertical_margin=0x7f040003;
+        /**  Preference fragment padding, bottom 
+         */
+        public static final int preference_fragment_padding_bottom=0x7f040000;
+        /**  Preference fragment padding, sides 
+         */
+        public static final int preference_fragment_padding_side=0x7f040001;
     }
     public static final class drawable {
         public static final int cs=0x7f020000;
@@ -30,24 +36,31 @@ public final class R {
         public static final int ic_love=0x7f020006;
     }
     public static final class id {
-        public static final int DBA=0x7f080004;
-        public static final int DBAAmount=0x7f080005;
-        public static final int EmailAddress=0x7f08000b;
-        public static final int EnterEmail=0x7f08000c;
-        public static final int EnterPassword=0x7f08000e;
-        public static final int ManageMyId=0x7f080010;
-        public static final int Password=0x7f08000d;
-        public static final int SignIn=0x7f08000a;
-        public static final int SwipeNumber=0x7f080003;
-        public static final int Swipes=0x7f080002;
-        public static final int Welcome=0x7f080009;
-        public static final int action_settings=0x7f080011;
-        public static final int button1=0x7f08000f;
-        public static final int imageViewOfGirl=0x7f080008;
-        public static final int pager=0x7f080000;
-        public static final int pager_title_strip=0x7f080001;
-        public static final int section_label=0x7f080006;
-        public static final int webPage=0x7f080007;
+        public static final int DBA=0x7f090004;
+        public static final int DBAAmount=0x7f090005;
+        public static final int EmailAddress=0x7f09000f;
+        public static final int EnterEmail=0x7f090010;
+        public static final int EnterPassword=0x7f090012;
+        public static final int ManageMyId=0x7f090014;
+        public static final int Password=0x7f090011;
+        public static final int SignIn=0x7f09000e;
+        public static final int SwipeNumber=0x7f090003;
+        public static final int Swipes=0x7f090002;
+        public static final int Welcome=0x7f09000d;
+        public static final int action_settings=0x7f090015;
+        public static final int back_button=0x7f09000a;
+        public static final int button1=0x7f090013;
+        public static final int button_bar=0x7f090009;
+        public static final int imageViewOfGirl=0x7f090008;
+        public static final int next_button=0x7f09000c;
+        public static final int pager=0x7f090000;
+        public static final int pager_title_strip=0x7f090001;
+        public static final int section_label=0x7f090006;
+        public static final int skip_button=0x7f09000b;
+        public static final int webPage=0x7f090007;
+    }
+    public static final class integer {
+        public static final int preference_fragment_scrollbarStyle=0x7f050000;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -55,44 +68,66 @@ public final class R {
         public static final int fragment_main_dummy=0x7f030002;
         public static final int meetfragment=0x7f030003;
         public static final int partyfragment=0x7f030004;
-        public static final int welcome=0x7f030005;
+        public static final int preference_list_fragment=0x7f030005;
+        public static final int preferences=0x7f030006;
+        public static final int welcome=0x7f030007;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int title_section1=0x7f050002;
-        public static final int title_section2=0x7f050003;
-        public static final int title_section3=0x7f050004;
-        public static final int title_section4=0x7f050005;
-        public static final int ui_balance_dba_title=0x7f05001a;
-        public static final int ui_balance_swipes_title=0x7f050019;
-        public static final int ui_cs_picture=0x7f050006;
-        public static final int ui_love_picture=0x7f050007;
-        public static final int ui_menu_about=0x7f050011;
-        public static final int ui_menu_add=0x7f05000e;
-        public static final int ui_menu_feedback=0x7f050010;
-        public static final int ui_menu_quit=0x7f05000f;
+        public static final int action_settings=0x7f060004;
+        public static final int app_name=0x7f060003;
+        /**   Strings for possible PreferenceActivity Back/Next buttons 
+         */
+        public static final int back_button_label=0x7f060000;
+        public static final int closing_reminder_preference_key=0x7f060027;
+        public static final int meal_reminder_preference_key=0x7f060021;
+        public static final int next_button_label=0x7f060001;
+        /**  PREFERENCES Strings 
+         */
+        public static final int pref_category_notifications=0x7f060020;
+        /**  Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] 
+         */
+        public static final int skip_button_label=0x7f060002;
+        public static final int summary_closing_reminder_checkbox=0x7f060028;
+        public static final int summary_meal_reminder_checkbox=0x7f060022;
+        public static final int summary_yummy_reminder_checkbox=0x7f060025;
+        public static final int title_closing_reminder_checkbox=0x7f060029;
+        public static final int title_meal_reminder_checkbox=0x7f060023;
+        public static final int title_section1=0x7f060005;
+        public static final int title_section2=0x7f060006;
+        public static final int title_section3=0x7f060007;
+        public static final int title_section4=0x7f060008;
+        public static final int title_section5=0x7f060009;
+        public static final int title_yummy_reminder_checkbox=0x7f060026;
+        public static final int ui_balance_dba_title=0x7f06001e;
+        public static final int ui_balance_swipes_title=0x7f06001d;
+        public static final int ui_cs_picture=0x7f06000a;
+        public static final int ui_love_picture=0x7f06000b;
+        public static final int ui_menu_about=0x7f060015;
+        public static final int ui_menu_add=0x7f060012;
+        public static final int ui_menu_feedback=0x7f060014;
+        public static final int ui_menu_quit=0x7f060013;
         /**  Menu Strings 
          */
-        public static final int ui_menu_search=0x7f05000c;
-        public static final int ui_menu_send=0x7f05000d;
-        public static final int ui_menu_share=0x7f050012;
-        public static final int ui_tabname_chat=0x7f050009;
+        public static final int ui_menu_search=0x7f060010;
+        public static final int ui_menu_send=0x7f060011;
+        public static final int ui_menu_share=0x7f060016;
+        public static final int ui_tabname_chat=0x7f06000d;
         /**  Tab Strings 
          */
-        public static final int ui_tabname_find=0x7f050008;
-        public static final int ui_tabname_meet=0x7f05000a;
-        public static final int ui_tabname_party=0x7f05000b;
-        public static final int ui_welcome_email_hint=0x7f050016;
-        public static final int ui_welcome_email_title=0x7f050015;
-        public static final int ui_welcome_managemyid_title=0x7f050018;
-        public static final int ui_welcome_password_title=0x7f050017;
-        public static final int ui_welcome_signin=0x7f05001b;
-        public static final int ui_welcome_signin_title=0x7f050014;
-        public static final int ui_welcome_welcome_title=0x7f050013;
+        public static final int ui_tabname_find=0x7f06000c;
+        public static final int ui_tabname_meet=0x7f06000e;
+        public static final int ui_tabname_party=0x7f06000f;
+        public static final int ui_welcome_email_hint=0x7f06001a;
+        public static final int ui_welcome_email_title=0x7f060019;
+        public static final int ui_welcome_managemyid_title=0x7f06001c;
+        public static final int ui_welcome_password_title=0x7f06001b;
+        public static final int ui_welcome_signin=0x7f06001f;
+        public static final int ui_welcome_signin_title=0x7f060018;
+        public static final int ui_welcome_welcome_title=0x7f060017;
+        public static final int yummy_reminder_preference_key=0x7f060024;
     }
     public static final class style {
         /** 
@@ -116,10 +151,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
     }
 }

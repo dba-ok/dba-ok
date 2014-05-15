@@ -120,6 +120,9 @@ public class MainActivity extends FragmentActivity implements
 			case 3:
 				fragment = new WelcomeFragment();
 				break;
+			case 4:
+				fragment = new SettingsFragment();
+				break;
 			default:
 				break;
 
@@ -130,7 +133,7 @@ public class MainActivity extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 4;
+			return 5;
 		}
 
 		@Override
@@ -145,6 +148,8 @@ public class MainActivity extends FragmentActivity implements
 				return getString(R.string.title_section3).toUpperCase(l);
 			case 3:
 				return getString(R.string.title_section4).toUpperCase(l);
+			case 4:
+				return getString(R.string.title_section5).toUpperCase(l);					
 			}
 			return null;
 		}
