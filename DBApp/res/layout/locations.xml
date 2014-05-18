@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical" >
+
+    <!-- Text and Spinner for Day of Week -->
+    <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp" >
+		
+	    <TextView
+	        android:id="@+id/OpenLocations"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:textSize="30sp"
+	        android:layout_weight="1"
+	        android:textStyle="bold"
+	        android:textColor="#008000"
+	        android:text="@string/ui_locations_open_title"  />
+		
+		<Spinner
+	        android:id="@+id/Dayofweek"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_margin="0dp"
+	        android:layout_weight="1"
+	        android:entries="@array/ui_locations_spinner_entries" />
+
+   	</LinearLayout>
+   
+
+    <TextView
+        android:id="@+id/Foco"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/ui_locations_foco_title" />
+
+    <TextView
+        android:id="@+id/FocoTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:text="7:30 am – 10:30 am\n 11:00 am – 3:00 pm\n 5:00 pm – 8:30 pm" />
+    
+    <TextView
+        android:id="@+id/Collis"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/ui_locations_collis_title" />
+
+    <TextView
+        android:id="@+id/CollisTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:text="7:00 am – 8:00 pm" />
+   
+    <TextView
+        android:id="@+id/Hop"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/ui_locations_hop_title" />
+
+    <TextView
+        android:id="@+id/HopTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:text="8:00 am – 12:30 am" />
+        
+    <TextView
+        android:id="@+id/ClosedLocations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:text="@string/ui_locations_closed_title" />
+    
+    <TextView
+        android:id="@+id/Novack"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/ui_locations_novack_title" />
+
+    <TextView
+        android:id="@+id/NovackTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:text="7:30 am – 2:00 am" />
+    
+    <TextView
+        android:id="@+id/KAF"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/ui_locations_kaf_title" />
+
+    <TextView
+        android:id="@+id/KAFTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:text="8:00 am – 8:00 pm" />
+
+</LinearLayout>

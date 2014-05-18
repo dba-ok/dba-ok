@@ -3,13 +3,11 @@
 
     <string name="app_name">DBA-OK</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Balance</string>
-    <string name="title_section2">Where To Eat</string>
+    <string name="title_section1">Welcome</string>
+    <string name="title_section2">Balance</string>
     <string name="title_section3">Daily Dish</string>
-    <string name="title_section4">Welcome</string>
-    <string name="title_section5">User Settings</string>
-    
-    
+    <string name="title_section4">Hours</string>
+    <string name="title_section5">Budget</string>
     <string name="ui_cs_picture">Sudi picture</string>
     <string name="ui_love_picture">Love picture</string>
     <!-- Tab Strings -->
@@ -43,9 +41,37 @@
     <string name="title_meal_reminder_checkbox">Meal Swipe Notification</string>
     <string name="yummy_reminder_preference_key">yummyReminder</string>
     <string name="summary_yummy_reminder_checkbox">Notifies you when your favorite meal is being served</string>
-	<string name="title_yummy_reminder_checkbox">Favorite Meal Notifications</string>
-	<string name="closing_reminder_preference_key">closingReminder</string>
-	<string name="summary_closing_reminder_checkbox">Notifies you when specific dining halls are going to close</string>
-	<string name="title_closing_reminder_checkbox">Closing Time Notifications</string>
-	
+    <string name="title_yummy_reminder_checkbox">Favorite Meal Notifications</string>
+    <string name="closing_reminder_preference_key">closingReminder</string>
+    <string name="summary_closing_reminder_checkbox">Notifies you when specific dining halls are going to close</string>
+    <string name="title_closing_reminder_checkbox">Closing Time Notifications</string>
+
+    <!-- Locations -->
+    <string name="ui_locations_open_title">Open</string>
+    <string name="ui_locations_collis_title">Collis</string>
+    <string name="ui_locations_foco_title">53 Commons</string>
+    <string name="ui_locations_hop_title">The Hop</string>
+    <string name="ui_locations_kaf_title">KAF</string>
+    <string name="ui_locations_novack_title">Novack</string>
+    <string name="ui_locations_closed_title">Closed</string>
+
+    <!-- Spinner for locations -->
+    <string name="ui_locations_dayofweek_title">Day</string>
+
+    <string-array name="ui_locations_spinner_entries">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!-- Budget -->
+    <string name="ui_budget_useravg_title">Your Avg</string>
+    <string name="ui_budget_idealavg_title">Ideal Avg</string>
+    <string name="title_activity_prefs">PrefsActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
