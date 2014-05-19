@@ -32,6 +32,18 @@ public class JSoupTest{
 	
 	public void authenticate(String username, String password){ //get cookie for ManageMyID
 		try{ //try to login
+			Response res = Jsoup
+					.connect("https://dartmouth.managemyid.com/student/login.php")
+					.data("user", username)
+					.data("pwd", password)
+					.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36")
+					.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+					.header("Accept-Encoding", "gzip, deflate")
+					.header("Accept-Language", "en-US,en;q=0.5")
+					.header("Connection", "keep-alive")
+					.method(Connection.Method.POST)
+					.timeout(0)
+					.execute();
 			Document doc = Jsoup
 					.connect("https://dartmouth.managemyid.com/student/login.php")
 					.data("user", username)
