@@ -1,21 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
 
-    <PreferenceCategory android:title="@string/pref_category_notifications" >
+    <PreferenceCategory android:title="Meal Notifications" >
 
         <CheckBoxPreference
             android:key="@string/meal_reminder_preference_key"
             android:summary="@string/summary_meal_reminder_checkbox"
             android:title="@string/title_meal_reminder_checkbox" />
-        
-        <CheckBoxPreference
+
+        <!--
+              <CheckBoxPreference
             android:key="@string/yummy_reminder_preference_key"
             android:summary="@string/summary_yummy_reminder_checkbox"
             android:title="@string/title_yummy_reminder_checkbox"/>
+        -->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Closing Notifications" >
+
+        <!--
+              <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_closing" />
+        -->
+
         <CheckBoxPreference
-            android:key="@string/closing_reminder_preference_key"
-            android:summary="@string/summary_closing_reminder_checkbox"
-            android:title="@string/title_closing_reminder_checkbox"/>
+            android:layout_marginLeft="50dp"
+            android:key="@string/closing_kaf_key"
+            android:summary="@string/summary_closing_kaf"
+            android:title="@string/title_closing_kaf" />
+
+        <CheckBoxPreference
+            android:layout_marginLeft="50dp"
+            android:key="@string/closing_collis_key"
+            android:summary="@string/summary_closing_collis"
+            android:title="@string/title_closing_collis" />
+
+        <CheckBoxPreference
+            android:layout_marginLeft="50dp"
+            android:key="@string/closing_novack_key"
+            android:summary="@string/summary_closing_novack"
+            android:title="@string/title_closing_novack" />
+
+        <CheckBoxPreference
+            android:layout_marginLeft="50dp"
+            android:key="@string/closing_foco_key"
+            android:summary="@string/summary_closing_foco"
+            android:title="@string/title_closing_foco" />
+
+        <CheckBoxPreference
+            android:layout_marginLeft="50dp"
+            android:key="@string/closing_hop_key"
+            android:summary="@string/summary_closing_hop"
+            android:title="@string/title_closing_hop" />
     </PreferenceCategory>
 
 </PreferenceScreen>

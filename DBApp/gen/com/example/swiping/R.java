@@ -1036,7 +1036,11 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
+<<<<<<< HEAD
         public static final int button1=0x7f05005e;
+=======
+        public static final int button_bar=0x7f050055;
+>>>>>>> 7a7984d16c3288e0bf01a82301e64e75686a8869
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int default_activity_button=0x7f050028;
@@ -1080,6 +1084,11 @@ containing a value of this type.
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
+<<<<<<< HEAD
+=======
+        public static final int sign_in_button=0x7f05005f;
+        public static final int skip_button=0x7f050057;
+>>>>>>> 7a7984d16c3288e0bf01a82301e64e75686a8869
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
@@ -1140,6 +1149,7 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int activity_main=0x7f030017;
+<<<<<<< HEAD
         public static final int activity_prefs=0x7f030018;
         public static final int balance=0x7f030019;
         public static final int budget=0x7f03001a;
@@ -1152,10 +1162,20 @@ containing a value of this type.
         public static final int preferences=0x7f030021;
         public static final int support_simple_spinner_dropdown_item=0x7f030022;
         public static final int welcome=0x7f030023;
+=======
+        public static final int balance=0x7f030018;
+        public static final int budget=0x7f030019;
+        public static final int dailydish=0x7f03001a;
+        public static final int locations=0x7f03001b;
+        public static final int mystats=0x7f03001c;
+        public static final int preference_list_fragment=0x7f03001d;
+        public static final int preferences=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int welcome=0x7f030020;
+>>>>>>> 7a7984d16c3288e0bf01a82301e64e75686a8869
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
-        public static final int prefs=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1198,6 +1218,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
+<<<<<<< HEAD
         public static final int action_settings=0x7f0a000e;
         public static final int app_name=0x7f0a000d;
         public static final int closing_reminder_preference_key=0x7f0a0031;
@@ -1261,6 +1282,77 @@ containing a value of this type.
         public static final int ui_welcome_signin_title=0x7f0a0022;
         public static final int ui_welcome_welcome_title=0x7f0a0021;
         public static final int yummy_reminder_preference_key=0x7f0a002e;
+=======
+        public static final int action_settings=0x7f0a0012;
+        public static final int app_name=0x7f0a0010;
+        /**   Strings for possible PreferenceActivity Back/Next buttons 
+         */
+        public static final int back_button_label=0x7f0a000d;
+        public static final int closing_reminder_preference_key=0x7f0a0033;
+        public static final int hello_world=0x7f0a0041;
+        public static final int meal_reminder_preference_key=0x7f0a002d;
+        public static final int next_button_label=0x7f0a000e;
+        /**  PREFERENCES Strings 
+         */
+        public static final int pref_category_notifications=0x7f0a002c;
+        public static final int preference_key_password=0x7f0a001b;
+        public static final int preference_key_username=0x7f0a001a;
+        public static final int preference_key_welcome_screen=0x7f0a0019;
+        /**  Shared Preferences Strings 
+         */
+        public static final int preference_name=0x7f0a0018;
+        /**  Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] 
+         */
+        public static final int skip_button_label=0x7f0a000f;
+        public static final int summary_closing_reminder_checkbox=0x7f0a0034;
+        public static final int summary_meal_reminder_checkbox=0x7f0a002e;
+        public static final int summary_yummy_reminder_checkbox=0x7f0a0031;
+        public static final int title_activity_prefs=0x7f0a0040;
+        public static final int title_activity_welcome=0x7f0a0011;
+        public static final int title_closing_reminder_checkbox=0x7f0a0035;
+        public static final int title_meal_reminder_checkbox=0x7f0a002f;
+        public static final int title_section1=0x7f0a0013;
+        public static final int title_section2=0x7f0a0014;
+        public static final int title_section3=0x7f0a0015;
+        public static final int title_section4=0x7f0a0016;
+        public static final int title_section5=0x7f0a0017;
+        public static final int title_yummy_reminder_checkbox=0x7f0a0032;
+        public static final int ui_balance_dba_title=0x7f0a002a;
+        public static final int ui_balance_swipes_title=0x7f0a0029;
+        public static final int ui_budget_idealavg_title=0x7f0a003f;
+        /**  Budget 
+         */
+        public static final int ui_budget_useravg_title=0x7f0a003e;
+        public static final int ui_locations_closed_title=0x7f0a003c;
+        public static final int ui_locations_collis_title=0x7f0a0037;
+        /**  Spinner for locations 
+         */
+        public static final int ui_locations_dayofweek_title=0x7f0a003d;
+        public static final int ui_locations_foco_title=0x7f0a0038;
+        public static final int ui_locations_hop_title=0x7f0a0039;
+        public static final int ui_locations_kaf_title=0x7f0a003a;
+        public static final int ui_locations_novack_title=0x7f0a003b;
+        /**  Locations 
+         */
+        public static final int ui_locations_open_title=0x7f0a0036;
+        public static final int ui_menu_about=0x7f0a0021;
+        public static final int ui_menu_add=0x7f0a001e;
+        public static final int ui_menu_feedback=0x7f0a0020;
+        public static final int ui_menu_quit=0x7f0a001f;
+        /**  Menu Strings 
+         */
+        public static final int ui_menu_search=0x7f0a001c;
+        public static final int ui_menu_send=0x7f0a001d;
+        public static final int ui_menu_share=0x7f0a0022;
+        public static final int ui_welcome_email_hint=0x7f0a0026;
+        public static final int ui_welcome_email_title=0x7f0a0025;
+        public static final int ui_welcome_managemyid_title=0x7f0a0028;
+        public static final int ui_welcome_password_title=0x7f0a0027;
+        public static final int ui_welcome_signin=0x7f0a002b;
+        public static final int ui_welcome_signin_title=0x7f0a0024;
+        public static final int ui_welcome_welcome_title=0x7f0a0023;
+        public static final int yummy_reminder_preference_key=0x7f0a0030;
+>>>>>>> 7a7984d16c3288e0bf01a82301e64e75686a8869
     }
     public static final class style {
         /** 

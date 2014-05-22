@@ -3,8 +3,20 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+<<<<<<< HEAD
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/android-support-v4-preferencefragment-master"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+=======
+	<classpathentry combineaccessrules="false" kind="src" path="/android-support-v4-preferencefragment-master"/>
+	<classpathentry kind="lib" path="/Users/kimberlystrauch/development/adt-bundle-mac-x86_64-20131030/sdk/platforms/android-19/android.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://developer.android.com/reference/"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
+		</accessrules>
+	</classpathentry>
+>>>>>>> 7a7984d16c3288e0bf01a82301e64e75686a8869
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
