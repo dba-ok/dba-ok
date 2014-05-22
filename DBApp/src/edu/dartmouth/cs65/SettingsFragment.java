@@ -1,13 +1,13 @@
 package edu.dartmouth.cs65;
 
-import com.example.swiping.R;
-
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.support.v4.preference.PreferenceFragment;
 
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener{
 	private Context context;
 
 	public SettingsFragment(){}
@@ -25,5 +25,28 @@ public class SettingsFragment extends PreferenceFragment {
 	
 	public boolean allowBackPressed(){
 		return true;
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences P, String K) {
+		String mKey = getString(R.string.preference_name);
+		SharedPreferences mPrefs = this.getActivity().getSharedPreferences(mKey,Context.MODE_PRIVATE);
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+		
+		
+		// TODO Auto-generated method stub
+		
 	}
 }

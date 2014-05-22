@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.swiping.R;
+import edu.dartmouth.cs65.R;
 
 public class DailyDishFragment extends Fragment {
 

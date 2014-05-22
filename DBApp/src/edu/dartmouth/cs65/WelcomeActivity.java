@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.swiping.R;
+import edu.dartmouth.cs65.R;
 
 public class WelcomeActivity extends Activity  {
 
@@ -34,7 +34,7 @@ public class WelcomeActivity extends Activity  {
 	public void onSignInClicked(View v) {
 		// save the user profile to shared preferences and save photo to
 		// internal storage and finish the activity
-		Toast.makeText(this, "sign in pressed!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "sign in pressed!", Toast.LENGTH_SHORT).show();
 
 		Log.d("CS65", "Sign in Button Pressed");
 		String mKey = getString(R.string.preference_name);
@@ -53,18 +53,25 @@ public class WelcomeActivity extends Activity  {
 		mKey = getString(R.string.preference_key_username);
 		String mValue = email.getText().toString();
 		mEditor.putString(mKey, mValue);
+		Toast.makeText(getApplicationContext(), "Username saved: " + mValue,
+				Toast.LENGTH_SHORT).show();
 
 		mKey = getString(R.string.preference_key_password);
 		mValue = password.getText().toString();
 		mEditor.putString(mKey, mValue);
-		// mEditor.apply();
+		
+		String pwd =""; 
+		for(int i = 0; i < mValue.length(); i++){
+			pwd+="*";
+		}
+		
+		Toast.makeText(getApplicationContext(), "Password saved: " + pwd,
+				Toast.LENGTH_SHORT).show();
+
 		mEditor.commit();
 		
+
 		finish();
-	    Intent intent  = new Intent(this,MainActivity.class );
-	    intent.putExtra("username", email.getText().toString());
-	    intent.putExtra("password", password.getText().toString());
-	    //finish();
 	}
 	
 	

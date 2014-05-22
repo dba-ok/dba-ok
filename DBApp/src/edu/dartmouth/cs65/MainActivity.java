@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,8 +17,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.swiping.R;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -102,8 +102,6 @@ public class MainActivity extends FragmentActivity implements
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
 
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
-		// mEditor.clear();
-		// mEditor.commit();
 
 		this.setUpActionBar();
 		/*
@@ -122,6 +120,22 @@ public class MainActivity extends FragmentActivity implements
 			showWelcome();
 		}
 
+		// start notifications when app is opened..
+		Intent i = new Intent(this, NotificationSetter.class);
+		this.sendBroadcast(i);
+
+	}
+
+	/***
+	 * On resume, cancel all notifications!
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// Clear the Notification Bar
+		NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		nMgr.cancelAll();
 	}
 
 	@Override
@@ -152,14 +166,20 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		Log.d(TAG, "MAIN ACTIVITY: onBackPressed");
-		final SettingsFragment fragment = (SettingsFragment) getSupportFragmentManager()
-				.findFragmentByTag(PREF_TAG);
+		try {
+			final SettingsFragment fragment = (SettingsFragment) getSupportFragmentManager()
+					.findFragmentByTag(PREF_TAG);
 
-		// for either fragment, if back button is pressed, we want to set up the
-		// action bar!
-		if (fragment.allowBackPressed()) {
+			// for either fragment, if back button is pressed, we want to set up
+			// the
+			// action bar!
+			if (fragment.allowBackPressed()) {
+				super.onBackPressed();
+				this.setUpActionBar();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			super.onBackPressed();
-			this.setUpActionBar();
 		}
 	}
 

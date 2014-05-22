@@ -1,6 +1,6 @@
 package edu.dartmouth.cs65;
 
-import com.example.swiping.R;
+import edu.dartmouth.cs65.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

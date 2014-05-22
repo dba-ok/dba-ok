@@ -14,8 +14,13 @@
     <string name="preference_name">my_shared_preferences</string>
     <string name="preference_key_welcome_screen">welcome_screen</string>
     <string name="preference_key_username">user_name</string>
-	<string name="preference_key_password">password</string>
-	
+    <string name="preference_key_password">password</string>
+    <string name="preference_key_kaf_closing">kafClosing</string>
+    <string name="preference_key_collis_closing">collisClosing</string>
+    <string name="preference_key_foco_closing">focoClosing</string>
+    <string name="preference_key_novack_closing">novackClosing</string>
+    <string name="preference_key_hop_closing">hopClosing</string>
+
     <!-- Menu Strings -->
     <string name="ui_menu_search">search</string>
     <string name="ui_menu_send">send</string>
@@ -44,7 +49,22 @@
     <string name="title_yummy_reminder_checkbox">Favorite Meal Notifications</string>
     <string name="closing_reminder_preference_key">closingReminder</string>
     <string name="summary_closing_reminder_checkbox">Notifies you when specific dining halls are going to close</string>
-    <string name="title_closing_reminder_checkbox">Closing Time Notifications</string>
+    <string name="title_closing">Check locations for Closing Time Notifications</string>
+    <string name="closing_kaf_key">KafPrefKey</string>
+    <string name="title_closing_kaf">Kaf</string>
+    <string name="summary_closing_kaf">Alert me when KAF is closing</string>
+    <string name="closing_collis_key">CollisPrefKey</string>
+    <string name="title_closing_collis">Collis</string>
+    <string name="summary_closing_collis">Alert me when Collis is closing</string>
+    <string name="closing_novack_key">NovackPrefKey</string>
+    <string name="title_closing_novack">Novack</string>
+    <string name="summary_closing_novack">Alert me when Novack is closing</string>
+    <string name="closing_foco_key">FocoPrefKey</string>
+    <string name="title_closing_foco">Foco</string>
+    <string name="summary_closing_foco">Alert me when Foco is closing</string>
+    <string name="closing_hop_key">HopPrefKey</string>
+    <string name="title_closing_hop">Hop</string>
+    <string name="summary_closing_hop">Alert me when the Hop is closing</string>
 
     <!-- Locations -->
     <string name="ui_locations_open_title">Open</string>
