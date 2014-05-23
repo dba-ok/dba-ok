@@ -9,8 +9,10 @@ public class Time{
 		minute = m;
 	}
 	
-	//Assumes other is in military time
-	public boolean isPast(Time other){ //is this after other's time?
+	/*
+	 * Returns true is this time is after other's time
+	 */
+	public boolean isPast(Time other){ 
 		if (other.getHour() < this.hour){
 			return true;
 		}
@@ -22,6 +24,9 @@ public class Time{
 		}
 	}
 	
+	/*
+	 * Returns true if other and this are the same time
+	 */
 	public boolean isEqual(Time other){
 		if ((other.getHour() == this.hour) && (other.getMinute() == this.minute)){
 			return true;
@@ -31,6 +36,9 @@ public class Time{
 		}
 	}
 	
+	/*
+	 * Returns true is this time is before other's time
+	 */
 	public boolean isBefore(Time other){
 		if (other.getHour() > this.hour){
 			return true;

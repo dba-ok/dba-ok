@@ -13,18 +13,24 @@ public class DiningLocation{
 		times = new HashMap<String, String[]>();
 	}
 	
+	/*
+	 * Adds opening hours for a given day(s)
+	 */
 	public void addTime(int dayStart, int dayEnd, String[] hours){
 		for (int i = dayStart; i <= dayEnd; i++){
 			times.put(DAYS[i], hours);
 		}
 	}
 
+	/*
+	 * Given a day and time, is this dining location open?
+	 */
 	public boolean isOpen(int currHour, int currMinute, int day){ //
 		String[] openHours = times.get(DAYS[day]);
 		Time current = new Time(currHour, currMinute);
 		boolean isOpen = false;
 		
-		//for each time range, you need to make a Time object for start and end and compare with current. 
+		//Iterate through all opening times
 		for (String hours: openHours){
 			Time start = convertStringToTime(hours.split("-")[0]);
 			Time end = convertStringToTime(hours.split("-")[1]);
@@ -38,6 +44,9 @@ public class DiningLocation{
 		return isOpen;
 	}
 	
+	/*
+	 * Parses "x:xx am" String into a Time object
+	 */
 	private Time convertStringToTime(String s){
 		String[] splitWhiteSpace, splitColon;
 		String AMPM;
@@ -51,6 +60,7 @@ public class DiningLocation{
 		hour = Integer.parseInt(splitColon[0]);
 		minute = Integer.parseInt(splitColon[1]);
 		
+		//Convert to military time
 		if (AMPM.equals("pm")){
 			hour += MILITARY_CONVERSION;
 		}
