@@ -31,22 +31,22 @@ public class NotificationReceiver extends BroadcastReceiver {
 
 		Notification notif;
 
-		if (extras.getString("MSG") == "mealswipe") {
+		if (extras.getString("MSG").equals("Mealswipe")) {
 
 			notif = new Notification(R.drawable.ic_launcher,
 					"USE A MEAL SWIPE!!", System.currentTimeMillis());
-
+			
 			notif.setLatestEventInfo(context, "DBA-OK", "Use a meal swipe!",
 					contentIntent);
 			notifyManager.notify(1, notif);
 
 		} else {
 			notif = new Notification(R.drawable.ic_launcher,
-					"KAF is closing!!", System.currentTimeMillis());
+					extras.getString("Location") + " is closing!!", System.currentTimeMillis());
 
-			notif.setLatestEventInfo(context, "DBA-OK", "KAF is closing!",
+			notif.setLatestEventInfo(context, "DBA-OK", extras.getString("Location") + " is closing!",
 					contentIntent);
-			notifyManager.notify(2, notif);
+			notifyManager.notify(1, notif);
 
 		}
 

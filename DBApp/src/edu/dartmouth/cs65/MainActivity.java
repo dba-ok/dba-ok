@@ -169,7 +169,6 @@ public class MainActivity extends FragmentActivity implements
 		try {
 			final SettingsFragment fragment = (SettingsFragment) getSupportFragmentManager()
 					.findFragmentByTag(PREF_TAG);
-
 			// for either fragment, if back button is pressed, we want to set up
 			// the
 			// action bar!
