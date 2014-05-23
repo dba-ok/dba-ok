@@ -7,7 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 
-public class JSoupTest{
+public class JSoupTest {
 	private Document webpage;
 	
 	public JSoupTest(){
