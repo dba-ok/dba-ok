@@ -30,7 +30,7 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
             + " INTEGER NOT NULL, "
             + Globals.KEY_TRANSACTION_TYPE
             + " INTEGER NOT NULL, "
-            + Globals.KEY_AMOUNT + " FLOAT NOT NULL," + ");";    
+            + Globals.KEY_AMOUNT + " FLOAT NOT NULL );";    
     
 	private static final String[] mColumnList = new String[] { 
 		Globals.KEY_ROWID, Globals.KEY_DATE_TIME, Globals.KEY_LOCATION, 

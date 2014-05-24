@@ -100,7 +100,12 @@ public class MainActivity extends FragmentActivity implements
 		mPassword = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
-
+		mKey = getString(R.string.preference_key_balance);
+		mEditor.putString(mKey, "300.46");
+		mKey = getString(R.string.preference_key_swipes);
+		mEditor.putString(mKey, "3");
+		mEditor.commit();
+		
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
 
 		this.setUpActionBar();
@@ -121,9 +126,10 @@ public class MainActivity extends FragmentActivity implements
 		}
 
 		// start notifications when app is opened..
+		/*
 		Intent i = new Intent(this, NotificationSetter.class);
 		this.sendBroadcast(i);
-
+		 */
 	}
 
 	/***

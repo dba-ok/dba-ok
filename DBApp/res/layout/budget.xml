@@ -51,7 +51,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/PerWeek"
+                android:id="@+id/pastInterval"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="35dp"
@@ -87,7 +87,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/PerWeek"
+                android:id="@+id/futureInterval"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
@@ -95,8 +95,21 @@
                 android:text="/day"
                 android:textSize="15dp" />
 
+            <TextView
+                android:id="@+id/intervalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/budget_interval_title" />
+
+            <Spinner
+                android:id="@+id/intervalSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/ui_budget_spinner_entries"
+                android:gravity="center" >
+            </Spinner>
         </LinearLayout>
     </LinearLayout>
-    
 
 </LinearLayout>

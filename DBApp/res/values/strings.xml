@@ -20,7 +20,8 @@
     <string name="preference_key_foco_closing">focoClosing</string>
     <string name="preference_key_novack_closing">novackClosing</string>
     <string name="preference_key_hop_closing">hopClosing</string>
-
+	<string name="preference_key_balance">dbaBalance</string>
+	<string name="preference_key_swipes">numMealSwipes</string>
     <!-- Menu Strings -->
     <string name="ui_menu_search">search</string>
     <string name="ui_menu_send">send</string>
@@ -86,6 +87,12 @@
         <item>Friday</item>
         <item>Saturday</item>
         <item>Sunday</item>
+    </string-array>
+    
+    <string name="budget_interval_title">Budget Interval:</string>
+     <string-array name="ui_budget_spinner_entries">
+        <item>Daily</item>
+        <item>Weekly</item>
     </string-array>
 
     <!-- Budget -->

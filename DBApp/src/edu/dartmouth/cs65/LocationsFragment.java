@@ -17,9 +17,10 @@ public class LocationsFragment extends Fragment {
     	Calendar now = Calendar.getInstance();
         DiningLocations locations = new DiningLocations();
         
+        /*
         ArrayList<DiningLocation> openLocations = locations.getOpenLocations(now.HOUR_OF_DAY, now.MINUTE, now.DAY_OF_WEEK);
         ArrayList<DiningLocation> closedLocations = locations.getClosedLocations(now.HOUR_OF_DAY, now.MINUTE, now.DAY_OF_WEEK);
-        
+        */
         
         return inflater.inflate(R.layout.locations, container, false);
     }

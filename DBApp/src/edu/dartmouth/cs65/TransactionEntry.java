@@ -46,6 +46,7 @@ public class TransactionEntry {
 	}
 
 	// returns day in year
+	@SuppressWarnings("static-access")
 	public int getDateTimeDay() {
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(this.getDateTimeinMillis());

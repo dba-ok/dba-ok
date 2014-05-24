@@ -15,11 +15,12 @@ public class NotificationSetter extends BroadcastReceiver {
 	public void onReceive(Context context, Intent i) {
 		Log.d("Autostart",
 				"BOOT_COMPLETED broadcast received. Executing starter service.");
-
+		/*
 		Intent intent = new Intent(context, ReminderService.class);
 		if (i.getExtras() != null) {
 			intent.putExtra("PREF_KEY", i.getExtras().getString("PREF_KEY"));
 		}
 		context.startService(intent);
+		*/
 	}
 }

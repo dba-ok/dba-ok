@@ -19,20 +19,20 @@ public class Globals {
 	
 	
 	// term start/end dates
-	public static final Calendar FOURTEEN_SPRING_START = getCalendarForDate(3,24,2014);
-	public static final Calendar FOURTEEN_SPRING_END = getCalendarForDate(6,3,2014);
+	public static final Calendar FOURTEEN_SPRING_START = getCalendarForDate(2,24,2014);
+	public static final Calendar FOURTEEN_SPRING_END = getCalendarForDate(5,3,2014);
 
-	public static final Calendar FOURTEEN_SUMMER_START = getCalendarForDate(6,19,2014);
-	public static final Calendar FOURTEEN_SUMMER_END = getCalendarForDate(8,26,2014);
+	public static final Calendar FOURTEEN_SUMMER_START = getCalendarForDate(5,19,2014);
+	public static final Calendar FOURTEEN_SUMMER_END = getCalendarForDate(7,26,2014);
 
-	public static final Calendar FOURTEEN_FALL_START = getCalendarForDate(9,15,2014);
-	public static final Calendar FOURTEEN_FALL_END = getCalendarForDate(9,26,2014);
+	public static final Calendar FOURTEEN_FALL_START = getCalendarForDate(8,15,2014);
+	public static final Calendar FOURTEEN_FALL_END = getCalendarForDate(10,26,2014);
 
-	public static final Calendar FIFTEEN_WINTER_START = getCalendarForDate(1,5,2014);
-	public static final Calendar FIFTEEN_WINTER_END = getCalendarForDate(3,17,2014);
+	public static final Calendar FIFTEEN_WINTER_START = getCalendarForDate(0,5,2014);
+	public static final Calendar FIFTEEN_WINTER_END = getCalendarForDate(2,17,2014);
 
-	public static final Calendar FIFTEEN_SPRING_START = getCalendarForDate(3,30,2014);
-	public static final Calendar FIFTEEN_SPRING_END = getCalendarForDate(6,14,2014);
+	public static final Calendar FIFTEEN_SPRING_START = getCalendarForDate(2,30,2014);
+	public static final Calendar FIFTEEN_SPRING_END = getCalendarForDate(5,14,2014);
 
 	// term names 
 	public static final String FOURTEEN_SPRING = "14S";
