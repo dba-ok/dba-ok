@@ -61,5 +61,11 @@
         android:layout_height="wrap_content"
         android:onClick="onRefreshClicked"
         android:text="Refresh" />
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onLogoutClicked"
+        android:text="@string/btn_logout" />
 
 </LinearLayout>
