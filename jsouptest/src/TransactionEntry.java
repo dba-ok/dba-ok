@@ -1,3 +1,4 @@
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,18 +12,11 @@ public class TransactionEntry {
 
 	private Calendar mDateTime; // When does this transaction happen
 	private int mLocation; // Where does this transaction happen
-	private int mAccountType; // Which account did this use (DBA, SmartChoice 5,
-								// etc.)
-	private int mTransactionType; // Whether a meal swipe or debit was used (0
-									// for mealswipe, 1 for debit)
 	private double mAmount; // Cost if debit, number of swipes if meal swipe
 							// used
 
 	public TransactionEntry() {
-		mDateTime = Calendar.getInstance();
 		mLocation = 0;
-		mAccountType = 0;
-		mTransactionType = 0;
 		mAmount = 0;
 	}
 
@@ -59,8 +53,8 @@ public class TransactionEntry {
 		mDateTime.setTimeInMillis(dateTime);
 	}
 
-	public void setDateTime(int year, int month, int day) {
-		mDateTime.set(year, month, day);
+	public void setDateTime(Calendar c) {
+		mDateTime = c;
 	}
 
 	public int getLocation() {
@@ -97,22 +91,6 @@ public class TransactionEntry {
 
 	public void setLocation(int location) {
 		mLocation = location;
-	}
-
-	public int getAccountType() {
-		return mAccountType;
-	}
-
-	public void setAccountType(int accountType) {
-		mAccountType = accountType;
-	}
-
-	public int getTransactionType() {
-		return mTransactionType;
-	}
-
-	public void setTransactionType(int transactionType) {
-		mTransactionType = transactionType;
 	}
 
 	public double getAmount() {

@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +28,6 @@ import ch.boye.httpclientandroidlib.message.BasicNameValuePair;
 import ch.boye.httpclientandroidlib.protocol.BasicHttpContext;
 import ch.boye.httpclientandroidlib.protocol.HttpContext;
 import ch.boye.httpclientandroidlib.util.EntityUtils;
-
 
 public class ManageMyIDScraper{
 	private static final String LOGIN_PAGE = "https://dartmouth.managemyid.com/student/login.php";
@@ -219,14 +219,14 @@ public class ManageMyIDScraper{
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 
 		//Set parameters for svc_history_view.php
-		params.add(new BasicNameValuePair("FromMonth", convertToString(start.get(Calendar.MONTH))));
+		params.add(new BasicNameValuePair("FromMonth", convertToString(start.get(Calendar.MONTH) + 1)));
 		params.add(new BasicNameValuePair("FromDay", convertToString(start.get(Calendar.DAY_OF_MONTH))));
 		params.add(new BasicNameValuePair("FromYear", convertToString(start.get(Calendar.YEAR))));
-		params.add(new BasicNameValuePair("ToMonth", convertToString(end.get(Calendar.MONTH))));
+		params.add(new BasicNameValuePair("ToMonth", convertToString(end.get(Calendar.MONTH) + 1)));
 		params.add(new BasicNameValuePair("ToDay", convertToString(end.get(Calendar.DAY_OF_MONTH))));
 		params.add(new BasicNameValuePair("ToYear", convertToString(end.get(Calendar.YEAR))));
 		params.add(new BasicNameValuePair("plan", PLAN));
-		
+		System.out.println(params);
 		String sesstok = getSessionToken(welcomePage);
 		if (sesstok.length() > 0){
 			params.add(new BasicNameValuePair("__sesstok", sesstok));
@@ -241,6 +241,7 @@ public class ManageMyIDScraper{
 		HttpEntity transactionEntity = transactionResponse.getEntity();
 		
 		transactionPage = EntityUtils.toString(transactionEntity);
+		
 		EntityUtils.consume(transactionEntity);
 	}
 	
@@ -248,7 +249,7 @@ public class ManageMyIDScraper{
 	 * Creates an ArrayList of TransactionEntry objects using the data from
 	 * svc_history_view.php
 	 */
-	private ArrayList<TransactionEntry> getTransactionHistory(){
+	public ArrayList<TransactionEntry> getTransactionHistory(){
 		int TRANSACTION_START, currCell, location;
 		double spent;
 		Calendar dateTime;
@@ -256,6 +257,7 @@ public class ManageMyIDScraper{
 		
 		//Get all cells from transaction history page
 		Document transaction = Jsoup.parse(transactionPage);
+		//System.out.println(transactionPage);
 		Elements cells = transaction.select("td");
 		
 		TRANSACTION_START = 2; //where cells start showing transaction data
@@ -263,8 +265,14 @@ public class ManageMyIDScraper{
 		
 		//Iterate through all cells on svc_history_view, retrieve data, and save as
 		//TransactionEntry objects
-		while (currCell < cells.size()){
+		while (currCell< cells.size()){
+			System.out.println(cells.get(currCell).text());
 			TransactionEntry newEntry = new TransactionEntry();
+			
+			if (currCell == 266){
+				System.out.println("Finally here");
+				System.out.println(cells.get(currCell + 1));
+			}
 			
 			//Retrieve values for TransactionEntry object
 			dateTime = setTransactionCalendar(cells.get(currCell).text());
@@ -272,7 +280,7 @@ public class ManageMyIDScraper{
 			spent = convertValueStringToDouble(cells.get(currCell + 4).text());
 			
 			//Set new values for newEntry
-			newEntry.setDateTime(dateTime.get(Calendar.YEAR), dateTime.get(Calendar.MONTH), dateTime.get(Calendar.DAY_OF_MONTH));
+			newEntry.setDateTime(dateTime);
 			newEntry.setLocation(location);
 			newEntry.setAmount(spent);
 			
@@ -315,7 +323,7 @@ public class ManageMyIDScraper{
 		time = splitDateTime[1];
 		c = Calendar.getInstance();
 		
-		month = Integer.parseInt(date.substring(0, 2)) - 1;
+		month = Integer.parseInt(date.substring(0, 2));
 		day = Integer.parseInt(date.substring(3, 5));
 		year = Integer.parseInt(date.substring(6, 10));
 		
@@ -349,21 +357,12 @@ public class ManageMyIDScraper{
 	
 	public static void main(String[] args) throws ParseException, IOException{
 		ManageMyIDScraper test = new ManageMyIDScraper("eva.w.xiao@dartmouth.edu", "testpassword");
-		//test.getDBABalance();
-		//test.getSwipeBalance();
-		Calendar FOURTEEN_SPRING_START = getCalendarForDate(3,24,2014);
-		Calendar FOURTEEN_SPRING_END = getCalendarForDate(6,3,2014);
-		test.getTransactionHistoryPage(FOURTEEN_SPRING_START, FOURTEEN_SPRING_END);
+		test.getDBABalance();
+		test.getSwipeBalance();
+
+		test.getTransactionHistoryPage(Globals.FOURTEEN_SPRING_START, Globals.FOURTEEN_SPRING_END);
 		test.getTransactionHistory();
 		
 	}
 	
-	
-	public static Calendar getCalendarForDate(int month,int day,int year){
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.MONTH,month);
-		c.set(Calendar.DAY_OF_MONTH,day);
-		c.set(Calendar.YEAR,year);
-		return c;
-	}
 }
