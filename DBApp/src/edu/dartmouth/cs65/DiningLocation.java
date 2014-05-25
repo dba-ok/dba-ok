@@ -32,40 +32,35 @@ public class DiningLocation {
 	 */
 	public boolean isOpen(int currHour, int currMinute, int day) { //
 		String[] openHours = times.get(Globals.DAYS[day]);
+		// Log.d("TIMES","Got times for " + Globals.DAYS[day]);
 		Time current = new Time(currHour, currMinute);
 		boolean isOpen = false;
 
+		Log.d("CS65", "LOCATION NAME IS :" + name);
 		// Iterate through all opening times
 		for (String hours : openHours) {
 			String[] split_hours = hours.split("-");
 			Time start = convertStringToTime(split_hours[0]);
 			Time end = convertStringToTime(split_hours[1]);
 
-			
 			Log.d("CS65", "Start " + start.getHour() + ":" + start.getMinute());
 			Log.d("CS65", "End" + end.getHour() + ":" + end.getMinute());
-			
-			/*Log.d("CS65", "current isPast start? " + current.isPast(start));
-			Log.d("CS65", "current is equal start? " + current.isEqual(start));
-			Log.d("CS65", "current is before end? " + current.isBefore(end));
-			*/
-			Log.d("CS65","Time is in interval?? " + start.isInInterval(start, end, current));
-			if( start.isInInterval(start,end,current)){
-				isOpen = true;
-				break;
-			}}
-		return isOpen;
-			
+
 			/*
-			if ((current.isPast(start) || current.isEqual(start))
-					&& current.isBefore(end)) {
+			 * Log.d("CS65", "current isPast start? " + current.isPast(start));
+			 * Log.d("CS65", "current is equal start? " +
+			 * current.isEqual(start)); Log.d("CS65", "current is before end? "
+			 * + current.isBefore(end));
+			 */
+			Log.d("CS65",
+					"Time is in interval?? "
+							+ start.isInInterval(start, end, current));
+			if (start.isInInterval(start, end, current)) {
 				isOpen = true;
 				break;
 			}
 		}
-		Log.d("CS65", "value of isOpen + " + isOpen);
 		return isOpen;
-		*/
 	}
 
 	/*
@@ -77,7 +72,6 @@ public class DiningLocation {
 		int hour, minute;
 		Time time;
 
-		Log.d("CS65", "error Time was " + s);
 		splitWhiteSpace = s.split(" ");
 		AMPM = splitWhiteSpace[1];
 
@@ -89,8 +83,10 @@ public class DiningLocation {
 			minute = Integer.parseInt(splitColon[1]);
 		}
 		// Convert to military time
-		if (AMPM.equals("pm")) {
+		if (AMPM.equals("pm") && hour != 12) {
 			hour += MILITARY_CONVERSION;
+		} else if (AMPM.equals("am") && hour == 12) {
+			hour = 0;
 		}
 
 		time = new Time(hour, minute);

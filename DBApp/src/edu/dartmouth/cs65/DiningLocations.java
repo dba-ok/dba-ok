@@ -18,6 +18,7 @@ public class DiningLocations{
 		ArrayList<DiningLocation> open = new ArrayList<DiningLocation>();
 		
 		for (DiningLocation location: locations){
+			Log.d("CS65", "LOCATION IS" + location.getName());
 			if (location.isOpen(hour, minute, day)){
 				open.add(location);
 			}
@@ -64,8 +65,11 @@ public class DiningLocations{
 	private DiningLocation addCollis(){
 		DiningLocation collis = new DiningLocation("Collis Cafe");
 		String[] allHours = {"7:00 am -8:00 pm"};
+		String[] weekendHours = {"7:00 am -7:00 am"};
 		
-		collis.addTime(0, 6, allHours);
+		collis.addTime(0, 0, weekendHours);
+		collis.addTime(1, 5, allHours);
+		collis.addTime(6,6, weekendHours);
 		return collis;
 	}
 	
