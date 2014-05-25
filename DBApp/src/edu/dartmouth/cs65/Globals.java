@@ -74,4 +74,6 @@ public class Globals {
 		return c;
 	}
 	
+	public final static String[] DAYS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	
 }

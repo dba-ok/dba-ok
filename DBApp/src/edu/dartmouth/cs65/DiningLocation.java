@@ -5,7 +5,6 @@ import java.util.HashMap;
 public class DiningLocation{
 	private String name;
 	private HashMap<String, String[]> times;
-	private final static String[] DAYS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 	private final static int MILITARY_CONVERSION = 12;
 
 	public DiningLocation(String n){
@@ -13,12 +12,15 @@ public class DiningLocation{
 		times = new HashMap<String, String[]>();
 	}
 	
+	public HashMap<String, String[]> getHoursMap(){
+		return times;
+	}
 	/*
 	 * Adds opening hours for a given day(s)
 	 */
 	public void addTime(int dayStart, int dayEnd, String[] hours){
 		for (int i = dayStart; i <= dayEnd; i++){
-			times.put(DAYS[i], hours);
+			times.put(Globals.DAYS[i], hours);
 		}
 	}
 
@@ -26,7 +28,7 @@ public class DiningLocation{
 	 * Given a day and time, is this dining location open?
 	 */
 	public boolean isOpen(int currHour, int currMinute, int day){ //
-		String[] openHours = times.get(DAYS[day]);
+		String[] openHours = times.get(Globals.DAYS[day]);
 		Time current = new Time(currHour, currMinute);
 		boolean isOpen = false;
 		
