@@ -46,6 +46,7 @@ public class DiningLocations{
 		locations.add(addNovack());
 		locations.add(addCourtyardCafe());
 		locations.add(addKAF());
+		locations.add(addSnackBar());
 	}
 	
 	private DiningLocation addFiftyThree(){
@@ -83,8 +84,8 @@ public class DiningLocations{
 		String[] mondayFridayHours = {"11:00 am -11:30 pm"};
 		String[] saturdaySundayHours = {"12:00 pm -11:30 pm"};
 		
-		collisMarket.addTime(1, 5, mondayFridayHours);
 		collisMarket.addTime(0, 0, saturdaySundayHours);
+		collisMarket.addTime(1, 5, mondayFridayHours);
 		collisMarket.addTime(6, 6, saturdaySundayHours);
 		return collisMarket;
 	}
@@ -95,9 +96,9 @@ public class DiningLocations{
 		String[] saturdayHours = {"1:00 pm -2:00 am"};
 		String[] sundayHours = {"11:00 am -11:30 pm"};
 		
+		novack.addTime(0, 0, sundayHours);
 		novack.addTime(1, 5, mondayFridayHours);
 		novack.addTime(6, 6, saturdayHours);
-		novack.addTime(0, 0, sundayHours);
 		return novack;
 	}
 	
@@ -114,9 +115,20 @@ public class DiningLocations{
 		String[] mondayFridayHours = {"8:00 am -8:00 pm"};
 		String[] saturdaySundayHours = {"10:00 am -8:00 pm"};
 		
+		KAF.addTime(0, 0, saturdaySundayHours);
 		KAF.addTime(1, 5, mondayFridayHours);
 		KAF.addTime(6, 6, saturdaySundayHours);
-		KAF.addTime(0, 0, saturdaySundayHours);
 		return KAF;
+	}
+	
+	private DiningLocation addSnackBar(){
+		DiningLocation snackBar = new DiningLocation("EW Snack Bar");
+		String[] mondayFridayHours = {"8:00 am -11:00 am","8:00 pm -2:00 am"};
+		String[] saturdaySundayHours = {"8:00 pm-2:00 am"};
+		
+		snackBar.addTime(0,0, saturdaySundayHours);
+		snackBar.addTime(1, 5, mondayFridayHours);
+		snackBar.addTime(6, 6, saturdaySundayHours);
+		return snackBar;
 	}
 }
