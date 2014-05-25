@@ -37,6 +37,7 @@ public class ManageMyIDScraper{
 	private static final int TRANSACTION_LENGTH = 6;
 	private static final String PLAN = "S32";
 	
+	private boolean loggedIn;
 	private String welcomePage;
 	private String transactionPage;
 	private HttpContext context;
@@ -44,7 +45,7 @@ public class ManageMyIDScraper{
 	
 	public ManageMyIDScraper(String username, String password){
 		try {
-			authenticate(username, password); //login to welcome.php
+			loggedIn = authenticate(username, password); //login to welcome.php
 		} catch (IOException e) {
 			System.out.println("Authentication failed due to IOException.");
 			e.printStackTrace();
@@ -61,7 +62,7 @@ public class ManageMyIDScraper{
 		
 	}
 	
-	public void authenticate(String username, String password) throws IOException{
+	public boolean authenticate(String username, String password) throws IOException{
 		String sesstok;
 		boolean success;
 		
@@ -120,6 +121,8 @@ public class ManageMyIDScraper{
         //Check if we're successful
         success = authenticationSuccess(welcomePage); //Check if we managed to log in correctly
         System.out.println("User logged into ManageMyID: " + success);
+        
+        return success;
     }
 	
 	/*
