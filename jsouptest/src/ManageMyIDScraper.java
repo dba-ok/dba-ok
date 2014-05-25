@@ -124,6 +124,13 @@ public class ManageMyIDScraper{
 	}
 	
 	/*
+	 * Gets the user's total DBA at the beginning of the term
+	 */
+	//public String getTotalDBA(){
+		
+	//}
+	
+	/*
 	 * Parse the session token from a ManageMyID webpage if it exists
 	 */
 	private String getSessionToken(String html){
@@ -186,20 +193,19 @@ public class ManageMyIDScraper{
 		
 		//GET svc_history.php
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-		HttpGet getHistory = new HttpGet(HISTORY_PAGE);
+		/*HttpGet getHistory = new HttpGet(HISTORY_PAGE);
 		HttpResponse historyResponse= httpclient.execute(getHistory, context);
 		HttpEntity historyEntity = historyResponse.getEntity();
-		EntityUtils.consume(historyEntity);
+		EntityUtils.consume(historyEntity);*/
 
 		//Set parameters for svc_history_view.php
 		params.add(new BasicNameValuePair("FromMonth", convertToString(start.get(Calendar.MONTH))));
 		params.add(new BasicNameValuePair("FromDay", convertToString(start.get(Calendar.DAY_OF_MONTH))));
 		params.add(new BasicNameValuePair("FromYear", convertToString(start.get(Calendar.YEAR))));
-		params.add(new BasicNameValuePair("ToMonth", convertToString(start.get(Calendar.MONTH))));
-		params.add(new BasicNameValuePair("ToDay", convertToString(start.get(Calendar.DAY_OF_MONTH))));
-		params.add(new BasicNameValuePair("ToYear", convertToString(start.get(Calendar.YEAR))));
+		params.add(new BasicNameValuePair("ToMonth", convertToString(end.get(Calendar.MONTH))));
+		params.add(new BasicNameValuePair("ToDay", convertToString(end.get(Calendar.DAY_OF_MONTH))));
+		params.add(new BasicNameValuePair("ToYear", convertToString(end.get(Calendar.YEAR))));
 		params.add(new BasicNameValuePair("plan", "S32"));
-		params.add(new BasicNameValuePair("", ""));
 		
 		String sesstok = getSessionToken(HISTORY_PAGE);
 		if (sesstok.length() > 0){
@@ -210,10 +216,7 @@ public class ManageMyIDScraper{
 		HttpPost postTransaction = new HttpPost(TRANSACTION_PAGE);
 		postTransaction.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 		postTransaction.addHeader("Referer", HISTORY_PAGE);
-		postTransaction.addHeader("Connection", "close");
-		
-		
-		
+				
 		HttpResponse transactionResponse = httpclient.execute(postTransaction, context);
 		HttpEntity transactionEntity = transactionResponse.getEntity();
 		
@@ -224,7 +227,7 @@ public class ManageMyIDScraper{
 	/*
 	 * Converts Calendar values to strings, making adjustments for ManageMyId
 	 */
-	public static String convertToString(int value){
+	private static String convertToString(int value){
 		String param = Integer.toString(value);
 		String zero = "0";
 		
@@ -238,8 +241,8 @@ public class ManageMyIDScraper{
 		ManageMyIDScraper test = new ManageMyIDScraper("eva.w.xiao@dartmouth.edu", "testpassword");
 		//test.getDBABalance();
 		//test.getSwipeBalance();
-		Calendar FOURTEEN_SPRING_START = getCalendarForDate(2,24,2014);
-		Calendar FOURTEEN_SPRING_END = getCalendarForDate(5,3,2014);
+		Calendar FOURTEEN_SPRING_START = getCalendarForDate(3,24,2014);
+		Calendar FOURTEEN_SPRING_END = getCalendarForDate(6,3,2014);
 		test.getHistoryByDates(FOURTEEN_SPRING_START, FOURTEEN_SPRING_END);
 
 	}
