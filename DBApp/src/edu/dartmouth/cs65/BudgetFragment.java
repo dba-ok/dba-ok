@@ -20,6 +20,7 @@ public class BudgetFragment extends Fragment implements OnItemSelectedListener {
 	private TextView pastInterval;
 	private TextView futureInterval;
 	private ImageView progressBar; 
+	private final int TOP_PROGRESS_LEVEL = 9900;
 	
 	public BudgetFragment() {
 	}
@@ -82,7 +83,7 @@ public class BudgetFragment extends Fragment implements OnItemSelectedListener {
 		mKey = getString(R.string.preference_key_dba_initial);
 		Double initial = Double.parseDouble(mPrefs.getString(mKey, "920.00"));
 		
-		int level = (int) ((initial-balance)/initial * 10000);
+		int level = (int) ((initial-balance)/initial * TOP_PROGRESS_LEVEL);
 		progressBar.setImageLevel(level);
 		// -- OR --
 		progressBar.getDrawable().setLevel(level);

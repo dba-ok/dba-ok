@@ -37,12 +37,7 @@ public class LocationsFragment extends Fragment {
 			text = text + name + "\n";
 			HashMap<String, String[]> hoursMap = l.getHoursMap();
 			String[] dailyHours = hoursMap.get(Globals.DAYS[today]);
-			if (dailyHours.length == 1
-					&& dailyHours[0].equals("7:00 am -7:00 am")) {
-				text += "                           " + "Closed on weekends";
-				text += "\n";
-				continue;
-			}
+			
 			for (String block : dailyHours) {
 				text = text + "                                " + block;
 				text += "\n";

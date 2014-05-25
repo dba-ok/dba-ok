@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity implements
 		
 		// add balance/swipes for now...until we get the scraper working :)
 		mKey = getString(R.string.preference_key_balance);
-		mEditor.putString(mKey, "100.46");
+		mEditor.putString(mKey, "1.46");
 		mKey = getString(R.string.preference_key_swipes);
 		mEditor.putString(mKey, "3");
 		mKey = getString(R.string.preference_key_dba_initial);

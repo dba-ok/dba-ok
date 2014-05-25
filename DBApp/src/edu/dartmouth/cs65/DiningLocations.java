@@ -42,7 +42,6 @@ public class DiningLocations{
 	private void populateArrayList(){
 		locations.add(addFiftyThree());
 		locations.add(addCollis());
-		locations.add(addLateNight());
 		locations.add(addCollisMarket());
 		locations.add(addNovack());
 		locations.add(addCourtyardCafe());
@@ -64,23 +63,13 @@ public class DiningLocations{
 	
 	private DiningLocation addCollis(){
 		DiningLocation collis = new DiningLocation("Collis Cafe");
-		String[] allHours = {"7:00 am -8:00 pm"};
-		String[] weekendHours = {"7:00 am -7:00 am"};
+		String[] mondayFridayHours = {"7:00 am -8:00 pm","9:30 pm-1:30 am"};
+		String[] weekendHours = {"9:30 pm -2:00 am"};
 		
 		collis.addTime(0, 0, weekendHours);
-		collis.addTime(1, 5, allHours);
+		collis.addTime(1, 5, mondayFridayHours);
 		collis.addTime(6,6, weekendHours);
 		return collis;
-	}
-	
-	private DiningLocation addLateNight(){
-		DiningLocation lateNight = new DiningLocation("Late Night Collis");
-		String[] sundayThursdayHours = {"9:30 pm -1:30 am"};
-		String[] fridaySaturdayHours = {"9:30 pm -2:00 am"};
-		
-		lateNight.addTime(0, 4, sundayThursdayHours);
-		lateNight.addTime(5, 6, fridaySaturdayHours);
-		return lateNight;
 	}
 	
 	private DiningLocation addCollisMarket(){
