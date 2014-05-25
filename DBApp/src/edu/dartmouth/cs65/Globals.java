@@ -48,7 +48,7 @@ public class Globals {
 	public static final String FOCO_LOCATION = "Foco";
 	public static final String HOP_LOCATION = "Hop";
 	public static final String SNACKBAR_LOCATION = "EW Snackbar";
-	
+	public static final String COLLIS_MARKET_LOCATION = "Collis Market";
 
 	// Location String constants
 	public static final int KAF_LOCATION_INT = 0;
@@ -57,6 +57,7 @@ public class Globals {
 	public static final int FOCO_LOCATION_INT = 3;
 	public static final int HOP_LOCATION_INT = 4;
 	public static final int SNACKBAR_LOCATION_INT = 5;
+	public static final int COLLIS_MARKET_LOCATION_INT = 6;
 	
 	// integer constants for daily vs. weekly spending
 	public static final int AVG_DAILY_SPENDING = 0;
@@ -76,4 +77,6 @@ public class Globals {
 	
 	public final static String[] DAYS = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 	
+	public static final int LATEST_CLOSE_TIME = 3;
+
 }

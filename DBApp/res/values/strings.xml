@@ -22,6 +22,8 @@
     <string name="preference_key_hop_closing">hopClosing</string>
 	<string name="preference_key_balance">dbaBalance</string>
 	<string name="preference_key_swipes">numMealSwipes</string>
+	<string name="preference_key_dba_initial">initialDBA</string>
+	
     <!-- Menu Strings -->
     <string name="ui_menu_search">search</string>
     <string name="ui_menu_send">send</string>

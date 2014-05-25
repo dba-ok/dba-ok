@@ -1,6 +1,7 @@
 package edu.dartmouth.cs65;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,10 +19,9 @@ public class BudgetFragment extends Fragment implements OnItemSelectedListener {
 	private TextView futureAvg;
 	private TextView pastInterval;
 	private TextView futureInterval;
-
-
+	private ImageView progressBar; 
+	
 	public BudgetFragment() {
-
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class BudgetFragment extends Fragment implements OnItemSelectedListener {
 		futureAvg = (TextView) view.findViewById(R.id.IdealAvgNum);
 		pastInterval = (TextView) view.findViewById(R.id.pastInterval);
 		futureInterval =  (TextView) view.findViewById(R.id.futureInterval);
+		progressBar = (ImageView) view.findViewById(R.id.progressThermometer);
 		
 		// set up spinner and get 
 		Spinner intervalSpinner = (Spinner) view
@@ -65,8 +67,28 @@ public class BudgetFragment extends Fragment implements OnItemSelectedListener {
 		case Globals.AVG_DAILY_SPENDING:
 			pastInterval.setText("/day");
 			futureInterval.setText("/day");
-
+			break;
 		}
+		
+		
+		progressBar.setImageResource(R.drawable.dba_progress);
+		//Adjust the progress by adjusting the drawable's level
+		
+		String mKey = getString(R.string.preference_name);
+		SharedPreferences mPrefs = context
+				.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+		mKey = getString(R.string.preference_key_balance);
+		Double balance = Double.parseDouble(mPrefs.getString(mKey, "0.0"));
+		mKey = getString(R.string.preference_key_dba_initial);
+		Double initial = Double.parseDouble(mPrefs.getString(mKey, "920.00"));
+		
+		int level = (int) ((initial-balance)/initial * 10000);
+		progressBar.setImageLevel(level);
+		// -- OR --
+		progressBar.getDrawable().setLevel(level);
+
+		
+		
 	}
 
 	@Override

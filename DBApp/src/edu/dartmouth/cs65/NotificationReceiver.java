@@ -1,12 +1,9 @@
 package edu.dartmouth.cs65;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 public class NotificationReceiver extends BroadcastReceiver {
@@ -18,7 +15,8 @@ public class NotificationReceiver extends BroadcastReceiver {
 
 		Log.d("NotificationAlarm", "onReceive");
 
-		notifyManager = (NotificationManager) context
+		
+/*		notifyManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		// This Activity will be started when the user clicks the notification
@@ -49,7 +47,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 			notifyManager.notify(1, notif);
 
 		}
-
+*/
 	}
 
 }

@@ -43,36 +43,8 @@ public class MainActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		/*
-		 * // Set up the action bar. // final ActionBar actionBar =
-		 * getActionBar(); mActionBar = getActionBar();
-		 * mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		 * 
-		 * // Create the adapter that will return a fragment for each of the //
-		 * primary sections of the app mSectionsPagerAdapter = new
-		 * SectionsPagerAdapter( getSupportFragmentManager());
-		 * 
-		 * // Set up the ViewPager with the sections adapter. mViewPager =
-		 * (ViewPager) findViewById(R.id.pager);
-		 * mViewPager.setAdapter(mSectionsPagerAdapter);
-		 * 
-		 * // When swiping between different sections, select the corresponding
-		 * // tab. mViewPager .setOnPageChangeListener(new
-		 * ViewPager.SimpleOnPageChangeListener() {
-		 * 
-		 * @Override public void onPageSelected(int position) {
-		 * mActionBar.setSelectedNavigationItem(position); } });
-		 * 
-		 * // For each of the sections in the app, add a tab to the action bar.
-		 * for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) { //
-		 * Create a tab with text corresponding to the page title defined by //
-		 * the adapter. Also specify this Activity object, which implements //
-		 * the TabListener interface, as the callback (listener) for when //
-		 * this tab is selected. mActionBar.addTab(mActionBar.newTab()
-		 * .setText(mSectionsPagerAdapter.getPageTitle(i))
-		 * .setTabListener(this)); }
-		 */
-
+		
+		// set up the actionbar and view pager
 		mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -82,16 +54,13 @@ public class MainActivity extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		// find out if this is the first time app has been run
-		// if it's the first time, show welcome screen,
-		// otherwise
-		// String mKey = getString(R.string.preference_name);
 
+		
+		// access the shared prefs
 		String mKey = getString(R.string.preference_name);
 
 		SharedPreferences mPrefs = this
 				.getSharedPreferences(mKey, MODE_PRIVATE);
-		// SharedPreferences mPrefs = getSharedPreferences(mKey, MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 
 		mKey = getString(R.string.preference_key_username);
@@ -100,10 +69,14 @@ public class MainActivity extends FragmentActivity implements
 		mPassword = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
+		
+		// add balance/swipes for now...until we get the scraper working :)
 		mKey = getString(R.string.preference_key_balance);
-		mEditor.putString(mKey, "300.46");
+		mEditor.putString(mKey, "100.46");
 		mKey = getString(R.string.preference_key_swipes);
 		mEditor.putString(mKey, "3");
+		mKey = getString(R.string.preference_key_dba_initial);
+		mEditor.putString(mKey,"920.00");
 		mEditor.commit();
 		
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
@@ -147,7 +120,7 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
