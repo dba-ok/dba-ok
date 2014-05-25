@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
@@ -7,109 +7,116 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:orientation="vertical" >
-
-    <LinearLayout
+    
+	<LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_marginBottom="15dp"
-        android:layout_weight="0.80"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" 
+        android:gravity="center" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-        </View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/UserAvg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="@string/ui_budget_useravg_title"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/UserAvgNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="$80.55"
-                android:textColor="#008000"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/pastInterval"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="35dp"
-                android:gravity="right"
-                android:text="/day"
-                android:textSize="15dp" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="35dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="#000000" />
-
-            <TextView
-                android:id="@+id/IdealAvg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="@string/ui_budget_idealavg_title"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/IdealAvgNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="$92.55"
-                android:textColor="#008000"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/futureInterval"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:gravity="right"
-                android:text="/day"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/intervalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/budget_interval_title" />
-
-            <Spinner
-                android:id="@+id/intervalSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/ui_budget_spinner_entries"
-                android:gravity="center" >
-            </Spinner>
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_margin="5dp"
+	        android:layout_marginBottom="15dp"
+	        android:layout_weight="0.80"
+	        android:orientation="horizontal" >
+	
+	        <View
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical" >
+	        </View>
+	
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_margin="5dp"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:orientation="vertical" >
+	
+	            <TextView
+	                android:id="@+id/UserAvg"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="20dp"
+	                android:layout_marginBottom="10dp"
+	                android:gravity="center"
+	                android:text="@string/ui_budget_useravg_title"
+	                android:textSize="25dp" />
+	
+	            <TextView
+	                android:id="@+id/UserAvgNum"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="center"
+	                android:text="$80.55"
+	                android:textColor="#008000"
+	                android:textSize="30dp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:id="@+id/pastInterval"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="35dp"
+	                android:gravity="right"
+	                android:text="/day"
+	                android:textSize="15dp" />
+	
+	            <View
+	                android:layout_width="fill_parent"
+	                android:layout_height="1dp"
+	                android:layout_marginBottom="35dp"
+	                android:layout_marginLeft="25dp"
+	                android:layout_marginRight="25dp"
+	                android:background="#000000" />
+	
+	            <TextView
+	                android:id="@+id/IdealAvg"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="10dp"
+	                android:gravity="center"
+	                android:text="@string/ui_budget_idealavg_title"
+	                android:textSize="25dp" />
+	
+	            <TextView
+	                android:id="@+id/IdealAvgNum"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="center"
+	                android:text="$92.55"
+	                android:textColor="#008000"
+	                android:textSize="30dp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:id="@+id/futureInterval"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="30dp"
+	                android:gravity="right"
+	                android:text="/day"
+	                android:textSize="15dp" />
+	
+	            <TextView
+	                android:id="@+id/intervalText"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:gravity="center"
+	                android:text="@string/budget_interval_title" />
+	
+	            <Spinner
+	                android:id="@+id/intervalSpinner"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:entries="@array/ui_budget_spinner_entries"
+	                android:gravity="center" >
+	            </Spinner>
+	        </LinearLayout>
+	    </LinearLayout>
+	</LinearLayout>
+</ScrollView>

@@ -113,11 +113,10 @@ public final class R {
         public static final int dbtestfragment=0x7f030005;
         public static final int fragment_main_dummy=0x7f030006;
         public static final int locations=0x7f030007;
-        public static final int meetfragment=0x7f030008;
-        public static final int mystats=0x7f030009;
-        public static final int preference_list_fragment=0x7f03000a;
-        public static final int preferences=0x7f03000b;
-        public static final int welcome=0x7f03000c;
+        public static final int mystats=0x7f030008;
+        public static final int preference_list_fragment=0x7f030009;
+        public static final int preferences=0x7f03000a;
+        public static final int welcome=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f090000;
