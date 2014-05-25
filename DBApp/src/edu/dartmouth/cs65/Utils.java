@@ -32,8 +32,12 @@ public class Utils {
 		// also determine current term's start/end date
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
-		ArrayList<TransactionEntry> entryList = dbHelper
-				.fetchAccountEntries(Globals.ACCOUNT_TYPE_DBA);
+		ArrayList<TransactionEntry> entryList = dbHelper.fetchEntries();
+		
+		// if there's no data in the database, return the default zero arraylist
+		if(entryList.size() == 0){
+			return locationSpending;
+		}
 		Calendar[] cal = getTermStartEnd();
 
 		int location = 0;
@@ -69,8 +73,13 @@ public class Utils {
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
 		ArrayList<TransactionEntry> entryList = dbHelper
-				.fetchAccountEntries(Globals.ACCOUNT_TYPE_DBA);
-
+				.fetchEntries();
+		
+		// if database is empty, entryList will be of size 0, we want to return the default all-zero arraylist
+		if(entryList.size() == 0){
+			return weeklySpending;
+		}
+		
 		// find out current term's start/end date
 		// figure out term's start day in year/
 		Calendar[] cal = getTermStartEnd();
@@ -100,14 +109,13 @@ public class Utils {
 	 * @param context
 	 * @return number of days in term that have elapsed
 	 */
-	@SuppressWarnings("static-access")
 	public static int getDaysElapsed(Context context) {
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
 		ArrayList<TransactionEntry> entryList = dbHelper
 				.fetchAccountEntries(Globals.ACCOUNT_TYPE_DBA);
 		Calendar[] cal = getTermStartEnd();
-		Log.d("CS65", "CALENDAR FIRST DAY: "+ cal[0]);
+		Log.d("CS65", "CALENDAR FIRST DAY: " + cal[0]);
 		int firstDay = cal[0].get(Calendar.DAY_OF_YEAR);
 		Log.d("CS65", "FIRST DAY: " + firstDay);
 		// access last entry in entry list
@@ -117,11 +125,12 @@ public class Utils {
 			lastDay = lastEntry.getDateTimeDay();
 		} else {
 			Calendar c = Calendar.getInstance();
-			lastDay = c.get(Calendar.DAY_OF_YEAR);;
+			lastDay = c.get(Calendar.DAY_OF_YEAR);
+			;
 			Log.d("CS65", "LAST DAY: " + lastDay);
 		}
 		int daysPassed = lastDay - firstDay + 1;
-		Log.d("CS65","Days passed: " + daysPassed);
+		Log.d("CS65", "Days passed: " + daysPassed);
 		return daysPassed;
 	}
 
@@ -142,8 +151,8 @@ public class Utils {
 		mKey = context.getString(R.string.preference_key_balance);
 		double bal = Double.parseDouble(mPrefs.getString(mKey, "0.0"));
 		double amt = Globals.TOTAL_DBA_AMOUNT - bal;
-		
-		Log.d("CS65","amount spent = " + amt);
+
+		Log.d("CS65", "amount spent = " + amt);
 		int numDays = getDaysElapsed(context);
 		double weeksPassed = numDays / 7.0;
 
@@ -185,10 +194,11 @@ public class Utils {
 		mKey = context.getString(R.string.preference_key_balance);
 		double remainingDBA = Double.parseDouble(mPrefs.getString(mKey, "0.0"));
 		Calendar[] cal = getTermStartEnd();
-		int daysInTerm = cal[1].get(Calendar.DAY_OF_YEAR) - cal[0].get(Calendar.DAY_OF_YEAR);
+		int daysInTerm = cal[1].get(Calendar.DAY_OF_YEAR)
+				- cal[0].get(Calendar.DAY_OF_YEAR);
 		int daysRemaining = daysInTerm - getDaysElapsed(context);
 		Log.d("CS65", "Days Remaining in term" + daysRemaining);
-		
+
 		// depending upon interval (either daily or weekly), determine the
 		// user's past average spending
 		switch (interval) {
@@ -211,25 +221,25 @@ public class Utils {
 		if (Globals.FOURTEEN_SPRING_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_SUMMER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SPRING;
-			Log.d("CS65", "TERM IS: " + "14S");
+			//Log.d("CS65", "TERM IS: " + "14S");
 		} else if (Globals.FOURTEEN_SUMMER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_FALL_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SUMMER;
-			Log.d("CS65", "TERM IS: " + "14X");
+			//Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (Globals.FOURTEEN_FALL_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_WINTER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_FALL;
-			Log.d("CS65", "TERM IS: " + "14F");
+			//Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (Globals.FIFTEEN_WINTER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_SPRING_START.getTimeInMillis()) {
 			term = Globals.FIFTEEN_WINTER;
-			Log.d("CS65", "TERM IS: " + "15W");
+			//Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (Globals.FIFTEEN_SPRING_START.getTimeInMillis() <= currTime) {
 			term = Globals.FIFTEEN_SPRING;
-			Log.d("CS65", "TERM IS: " + "15S");
+			//Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 
@@ -243,26 +253,26 @@ public class Utils {
 		if (term == Globals.FOURTEEN_SPRING) {
 			calendarDates[0] = Globals.FOURTEEN_SPRING_START;
 			calendarDates[1] = Globals.FOURTEEN_SPRING_END;
-			Log.d("CS65", "TERM IS: " + "14S");
+			//Log.d("CS65", "TERM IS: " + "14S");
 		} else if (term.equals(Globals.FOURTEEN_SUMMER)) {
 			calendarDates[0] = Globals.FOURTEEN_SUMMER_START;
 			calendarDates[1] = Globals.FOURTEEN_SUMMER_END;
-			Log.d("CS65", "TERM IS: " + "14X");
+			//Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (term.equals(Globals.FOURTEEN_FALL)) {
 			calendarDates[0] = Globals.FOURTEEN_FALL_START;
 			calendarDates[1] = Globals.FOURTEEN_FALL_END;
-			Log.d("CS65", "TERM IS: " + "14F");
+			//Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (term.equals(Globals.FIFTEEN_WINTER)) {
 			calendarDates[0] = Globals.FIFTEEN_WINTER_START;
 			calendarDates[1] = Globals.FIFTEEN_WINTER_END;
-			Log.d("CS65", "TERM IS: " + "15W");
+			//Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (term.equals(Globals.FIFTEEN_SPRING)) {
 			calendarDates[0] = Globals.FIFTEEN_SPRING_START;
 			calendarDates[1] = Globals.FIFTEEN_SPRING_END;
-			Log.d("CS65", "TERM IS: " + "15S");
+			//Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 
