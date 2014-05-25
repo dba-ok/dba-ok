@@ -33,9 +33,9 @@ public class Utils {
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
 		ArrayList<TransactionEntry> entryList = dbHelper.fetchEntries();
-		
+
 		// if there's no data in the database, return the default zero arraylist
-		if(entryList.size() == 0){
+		if (entryList.size() == 0) {
 			return locationSpending;
 		}
 		Calendar[] cal = getTermStartEnd();
@@ -72,14 +72,14 @@ public class Utils {
 		// fetch all DBA entries
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
-		ArrayList<TransactionEntry> entryList = dbHelper
-				.fetchEntries();
-		
-		// if database is empty, entryList will be of size 0, we want to return the default all-zero arraylist
-		if(entryList.size() == 0){
+		ArrayList<TransactionEntry> entryList = dbHelper.fetchEntries();
+
+		// if database is empty, entryList will be of size 0, we want to return
+		// the default all-zero arraylist
+		if (entryList.size() == 0) {
 			return weeklySpending;
 		}
-		
+
 		// find out current term's start/end date
 		// figure out term's start day in year/
 		Calendar[] cal = getTermStartEnd();
@@ -112,8 +112,7 @@ public class Utils {
 	public static int getDaysElapsed(Context context) {
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
-		ArrayList<TransactionEntry> entryList = dbHelper
-				.fetchAccountEntries(Globals.ACCOUNT_TYPE_DBA);
+		ArrayList<TransactionEntry> entryList = dbHelper.fetchEntries();
 		Calendar[] cal = getTermStartEnd();
 		Log.d("CS65", "CALENDAR FIRST DAY: " + cal[0]);
 		int firstDay = cal[0].get(Calendar.DAY_OF_YEAR);
@@ -221,25 +220,25 @@ public class Utils {
 		if (Globals.FOURTEEN_SPRING_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_SUMMER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SPRING;
-			//Log.d("CS65", "TERM IS: " + "14S");
+			// Log.d("CS65", "TERM IS: " + "14S");
 		} else if (Globals.FOURTEEN_SUMMER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_FALL_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SUMMER;
-			//Log.d("CS65", "TERM IS: " + "14X");
+			// Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (Globals.FOURTEEN_FALL_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_WINTER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_FALL;
-			//Log.d("CS65", "TERM IS: " + "14F");
+			// Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (Globals.FIFTEEN_WINTER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_SPRING_START.getTimeInMillis()) {
 			term = Globals.FIFTEEN_WINTER;
-			//Log.d("CS65", "TERM IS: " + "15W");
+			// Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (Globals.FIFTEEN_SPRING_START.getTimeInMillis() <= currTime) {
 			term = Globals.FIFTEEN_SPRING;
-			//Log.d("CS65", "TERM IS: " + "15S");
+			// Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 
@@ -253,26 +252,26 @@ public class Utils {
 		if (term == Globals.FOURTEEN_SPRING) {
 			calendarDates[0] = Globals.FOURTEEN_SPRING_START;
 			calendarDates[1] = Globals.FOURTEEN_SPRING_END;
-			//Log.d("CS65", "TERM IS: " + "14S");
+			// Log.d("CS65", "TERM IS: " + "14S");
 		} else if (term.equals(Globals.FOURTEEN_SUMMER)) {
 			calendarDates[0] = Globals.FOURTEEN_SUMMER_START;
 			calendarDates[1] = Globals.FOURTEEN_SUMMER_END;
-			//Log.d("CS65", "TERM IS: " + "14X");
+			// Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (term.equals(Globals.FOURTEEN_FALL)) {
 			calendarDates[0] = Globals.FOURTEEN_FALL_START;
 			calendarDates[1] = Globals.FOURTEEN_FALL_END;
-			//Log.d("CS65", "TERM IS: " + "14F");
+			// Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (term.equals(Globals.FIFTEEN_WINTER)) {
 			calendarDates[0] = Globals.FIFTEEN_WINTER_START;
 			calendarDates[1] = Globals.FIFTEEN_WINTER_END;
-			//Log.d("CS65", "TERM IS: " + "15W");
+			// Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (term.equals(Globals.FIFTEEN_SPRING)) {
 			calendarDates[0] = Globals.FIFTEEN_SPRING_START;
 			calendarDates[1] = Globals.FIFTEEN_SPRING_END;
-			//Log.d("CS65", "TERM IS: " + "15S");
+			// Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 
