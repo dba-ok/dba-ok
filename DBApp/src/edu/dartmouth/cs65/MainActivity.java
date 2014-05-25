@@ -1,5 +1,7 @@
 package edu.dartmouth.cs65;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -17,6 +19,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import edu.dartmouth.cs65.scraper.ManageMyIDScraper;
+import edu.dartmouth.cs65.Utils;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -43,7 +47,6 @@ public class MainActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		
 		// set up the actionbar and view pager
 		mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -54,8 +57,6 @@ public class MainActivity extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-		
 		// access the shared prefs
 		String mKey = getString(R.string.preference_name);
 
@@ -69,16 +70,16 @@ public class MainActivity extends FragmentActivity implements
 		mPassword = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
-		
+
 		// add balance/swipes for now...until we get the scraper working :)
 		mKey = getString(R.string.preference_key_balance);
 		mEditor.putString(mKey, "1.46");
 		mKey = getString(R.string.preference_key_swipes);
 		mEditor.putString(mKey, "3");
 		mKey = getString(R.string.preference_key_dba_initial);
-		mEditor.putString(mKey,"920.00");
+		mEditor.putString(mKey, "920.00");
 		mEditor.commit();
-		
+
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
 
 		this.setUpActionBar();
@@ -97,12 +98,37 @@ public class MainActivity extends FragmentActivity implements
 			mEditor.commit();
 			showWelcome();
 		}
+		
+		updateData();
 
-		// start notifications when app is opened..
-		/*
-		Intent i = new Intent(this, NotificationSetter.class);
-		this.sendBroadcast(i);
-		 */
+	}
+
+	public void updateData() {
+		String mKey = getString(R.string.preference_name);
+		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(this);
+		SharedPreferences mPrefs = this
+				.getSharedPreferences(mKey, MODE_PRIVATE);
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+
+		mKey = getString(R.string.preference_key_username);
+		mUsername = mPrefs.getString(mKey, "");
+		mKey = getString(R.string.preference_key_password);
+		mPassword = mPrefs.getString(mKey, "");
+
+		ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername, mPassword);
+		scraper.getDBABalance();
+		scraper.getSwipeBalance();
+
+		Calendar[] startEndDates = Utils.getTermStartEnd();
+		try {
+			scraper.getTransactionHistoryPage(startEndDates[0],
+					startEndDates[1]);
+			ArrayList<TransactionEntry> entryList = scraper.getTransactionHistory();
+			dbHelper.deleteAllEntries();
+			dbHelper.insertEntryList(entryList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/***
@@ -120,7 +146,7 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.main, menu);
+		// getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 

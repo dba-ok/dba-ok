@@ -252,7 +252,7 @@ public class ManageMyIDScraper{
 	 * Creates an ArrayList of TransactionEntry objects using the data from
 	 * svc_history_view.php
 	 */
-	private ArrayList<TransactionEntry> getTransactionHistory(){
+	public ArrayList<TransactionEntry> getTransactionHistory(){
 		int TRANSACTION_START, currCell, location;
 		double spent;
 		Calendar dateTime;

@@ -72,6 +72,12 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
         return id; 
     }
     
+    public void insertEntryList(ArrayList<TransactionEntry> entryList){
+    	for(TransactionEntry entry: entryList){
+    		insertEntry(entry);
+    	}
+    }
+    
     // Remove an entry by giving its index
     public void removeEntry(long rowIndex) {
     	SQLiteDatabase db = this.getWritableDatabase(); 
@@ -79,6 +85,12 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
         db.delete(Globals.TABLE_NAME_ENTRIES, Globals.KEY_ROWID+"="+rowIndex, null);
         
         db.close();    
+    }
+    
+    public void deleteAllEntries(){
+    	SQLiteDatabase db = this.getWritableDatabase(); 
+    	db.delete(Globals.TABLE_NAME_ENTRIES, null, null);
+    	db.close();
     }
 
     // Query a specific entry by its index.

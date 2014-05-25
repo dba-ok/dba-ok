@@ -62,7 +62,6 @@ public class Utils {
 	 * @param context
 	 * @return the weekly spending for the current term
 	 */
-	@SuppressWarnings("static-access")
 	public static ArrayList<Double> getWeeklySpending(Context context) {
 		ArrayList<Double> weeklySpending = new ArrayList<Double>();
 		for (int i = 0; i < 10; i++) {
