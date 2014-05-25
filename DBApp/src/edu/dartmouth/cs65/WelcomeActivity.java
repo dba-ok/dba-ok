@@ -19,7 +19,6 @@ import edu.dartmouth.cs65.MainActivity;
 import edu.dartmouth.cs65.R;
 
 public class WelcomeActivity extends Activity implements OnCheckedChangeListener {
-
 	/*
 	 * public WelcomeActivity() { }
 	 */
@@ -106,4 +105,25 @@ public class WelcomeActivity extends Activity implements OnCheckedChangeListener
 		finish();
 	}
 	
+	@Override
+	public void onDestroy(){
+		String mKey = getString(R.string.preference_name);
+		SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+		
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+		mKey = getString(R.string.preference_logged_in);
+		
+		CheckBox checkbox = (CheckBox) findViewById(R.id.checkbox_logged_in);
+		
+		if (checkbox.isChecked()){
+			mEditor.putBoolean(mKey, true);
+		}
+		else{
+			mEditor.putBoolean(mKey, false);
+		}
+		
+		mEditor.commit();
+		super.onDestroy();
+	}
+
 }
