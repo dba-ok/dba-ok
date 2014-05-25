@@ -97,13 +97,13 @@ public class MainActivity extends FragmentActivity implements
 		Log.d(TAG, " mUsername not blank: " + mUsername);
 		Log.d(TAG, "mPassword not blank: " + mPassword);
 
-		if (!welcomeScreenShown || (mUsername == "" || mPassword == "")) {
+		if (!welcomeScreenShown || (mUsername.equals("") || mPassword.equals(""))) {
 			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
 			mEditor.commit();
 			showWelcome();
 			// manageMyIDInBackground();
 		}
-		if (mUsername != "" && mPassword != "") {
+		if (!mUsername.equals("") && !mPassword.equals("")) {
 			manageMyIDInBackground();
 		}
 
@@ -405,5 +405,29 @@ public class MainActivity extends FragmentActivity implements
 	// refresh data when refresh is clicked
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
+	}
+	@Override
+	public void onDestroy(){
+		boolean stayLoggedIn;
+		String mKey = getString(R.string.preference_name);
+        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+        
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mKey = getString(R.string.preference_logged_in);
+        stayLoggedIn = mPrefs.getBoolean(mKey, false);
+        Log.d(TAG, "Does the user want to stay logged in?" + stayLoggedIn);
+        
+        //Reset username and password in SharedPrefs to empty strings
+        if (stayLoggedIn == false){
+        	mKey = getString(R.string.preference_key_username);
+        	mEditor.putString(mKey, "");
+        	
+        	mKey = getString(R.string.preference_key_password);
+        	mEditor.putString(mKey, "");
+        	
+        	mEditor.commit();
+        }
+        
+		super.onDestroy();
 	}
 }

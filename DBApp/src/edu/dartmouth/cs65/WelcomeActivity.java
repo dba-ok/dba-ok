@@ -18,13 +18,14 @@ import android.widget.Toast;
 
 import edu.dartmouth.cs65.R;
 
-public class WelcomeActivity extends Activity implements OnCheckedChangeListener {
+public class WelcomeActivity extends Activity{
     /*
      * public WelcomeActivity() { }
      */
 
     private EditText email;
     private EditText password;
+    private static final String TAG = "WelcomeActvitiy.java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +39,8 @@ public class WelcomeActivity extends Activity implements OnCheckedChangeListener
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         String text = "<a href='https://dartmouth.managemyid.com/student/login.php'> Get one here </a>";
         textView.setText(Html.fromHtml(text));
-        
-        CheckBox checkbox = (CheckBox) findViewById(R.id.checkbox_logged_in);
-        checkbox.setOnCheckedChangeListener(this);
+
     }
-    
-    
-    @Override
-    public void onCheckedChanged(CompoundButton checkbox, boolean arg1) {
-        String mKey = getString(R.string.preference_name);
-        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
-        
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mKey = getString(R.string.stay_logged_in);
-        
-        if (((CheckBox) checkbox).isChecked()){
-            mEditor.putBoolean(mKey, true); //or should I use arg1?
-        }
-        else{
-            mEditor.putBoolean(mKey, false);
-        }
-        
-        mEditor.commit();
-    }
-    
 
     public void onSignInClicked(View v) {
         // save the user profile to shared preferences and save photo to
@@ -118,9 +97,11 @@ public class WelcomeActivity extends Activity implements OnCheckedChangeListener
         
         if (checkbox.isChecked()){
             mEditor.putBoolean(mKey, true);
+            Log.d(TAG, "User checked save username and password");
         }
         else{
             mEditor.putBoolean(mKey, false);
+            Log.d(TAG, "User did not check save username and password");
         }
         
         mEditor.commit();
