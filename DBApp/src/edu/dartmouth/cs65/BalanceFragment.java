@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class BalanceFragment extends Fragment {
+public class BalanceFragment extends Fragment  {
 	private Context context; 
 	
 	public BalanceFragment(){
@@ -39,6 +39,7 @@ public class BalanceFragment extends Fragment {
 		
 		return view;
     }
+    
     
 }
 

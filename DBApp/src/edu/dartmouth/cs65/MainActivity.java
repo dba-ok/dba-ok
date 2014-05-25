@@ -20,6 +20,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import edu.dartmouth.cs65.scraper.ManageMyIDScraper;
 
 public class MainActivity extends FragmentActivity implements
@@ -399,5 +400,10 @@ public class MainActivity extends FragmentActivity implements
 				Log.d("CS65", "Executing");
 			}
 		}.execute(null, null, null);
+	}
+
+	// refresh data when refresh is clicked
+	public void onRefreshClicked(View v) {
+		manageMyIDInBackground();
 	}
 }

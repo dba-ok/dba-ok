@@ -25,7 +25,7 @@ public class Utils {
 	public static ArrayList<Double> getLocationSpending(Context context) {
 		ArrayList<Double> locationSpending = new ArrayList<Double>();
 		for (int i = 0; i < 10; i++) {
-			locationSpending.set(i, 0.0);
+			locationSpending.add(0.0);
 		}
 
 		// fetch all of the DBA transaction entries
@@ -36,6 +36,7 @@ public class Utils {
 
 		// if there's no data in the database, return the default zero arraylist
 		if (entryList.size() == 0) {
+			Log.d("DATABASE","NOTHING IN DATABASE AGH!");
 			return locationSpending;
 		}
 		Calendar[] cal = getTermStartEnd();
@@ -65,7 +66,7 @@ public class Utils {
 	public static ArrayList<Double> getWeeklySpending(Context context) {
 		ArrayList<Double> weeklySpending = new ArrayList<Double>();
 		for (int i = 0; i < 10; i++) {
-			weeklySpending.set(i, 0.0);
+			weeklySpending.add(0.0);
 		}
 
 		// fetch all DBA entries
@@ -76,6 +77,7 @@ public class Utils {
 		// if database is empty, entryList will be of size 0, we want to return
 		// the default all-zero arraylist
 		if (entryList.size() == 0) {
+			Log.d("DATABASE","NOTHING IN DATABASE AGH!");
 			return weeklySpending;
 		}
 

@@ -5,26 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import edu.dartmouth.cs65.R;
-
+import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 public class MyStatsFragment extends Fragment {
 		
@@ -53,6 +44,7 @@ public class MyStatsFragment extends Fragment {
     private double week9; 
     private double week10; 
     
+    private Context context;
     
 	public MyStatsFragment(){	
 	}
@@ -60,6 +52,7 @@ public class MyStatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+    	context = this.getActivity();
         return inflater.inflate(R.layout.mystats, container, false);
     }
     
@@ -103,6 +96,16 @@ public class MyStatsFragment extends Fragment {
 	private void loadChart(String chart) {
 	    
 	    // put the dba by location usage here 
+		ArrayList<Double> locationSpending =  Utils.getLocationSpending(context);
+		foco = locationSpending.get(Globals.FOCO_LOCATION_INT);
+		collis = locationSpending.get(Globals.COLLIS_LOCATION_INT);
+		hop = locationSpending.get(Globals.HOP_LOCATION_INT);
+		novack = locationSpending.get(Globals.NOVACK_LOCATION_INT);
+		kaf = locationSpending.get(Globals.KAF_LOCATION_INT);
+		ewsnackbar = locationSpending.get(Globals.SNACKBAR_LOCATION_INT);
+		collismarket = locationSpending.get(Globals.COLLIS_MARKET_LOCATION_INT);
+		
+		/*
 	    foco = 3; 
 	    collis = 1; 
 	    hop = 1; 
@@ -110,13 +113,27 @@ public class MyStatsFragment extends Fragment {
 	    kaf = 1; 
 	    ewsnackbar = 1; 
 	    collismarket = 1; 
-	    
+	    */
+		
 //	    ArrayList<Double> allAmounts = Utils.getLocationSpending(getActivity()); 
 //	    for (Double amount : allAmounts) {
 //	    	
 //	    }
 	    
 	    // put the dba by week usage here 
+		ArrayList<Double> weeklySpending =  Utils.getWeeklySpending(context);
+		week1 = weeklySpending.get(0);
+		week2 = weeklySpending.get(1);
+		week3 = weeklySpending.get(2);
+		week4 = weeklySpending.get(3);
+		week5 = weeklySpending.get(4);
+		week6 = weeklySpending.get(5);
+		week7 = weeklySpending.get(6);
+		week8 = weeklySpending.get(7);
+		week9 = weeklySpending.get(8);
+		week10 = weeklySpending.get(9);
+
+		/*
 	    week1 = 110; 
 	    week2 = 120; 
 	    week3 = 100; 
@@ -127,7 +144,7 @@ public class MyStatsFragment extends Fragment {
 	    week8 = 100; 
 	    week9 = 70; 
 	    week10 = 80; 
-	    
+	    */
 	    String content = "null";
 	    try {
 	        AssetManager assetManager = getActivity().getAssets();
