@@ -39,11 +39,13 @@ public class TransactionEntry {
 	}
 
 	// returns day in year
-	@SuppressWarnings("static-access")
 	public int getDateTimeDay() {
+		return mDateTime.get(Calendar.DAY_OF_YEAR);
+		/*
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(this.getDateTimeinMillis());
 		return calendar.DAY_OF_YEAR;
+		*/
 	}
 
 	public long getDateTimeinMillis() {

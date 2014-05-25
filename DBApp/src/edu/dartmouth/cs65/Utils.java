@@ -121,12 +121,11 @@ public class Utils {
 		// access last entry in entry list
 		int lastDay;
 		if (entryList.size() > 0) {
-			TransactionEntry lastEntry = entryList.get(entryList.size());
+			TransactionEntry lastEntry = entryList.get(entryList.size() - 1);
 			lastDay = lastEntry.getDateTimeDay();
 		} else {
 			Calendar c = Calendar.getInstance();
 			lastDay = c.get(Calendar.DAY_OF_YEAR);
-			;
 			Log.d("CS65", "LAST DAY: " + lastDay);
 		}
 		int daysPassed = lastDay - firstDay + 1;
