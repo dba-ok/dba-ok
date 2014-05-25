@@ -9,13 +9,16 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.dartmouth.cs65.R;
 
-public class WelcomeActivity extends Activity  {
+public class WelcomeActivity extends Activity implements OnCheckedChangeListener {
 
 	/*
 	 * public WelcomeActivity() { }
@@ -36,11 +39,28 @@ public class WelcomeActivity extends Activity  {
 		textView.setMovementMethod(LinkMovementMethod.getInstance());
 		String text = "<a href='https://dartmouth.managemyid.com/student/login.php'> Get one here </a>";
 		textView.setText(Html.fromHtml(text));
-
+		
+		CheckBox checkbox = (CheckBox) findViewById(R.id.checkbox_logged_in);
+		checkbox.setOnCheckedChangeListener(this);
 	}
 	
-	public void onCheckboxClicked(View v){
+	
+	@Override
+	public void onCheckedChanged(CompoundButton checkbox, boolean arg1) {
+		String mKey = getString(R.string.preference_name);
+		SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
 		
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+		mKey = getString(R.string.stay_logged_in);
+		
+		if (((CheckBox) checkbox).isChecked()){
+			mEditor.putBoolean(mKey, true); //or should I use arg1?
+		}
+		else{
+			mEditor.putBoolean(mKey, false);
+		}
+		
+		mEditor.commit();
 	}
 	
 
@@ -86,6 +106,5 @@ public class WelcomeActivity extends Activity  {
 
 		finish();
 	}
-	
 	
 }
