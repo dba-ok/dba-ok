@@ -54,7 +54,7 @@ public class TransactionEntry {
 		mDateTime.setTimeInMillis(dateTime);
 	}
 
-	public void initializeDateTime(Calendar c) {
+	public void setDateTime(Calendar c) {
 		mDateTime = c;
 	}
 

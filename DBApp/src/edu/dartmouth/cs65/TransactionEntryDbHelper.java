@@ -1,5 +1,7 @@
 package edu.dartmouth.cs65;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -26,15 +28,15 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
             + " DATETIME NOT NULL, "
             + Globals.KEY_LOCATION
             + " INTEGER NOT NULL, "
-            + Globals.KEY_ACCOUNT_TYPE
-            + " INTEGER NOT NULL, "
-            + Globals.KEY_TRANSACTION_TYPE
-            + " INTEGER NOT NULL, "
+//            + Globals.KEY_ACCOUNT_TYPE
+//            + " INTEGER NOT NULL, "
+//            + Globals.KEY_TRANSACTION_TYPE
+//            + " INTEGER NOT NULL, "
             + Globals.KEY_AMOUNT + " FLOAT NOT NULL );";    
     
 	private static final String[] mColumnList = new String[] { 
 		Globals.KEY_ROWID, Globals.KEY_DATE_TIME, Globals.KEY_LOCATION, 
-		Globals.KEY_ACCOUNT_TYPE, Globals.KEY_TRANSACTION_TYPE, Globals.KEY_AMOUNT };
+		Globals.KEY_AMOUNT };
 	
     // Constructor  
     public TransactionEntryDbHelper(Context context) {
@@ -54,8 +56,11 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
         
         ContentValues values = new ContentValues();
+        
+		Timestamp timeStamp = new Timestamp(entry.getDateTimeinMillis()); 
+		long dateTimeUTC = timeStamp.getTime();
     	
-        values.put(Globals.KEY_DATE_TIME, entry.getDateTimeinMillis()); 
+        values.put(Globals.KEY_DATE_TIME, dateTimeUTC); 
         values.put(Globals.KEY_LOCATION, entry.getLocation());
         values.put(Globals.KEY_AMOUNT, entry.getAmount()); 
         
@@ -100,7 +105,7 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
     
     /*
      * Query a specific entry by its account type--to find all DBA entries for example!
-     */
+     *
     public TransactionEntry fetchEntryByAccountType(int accountType) throws SQLException{
     	SQLiteDatabase dbObj = getReadableDatabase();
 		TransactionEntry entry = null;
@@ -120,14 +125,21 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
 
 		return entry;
 
-    }
-	// convert the a row in the cursor to an ExerciseEntry object
+    } */
+    
+    
+	// convert the row in the cursor to a TransactionEntry object
 	private TransactionEntry cursorToEntry(boolean needGPS, Cursor cursor) {
 		
 		TransactionEntry entry = new TransactionEntry();
 		
+		Date date = new Date(cursor.getLong(cursor.getColumnIndex(Globals.KEY_DATE_TIME)));
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date); 		
+		
 		entry.setId(cursor.getLong(cursor.getColumnIndex(Globals.KEY_ROWID)));
-		entry.setDateTimeLong(cursor.getLong(cursor.getColumnIndex(Globals.KEY_DATE_TIME)));
+//		entry.setDateTimeLong(cursor.getLong(cursor.getColumnIndex(Globals.KEY_DATE_TIME)));
+		entry.setDateTime(cal); 
 		entry.setLocation(cursor.getInt(cursor.getColumnIndex(Globals.KEY_LOCATION)));
 		entry.setAmount(cursor.getDouble(cursor.getColumnIndex(Globals.KEY_AMOUNT)));
 		
@@ -150,7 +162,7 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
 		return entryList;
 	}
 
-    // fetch all entries corresponding a certain account, either mealswipe or DBA
+    /* fetch all entries corresponding a certain account, either mealswipe or DBA
     public ArrayList<TransactionEntry> fetchAccountEntries(int accountType){
     	SQLiteDatabase database = getWritableDatabase();
 		ArrayList<TransactionEntry> entryList = new ArrayList<TransactionEntry>();
@@ -163,7 +175,7 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
 		cursor.close();
 		database.close();
 		return entryList;
-    }
+    } */
 	
     public void onUpgrade(SQLiteDatabase database, int oldVersion,
     		int newVersion) {
