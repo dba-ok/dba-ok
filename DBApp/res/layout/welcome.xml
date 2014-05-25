@@ -71,7 +71,6 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="13dp"
-	        android:onClick="onCheckboxClicked"
 	        android:layout_weight=".50"
 	        android:text="@string/stay_logged_in"
 	        android:textSize="13sp" />
