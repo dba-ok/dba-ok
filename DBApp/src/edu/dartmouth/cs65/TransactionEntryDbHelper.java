@@ -57,8 +57,6 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
     	
         values.put(Globals.KEY_DATE_TIME, entry.getDateTimeinMillis()); 
         values.put(Globals.KEY_LOCATION, entry.getLocation());
-        values.put(Globals.KEY_ACCOUNT_TYPE, entry.getAccountType()); 
-        values.put(Globals.KEY_TRANSACTION_TYPE, entry.getTransactionType()); 
         values.put(Globals.KEY_AMOUNT, entry.getAmount()); 
         
         // Insert row 
@@ -131,8 +129,6 @@ public class TransactionEntryDbHelper extends SQLiteOpenHelper {
 		entry.setId(cursor.getLong(cursor.getColumnIndex(Globals.KEY_ROWID)));
 		entry.setDateTimeLong(cursor.getLong(cursor.getColumnIndex(Globals.KEY_DATE_TIME)));
 		entry.setLocation(cursor.getInt(cursor.getColumnIndex(Globals.KEY_LOCATION)));
-		entry.setAccountType(cursor.getInt(cursor.getColumnIndex(Globals.KEY_ACCOUNT_TYPE)));
-		entry.setTransactionType(cursor.getInt(cursor.getColumnIndex(Globals.KEY_TRANSACTION_TYPE)));
 		entry.setAmount(cursor.getDouble(cursor.getColumnIndex(Globals.KEY_AMOUNT)));
 		
 		return entry;

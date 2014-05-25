@@ -276,7 +276,7 @@ public class ManageMyIDScraper{
 			spent = convertValueStringToDouble(cells.get(currCell + 4).text());
 			
 			//Set new values for newEntry
-			newEntry.setDateTime(dateTime.get(Calendar.YEAR), dateTime.get(Calendar.MONTH), dateTime.get(Calendar.DAY_OF_MONTH));
+			newEntry.initializeDateTime(dateTime);
 			newEntry.setLocation(location);
 			newEntry.setAmount(spent);
 			
