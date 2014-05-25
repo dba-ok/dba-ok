@@ -139,16 +139,16 @@ public class MyStatsFragment extends Fragment {
 //	    }
 	    
 	    // put the dba by week usage here 
-	    week1 = 100; 
-	    week2 = 100; 
+	    week1 = 110; 
+	    week2 = 120; 
 	    week3 = 100; 
-	    week4 = 100; 
-	    week5 = 100; 
-	    week6 = 100; 
-	    week7 = 100; 
+	    week4 = 140; 
+	    week5 = 90; 
+	    week6 = 110; 
+	    week7 = 120; 
 	    week8 = 100; 
-	    week9 = 100; 
-	    week10 = 100; 
+	    week9 = 70; 
+	    week10 = 80; 
 	    
 	    String content = "null";
 	    try {
