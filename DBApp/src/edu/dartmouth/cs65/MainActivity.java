@@ -75,15 +75,13 @@ public class MainActivity extends FragmentActivity implements
 		mKey = getString(R.string.preference_key_dba_initial);
 		mEditor.putString(mKey, "920.00");
 		mEditor.commit();
-		
+
 		mKey = getString(R.string.preference_key_username);
 		mUsername = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_password);
 		mPassword = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
-
-
 
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
 
@@ -102,9 +100,9 @@ public class MainActivity extends FragmentActivity implements
 			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
 			mEditor.commit();
 			showWelcome();
-			//manageMyIDInBackground();
+			// manageMyIDInBackground();
 		}
-		if(mUsername != "" && mPassword != ""){
+		if (mUsername != "" && mPassword != "") {
 			manageMyIDInBackground();
 		}
 
@@ -359,11 +357,22 @@ public class MainActivity extends FragmentActivity implements
 				ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername,
 						mPassword);
 				mKey = getString(R.string.preference_key_balance);
-				mEditor.putString(mKey, scraper.getDBABalance());
+
+				String balance = "0.0";
+				String swipes = "0";
+				String totalDBA = "920.00";
+				try {
+					balance = scraper.getDBABalance();
+					swipes = scraper.getSwipeBalance();
+					totalDBA = scraper.getTotalDBA();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				mEditor.putString(mKey, balance);
 				mKey = getString(R.string.preference_key_swipes);
-				mEditor.putString(mKey, scraper.getSwipeBalance());
+				mEditor.putString(mKey, swipes);
 				mKey = getString(R.string.preference_key_dba_initial);
-				mEditor.putString(mKey, scraper.getTotalDBA());
+				mEditor.putString(mKey, totalDBA);
 				mEditor.commit();
 				String success = "";
 				// get the transaction history, delete all rows currently in db
@@ -374,7 +383,7 @@ public class MainActivity extends FragmentActivity implements
 							startEndDates[1]);
 					ArrayList<TransactionEntry> entryList = scraper
 							.getTransactionHistory();
-					Log.d("CS65","Size of entryList: " + entryList.size());
+					Log.d("ASYNCTASK", "Size of entryList: " + entryList.size());
 					dbHelper.deleteAllEntries();
 					dbHelper.insertEntryList(entryList);
 					success = "YAY!";

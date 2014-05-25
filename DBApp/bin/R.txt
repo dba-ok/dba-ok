@@ -101,6 +101,7 @@ int string preference_key_password 0x7f06000e
 int string preference_key_swipes 0x7f060015
 int string preference_key_username 0x7f06000d
 int string preference_key_welcome_screen 0x7f06000c
+int string preference_logged_in 0x7f06004f
 int string preference_name 0x7f06000b
 int string skip_button_label 0x7f060002
 int string stay_logged_in 0x7f06004e

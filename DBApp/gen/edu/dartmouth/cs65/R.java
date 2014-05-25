@@ -142,6 +142,7 @@ public final class R {
         public static final int preference_key_swipes=0x7f060015;
         public static final int preference_key_username=0x7f06000d;
         public static final int preference_key_welcome_screen=0x7f06000c;
+        public static final int preference_logged_in=0x7f06004f;
         /**  Shared Preferences Strings 
          */
         public static final int preference_name=0x7f06000b;

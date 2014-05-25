@@ -61,7 +61,7 @@ public class ManageMyIDScraper{
 		locationMap.put("Novack Cafe", 2);
 		locationMap.put("53 Commons", 3);
 		locationMap.put("Courtyard Cafe", 4);
-	
+		locationMap.put("East Wheelock", 5);
 		
 	}
 	
@@ -192,7 +192,7 @@ public class ManageMyIDScraper{
 			}
 		}
 		
-		return balance;
+		return balance.substring(1);
 	}
 	
 	/*
