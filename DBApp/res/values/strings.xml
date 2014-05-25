@@ -105,4 +105,5 @@
     <string name="hello_world">Hello world!</string>
 
     <string name="stay_logged_in">Stay signed in</string>
+    <string name="preference_logged_in">preference_logged_in</string>
 </resources>
