@@ -58,72 +58,76 @@ public class ManageMyIDScraper{
 		locationMap.put("Novack Cafe", 2);
 		locationMap.put("53 Commons", 3);
 		locationMap.put("Courtyard Cafe", 4);
-	
+		locationMap.put("East Wheelock", 5);
 		
 	}
 	
-	public boolean authenticate(String username, String password) throws IOException{
-		String sesstok;
-		boolean success;
-		
-		//Set up cookie store to save cookies
-		DefaultHttpClient httpclient = new DefaultHttpClient();
-        CookieStore cookieStore = new BasicCookieStore();
-        httpclient.getParams().setParameter(
-          ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY); 
-        
-        //Store Cookiestore in Context
-        HttpContext c = new BasicHttpContext();
-        c.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-        
-        //GET request to ManageMyID's login page
-        HttpGet getLogin = new HttpGet(LOGIN_PAGE);
-        HttpResponse loginResponse = httpclient.execute(getLogin, c);
-        
-        HttpEntity loginEntity = loginResponse.getEntity();
-        
-        //Retrieve session token if need be
-        sesstok = getSessionToken(EntityUtils.toString(loginEntity));
-        EntityUtils.consume(loginEntity);
-        
-        //POST request to login page using username and password
-        HttpPost postLogin = new HttpPost(LOGIN_PAGE);
-        
-        //Package username and password for POST request
-        List <NameValuePair> params = new ArrayList <NameValuePair>();
-        
-        if (sesstok.length() > 0){ //Add session token to params if it exists
-        	params.add(new BasicNameValuePair("__sesstok", sesstok));
-        }
-        
-        params.add(new BasicNameValuePair("user", username));
-        params.add(new BasicNameValuePair("pwd", password));
-        postLogin.addHeader("Referer", LOGIN_PAGE); //Add "Referer" field to POST header
-        
-        postLogin.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+	 private boolean authenticate(String username, String password) throws IOException{
+	        String sesstok;
+	        boolean success;
+	        
+	        //Set up cookie store to save cookies
+	        DefaultHttpClient httpclient = new DefaultHttpClient();
+	        CookieStore cookieStore = new BasicCookieStore();
+	        httpclient.getParams().setParameter(
+	          ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY); 
+	        
+	        //Store Cookiestore in Context
+	        HttpContext c = new BasicHttpContext();
+	        c.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+	        
+	        //GET request to ManageMyID's login page
+	        HttpGet getLogin = new HttpGet(LOGIN_PAGE);
+	        HttpResponse loginResponse = httpclient.execute(getLogin, c);
+	        
+	        HttpEntity loginEntity = loginResponse.getEntity();
+	        
+	        //Retrieve session token if need be
+	        sesstok = getSessionToken(EntityUtils.toString(loginEntity));
+	        EntityUtils.consume(loginEntity);
+	        
+	        //POST request to login page using username and password
+	        HttpPost postLogin = new HttpPost(LOGIN_PAGE);
+	        
+	        //Package username and password for POST request
+	        List <NameValuePair> params = new ArrayList <NameValuePair>();
+	        
+	        if (sesstok.length() > 0){ //Add session token to params if it exists
+	            params.add(new BasicNameValuePair("__sesstok", sesstok));
+	        }
+	        
+	        params.add(new BasicNameValuePair("user", username));
+	        params.add(new BasicNameValuePair("pwd", password));
+	        postLogin.addHeader("Referer", LOGIN_PAGE); //Add "Referer" field to POST header
+	        
+	        postLogin.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
-        HttpResponse loginResponse2 = httpclient.execute(postLogin, c);
+	        HttpResponse loginResponse2 = httpclient.execute(postLogin, c);
 
-        HttpEntity loginEntity2 = loginResponse2.getEntity();
-        EntityUtils.consume(loginEntity2);
-        
-        //GET request to welcome page 
-        HttpGet getWelcome = new HttpGet(WELCOME_PAGE);
-        HttpResponse welcomeResponse = httpclient.execute(getWelcome, c);
-        HttpEntity welcomeEntity = welcomeResponse.getEntity();
-        
-        //Define class variables before consuming entity
-        welcomePage = EntityUtils.toString(welcomeEntity);
-        context = c;
-        
-        EntityUtils.consume(welcomeEntity);
-        
-        //Check if we're successful
-        success = authenticationSuccess(welcomePage); //Check if we managed to log in correctly
-        System.out.println("User logged into ManageMyID: " + success);
-        
-        return success;
-    }
+	        HttpEntity loginEntity2 = loginResponse2.getEntity();
+	        EntityUtils.consume(loginEntity2);
+	        
+	        //GET request to welcome page 
+	        HttpGet getWelcome = new HttpGet(WELCOME_PAGE);
+	        HttpResponse welcomeResponse = httpclient.execute(getWelcome, c);
+	        HttpEntity welcomeEntity = welcomeResponse.getEntity();
+	        
+	        //Define class variables before consuming entity
+	        welcomePage = EntityUtils.toString(welcomeEntity);
+	        context = c;
+	        
+	        EntityUtils.consume(welcomeEntity);
+	        
+	        //Check if we're successful
+	        success = authenticationSuccess(welcomePage); //Check if we managed to log in correctly
+	        System.out.println("User logged into ManageMyID: " + success);
+	        
+	        return success;
+	    }
+	    
+	    public boolean isLoggedIn(){
+	        return loggedIn;
+	    }
 	
 	/*
 	 * Checks if authentication worked
@@ -153,7 +157,7 @@ public class ManageMyIDScraper{
 		Element e = transaction.select("td").first();
 		totalBalance = e.text();
 		
-		return totalBalance;
+		return totalBalance.substring(1);
 	}
 	
 	/*
@@ -191,7 +195,7 @@ public class ManageMyIDScraper{
 			}
 		}
 		
-		return balance;
+		return balance.substring(1);
 	}
 	
 	/*
@@ -229,7 +233,7 @@ public class ManageMyIDScraper{
 		params.add(new BasicNameValuePair("ToDay", convertToString(end.get(Calendar.DAY_OF_MONTH))));
 		params.add(new BasicNameValuePair("ToYear", convertToString(end.get(Calendar.YEAR))));
 		params.add(new BasicNameValuePair("plan", PLAN));
-		System.out.println(params);
+		
 		String sesstok = getSessionToken(welcomePage);
 		if (sesstok.length() > 0){
 			params.add(new BasicNameValuePair("__sesstok", sesstok));
@@ -244,7 +248,6 @@ public class ManageMyIDScraper{
 		HttpEntity transactionEntity = transactionResponse.getEntity();
 		
 		transactionPage = EntityUtils.toString(transactionEntity);
-		
 		EntityUtils.consume(transactionEntity);
 	}
 	
@@ -260,7 +263,6 @@ public class ManageMyIDScraper{
 		
 		//Get all cells from transaction history page
 		Document transaction = Jsoup.parse(transactionPage);
-		//System.out.println(transactionPage);
 		Elements cells = transaction.select("td");
 		
 		TRANSACTION_START = 2; //where cells start showing transaction data
@@ -268,14 +270,10 @@ public class ManageMyIDScraper{
 		
 		//Iterate through all cells on svc_history_view, retrieve data, and save as
 		//TransactionEntry objects
-		while (currCell< cells.size()){
-			System.out.println(cells.get(currCell).text());
-			TransactionEntry newEntry = new TransactionEntry();
+		System.out.println("num cells: " + cells.size());
+		while (currCell < cells.size()){
 			
-			if (currCell == 266){
-				System.out.println("Finally here");
-				System.out.println(cells.get(currCell + 1));
-			}
+			TransactionEntry newEntry = new TransactionEntry();
 			
 			//Retrieve values for TransactionEntry object
 			dateTime = setTransactionCalendar(cells.get(currCell).text());
@@ -296,6 +294,7 @@ public class ManageMyIDScraper{
 			entries.add(newEntry);
 			
 			currCell += TRANSACTION_LENGTH; //Go to next transaction
+			System.out.println("Next currCell val:" + currCell);
 		}
 		
 		return entries;
