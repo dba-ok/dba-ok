@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.swiping.R;
 
 public class WelcomeFragment extends Activity  {
 

@@ -2,27 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:gravity="center" >
 
     <TextView
         android:id="@+id/Swipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
         android:gravity="center"
         android:text="@string/ui_balance_swipes_title"
-        android:textSize="25sp" />
+        android:textSize="35sp" />
 
     <TextView
         android:id="@+id/SwipeNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="5"
         android:textColor="#008000"
-        android:textSize="30sp"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
     <View
@@ -38,20 +38,20 @@
         android:id="@+id/DBA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="@string/ui_balance_dba_title"
-        android:textSize="25sp" />
+        android:textSize="35sp" />
 
     <TextView
         android:id="@+id/DBAAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="$609.23"
         android:textColor="#008000"
-        android:textSize="30sp"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
 </LinearLayout>

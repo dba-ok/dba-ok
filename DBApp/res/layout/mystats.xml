@@ -1,7 +1,227 @@
-<?xml version="1.0" encoding="utf-8"?>
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mystatswebview"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-</WebView>
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="Foco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/foco"
+                    android:text="3"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="Collis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/collis"
+                    android:text="3"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="The Hop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/hop"
+                    android:text="1"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="Novack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/novack"
+                    android:text="1"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="KAF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/kaf"
+                    android:text="2"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionUnspecified"
+                    android:imeActionLabel="Reload"
+                    android:layout_width="40dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="EW Snack Bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/ewsnackbar"
+                    android:text="3"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:text="Collis Market"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/collismarket"
+                    android:text="3"
+                    android:maxLength="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:baselineAligned="false">
+            
+	        <Button
+	            android:id="@+id/piebutton"
+	            android:text="Pie Chart"
+	            android:layout_weight="1"
+	            android:layout_gravity="center_horizontal"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="16dp" />
+
+	        <Button
+	            android:id="@+id/columnbutton"
+	            android:text="Bar Chart"
+	            android:layout_weight="1"
+	            android:layout_gravity="center_horizontal"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="16dp" />	        	        
+	        
+	        
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
