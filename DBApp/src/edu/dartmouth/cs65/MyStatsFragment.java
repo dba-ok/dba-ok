@@ -81,17 +81,9 @@ public class MyStatsFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
 
-//        FocoField = (EditText) getView().findViewById(R.id.foco);
-//        CollisField = (EditText) getView().findViewById(R.id.collis);
-//        HopField = (EditText) getView().findViewById(R.id.hop);
-//        NovackField = (EditText) getView().findViewById(R.id.novack);
-//        KafField = (EditText) getView().findViewById(R.id.kaf);
-//        EWSnackBarField = (EditText) getView().findViewById(R.id.ewsnackbar);
-//        CollisMarketField = (EditText) getView().findViewById(R.id.collismarket);
 
         initPieButton();
         initColumnButton(); 
-//        initImeActionReload();
 
         loadChart("pie");
 	}
@@ -115,65 +107,9 @@ public class MyStatsFragment extends Fragment {
 	            }
 	        });
 	}
-	
-//	private void initImeActionReload() {
-//		KafField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//	        @Override
-//	        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//	            if (actionId == EditorInfo.IME_NULL) {
-//	                loadChart("column");
-//	                return true;
-//	            }
-//	
-//	            return false;
-//	        }
-//	    });
-//	}
+
 	
 	private void loadChart(String chart) {
-//	    if (TextUtils.isEmpty(FocoField.getText())) {
-//	    	FocoField.setText("0");
-//	        return;
-//	    }
-//	
-//	    if (TextUtils.isEmpty(CollisField.getText())) {
-//	    	CollisField.setText("0");
-//	        return;
-//	    }
-//
-//	    if (TextUtils.isEmpty(HopField.getText())) {
-//	    	NovackField.setText("0");
-//	        return;
-//	    }
-//	    
-//	    if (TextUtils.isEmpty(NovackField.getText())) {
-//	    	NovackField.setText("0");
-//	        return;
-//	    }
-//	
-//	    if (TextUtils.isEmpty(KafField.getText())) {
-//	    	KafField.setText("0");
-//	        return;
-//	    }
-//	    
-//	    if (TextUtils.isEmpty(EWSnackBarField.getText())) {
-//	    	EWSnackBarField.setText("0");
-//	        return;
-//	    }
-//	
-//	    if (TextUtils.isEmpty(CollisMarketField.getText())) {
-//	    	CollisMarketField.setText("0");
-//	        return;
-//	    }
-
-	    
-//	    hideSoftKeyboard(FocoField);
-//	    hideSoftKeyboard(CollisField);
-//	    hideSoftKeyboard(HopField);
-//	    hideSoftKeyboard(NovackField);
-//	    hideSoftKeyboard(KafField);
-//	    hideSoftKeyboard(EWSnackBarField);
-//	    hideSoftKeyboard(CollisMarketField);
 	    
 	    // put the dba by location usage here 
 	    int foco = 3; 
@@ -223,16 +159,6 @@ public class MyStatsFragment extends Fragment {
 	    webView.requestFocusFromTouch();
 	}
 	
-//	private void hideSoftKeyboard(TextView v) {
-//	    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
-//	    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//	}
-	
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    getMenuInflater().inflate(R.menu.main, menu);
-	    return true;
-	} */
 	
 	private static byte[] readFully(InputStream in) throws IOException {
 	    ByteArrayOutputStream out = new ByteArrayOutputStream();
