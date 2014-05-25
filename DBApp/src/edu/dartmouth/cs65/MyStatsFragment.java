@@ -3,6 +3,7 @@ package edu.dartmouth.cs65;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import edu.dartmouth.cs65.R;
 
@@ -55,13 +56,25 @@ public class MyStatsFragment extends Fragment {
     public static final String ASSET_PATH = "file:///android_asset/";
 
     private WebView webView;
-    private EditText FocoField;
-    private EditText CollisField;
-    private EditText HopField;
-    private EditText NovackField;
-    private EditText KafField; 
-    private EditText EWSnackBarField;
-    private EditText CollisMarketField; 
+    private double foco; 
+    private double collis; 
+    private double hop; 
+    private double novack; 
+    private double kaf; 
+    private double ewsnackbar; 
+    private double collismarket; 
+    
+    private double week1; 
+    private double week2; 
+    private double week3; 
+    private double week4; 
+    private double week5; 
+    private double week6; 
+    private double week7; 
+    private double week8; 
+    private double week9; 
+    private double week10; 
+    
     
 	public MyStatsFragment(){	
 	}
@@ -79,7 +92,7 @@ public class MyStatsFragment extends Fragment {
         webView = (WebView) getView().findViewById(R.id.web_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setBuiltInZoomControls(true);
+//        webSettings.setBuiltInZoomControls(true);
 
 
         initPieButton();
@@ -112,25 +125,30 @@ public class MyStatsFragment extends Fragment {
 	private void loadChart(String chart) {
 	    
 	    // put the dba by location usage here 
-	    int foco = 3; 
-	    int collis = 1; 
-	    int hop = 1; 
-	    int novack = 1; 
-	    int kaf = 1; 
-	    int ewsnackbar = 1; 
-	    int collismarket = 1; 
+	    foco = 3; 
+	    collis = 1; 
+	    hop = 1; 
+	    novack = 1; 
+	    kaf = 1; 
+	    ewsnackbar = 1; 
+	    collismarket = 1; 
+	    
+//	    ArrayList<Double> allAmounts = Utils.getLocationSpending(getActivity()); 
+//	    for (Double amount : allAmounts) {
+//	    	
+//	    }
 	    
 	    // put the dba by week usage here 
-	    int week1 = 100; 
-	    int week2 = 100; 
-	    int week3 = 100; 
-	    int week4 = 100; 
-	    int week5 = 100; 
-	    int week6 = 100; 
-	    int week7 = 100; 
-	    int week8 = 100; 
-	    int week9 = 100; 
-	    int week10 = 100; 
+	    week1 = 100; 
+	    week2 = 100; 
+	    week3 = 100; 
+	    week4 = 100; 
+	    week5 = 100; 
+	    week6 = 100; 
+	    week7 = 100; 
+	    week8 = 100; 
+	    week9 = 100; 
+	    week10 = 100; 
 	    
 	    String content = "null";
 	    try {
