@@ -287,16 +287,10 @@ public class ManageMyIDScraper{
 			newEntry.setLocation(location);
 			newEntry.setAmount(spent);
 			
-			System.out.println("date Time :" + dateTime.get(Calendar.MONTH) + "/" + dateTime.get(Calendar.DAY_OF_MONTH) + 
-					"/" + dateTime.get(Calendar.YEAR));
-			System.out.println("location: " + location);
-			System.out.println("money spent: " + spent);
-			
 			//Add new TransactionEntry object to ArrayList
 			entries.add(newEntry);
 			
 			currCell += TRANSACTION_LENGTH; //Go to next transaction
-			System.out.println("Next currCell val:" + currCell);
 		}
 		
 		return entries;
@@ -327,7 +321,7 @@ public class ManageMyIDScraper{
 		time = splitDateTime[1];
 		c = Calendar.getInstance();
 		
-		month = Integer.parseInt(date.substring(0, 2));
+		month = Integer.parseInt(date.substring(0, 2)) - 1;
 		day = Integer.parseInt(date.substring(3, 5));
 		year = Integer.parseInt(date.substring(6, 10));
 		
