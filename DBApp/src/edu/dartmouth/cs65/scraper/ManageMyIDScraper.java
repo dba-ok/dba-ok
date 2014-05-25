@@ -3,6 +3,7 @@ package edu.dartmouth.cs65.scraper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -29,13 +30,21 @@ import ch.boye.httpclientandroidlib.protocol.BasicHttpContext;
 import ch.boye.httpclientandroidlib.protocol.HttpContext;
 import ch.boye.httpclientandroidlib.util.EntityUtils;
 
+import edu.dartmouth.cs65.Globals;
+import edu.dartmouth.cs65.TransactionEntry;
+
 public class ManageMyIDScraper{
 	private static final String LOGIN_PAGE = "https://dartmouth.managemyid.com/student/login.php";
 	private static final String WELCOME_PAGE = "https://dartmouth.managemyid.com/student/welcome.php";
 	private static final String HISTORY_PAGE = "https://dartmouth.managemyid.com/student/svc_history.php";
 	private static final String TRANSACTION_PAGE = "https://dartmouth.managemyid.com/student/svc_history_view.php";
+	private static final int TRANSACTION_LENGTH = 6;
+	private static final String PLAN = "S32";
+	
 	private String welcomePage;
+	private String transactionPage;
 	private HttpContext context;
+	private HashMap<String, Integer> locationMap;
 	
 	public ManageMyIDScraper(String username, String password){
 		try {
@@ -44,6 +53,16 @@ public class ManageMyIDScraper{
 			System.out.println("Authentication failed due to IOException.");
 			e.printStackTrace();
 		} 
+
+		//Temporary --  need to ask about Globals
+		locationMap = new HashMap<String, Integer>();
+		locationMap.put("King Arthur Flour Coffee Bar", 0);
+		locationMap.put("Collis Cafe", 1);
+		locationMap.put("Novack Cafe", 2);
+		locationMap.put("53 Commons", 3);
+		locationMap.put("Courtyard Cafe", 4);
+	
+		
 	}
 	
 	public void authenticate(String username, String password) throws IOException{
@@ -128,9 +147,15 @@ public class ManageMyIDScraper{
 	/*
 	 * Gets the user's total DBA at the beginning of the term
 	 */
-	//public String getTotalDBA(){
+	public String getTotalDBA(){
+		String totalBalance = "";
+		Document transaction = Jsoup.parse(transactionPage);
+
+		Element e = transaction.select("td").first();
+		totalBalance = e.text();
 		
-	//}
+		return totalBalance;
+	}
 	
 	/*
 	 * Parse the session token from a ManageMyID webpage if it exists
@@ -190,7 +215,10 @@ public class ManageMyIDScraper{
 		return balance;
 	}
 	
-	public void getHistoryByDates(Calendar start, Calendar end) throws ClientProtocolException, IOException{
+	/*
+	 * Retrieves the HTML from the transaction history page given a start and end date
+	 */
+	public void getTransactionHistoryPage(Calendar start, Calendar end) throws ClientProtocolException, IOException{
 		List <NameValuePair> params = new ArrayList <NameValuePair>();
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 
@@ -201,9 +229,9 @@ public class ManageMyIDScraper{
 		params.add(new BasicNameValuePair("ToMonth", convertToString(end.get(Calendar.MONTH))));
 		params.add(new BasicNameValuePair("ToDay", convertToString(end.get(Calendar.DAY_OF_MONTH))));
 		params.add(new BasicNameValuePair("ToYear", convertToString(end.get(Calendar.YEAR))));
-		params.add(new BasicNameValuePair("plan", "S32"));
+		params.add(new BasicNameValuePair("plan", PLAN));
 		
-		String sesstok = getSessionToken(HISTORY_PAGE);
+		String sesstok = getSessionToken(welcomePage);
 		if (sesstok.length() > 0){
 			params.add(new BasicNameValuePair("__sesstok", sesstok));
 		}
@@ -216,9 +244,98 @@ public class ManageMyIDScraper{
 		HttpResponse transactionResponse = httpclient.execute(postTransaction, context);
 		HttpEntity transactionEntity = transactionResponse.getEntity();
 		
-		System.out.println(EntityUtils.toString(transactionEntity));
+		transactionPage = EntityUtils.toString(transactionEntity);
+		EntityUtils.consume(transactionEntity);
 	}
 	
+	/*
+	 * Creates an ArrayList of TransactionEntry objects using the data from
+	 * svc_history_view.php
+	 */
+	private ArrayList<TransactionEntry> getTransactionHistory(){
+		int TRANSACTION_START, currCell, location;
+		double spent;
+		Calendar dateTime;
+		ArrayList<TransactionEntry> entries = new ArrayList<TransactionEntry>();
+		
+		//Get all cells from transaction history page
+		Document transaction = Jsoup.parse(transactionPage);
+		Elements cells = transaction.select("td");
+		
+		TRANSACTION_START = 2; //where cells start showing transaction data
+		currCell = TRANSACTION_START;
+		
+		//Iterate through all cells on svc_history_view, retrieve data, and save as
+		//TransactionEntry objects
+		while (currCell < cells.size()){
+			TransactionEntry newEntry = new TransactionEntry();
+			
+			//Retrieve values for TransactionEntry object
+			dateTime = setTransactionCalendar(cells.get(currCell).text());
+			location = locationMap.get(cells.get(currCell + 1).text());
+			spent = convertValueStringToDouble(cells.get(currCell + 4).text());
+			
+			//Set new values for newEntry
+			newEntry.setDateTime(dateTime.get(Calendar.YEAR), dateTime.get(Calendar.MONTH), dateTime.get(Calendar.DAY_OF_MONTH));
+			newEntry.setLocation(location);
+			newEntry.setAmount(spent);
+			
+			System.out.println("date Time :" + dateTime.get(Calendar.MONTH) + "/" + dateTime.get(Calendar.DAY_OF_MONTH) + 
+					"/" + dateTime.get(Calendar.YEAR));
+			System.out.println("location: " + location);
+			System.out.println("money spent: " + spent);
+			
+			//Add new TransactionEntry object to ArrayList
+			entries.add(newEntry);
+			
+			currCell += TRANSACTION_LENGTH; //Go to next transaction
+		}
+		
+		return entries;
+	}
+	
+	/*
+	 * Takes $xx.xx String and converts to a double
+	 */
+	private double convertValueStringToDouble(String dbaSpent){
+		String stripped = dbaSpent.substring(1);
+		double value = Double.parseDouble(stripped);
+		
+		return value;
+	}
+	
+	/*
+	 * Takes date and time string (xx/xx/xxxx yy:yy:yy) from transaction history
+	 *  and converts it into a Calendar object 
+	 */
+	private Calendar setTransactionCalendar(String dateTime){
+		String date, time;
+		String[] splitDateTime;
+		int month, day, year, hour, minute, second;
+		Calendar c;
+		
+		splitDateTime = dateTime.split(" ");
+		date = splitDateTime[0];
+		time = splitDateTime[1];
+		c = Calendar.getInstance();
+		
+		month = Integer.parseInt(date.substring(0, 2)) - 1;
+		day = Integer.parseInt(date.substring(3, 5));
+		year = Integer.parseInt(date.substring(6, 10));
+		
+		hour = Integer.parseInt(time.substring(0, 2));
+		minute = Integer.parseInt(time.substring(3, 5));
+		second = Integer.parseInt(time.substring(6, 8));
+		
+		c.set(Calendar.MONTH, month);
+		c.set(Calendar.DAY_OF_MONTH, day);
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.HOUR_OF_DAY, hour);
+		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, second);
+		
+		return c;
+	}
 	
 	/*
 	 * Converts Calendar values to strings, making adjustments for ManageMyId
@@ -233,21 +350,15 @@ public class ManageMyIDScraper{
 		
 		return param;
 	}
+	
 	public static void main(String[] args) throws ParseException, IOException{
 		ManageMyIDScraper test = new ManageMyIDScraper("eva.w.xiao@dartmouth.edu", "testpassword");
-		//test.getDBABalance();
-		//test.getSwipeBalance();
-		Calendar FOURTEEN_SPRING_START = getCalendarForDate(3,24,2014);
-		Calendar FOURTEEN_SPRING_END = getCalendarForDate(6,3,2014);
-		test.getHistoryByDates(FOURTEEN_SPRING_START, FOURTEEN_SPRING_END);
+		test.getDBABalance();
+		test.getSwipeBalance();
 
+		test.getTransactionHistoryPage(Globals.FOURTEEN_SPRING_START, Globals.FOURTEEN_SPRING_END);
+		test.getTransactionHistory();
+		
 	}
 	
-	public static Calendar getCalendarForDate(int month,int day,int year){
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.MONTH,month);
-		c.set(Calendar.DAY_OF_MONTH,day);
-		c.set(Calendar.YEAR,year);
-		return c;
-	}
 }
