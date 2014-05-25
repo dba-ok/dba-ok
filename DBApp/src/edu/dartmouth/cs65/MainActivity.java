@@ -10,6 +10,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,7 +21,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import edu.dartmouth.cs65.scraper.ManageMyIDScraper;
-import edu.dartmouth.cs65.Utils;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -41,11 +41,14 @@ public class MainActivity extends FragmentActivity implements
 
 	private String mUsername;
 	private String mPassword;
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		context = this;
 
 		// set up the actionbar and view pager
 		mActionBar = getActionBar();
@@ -64,6 +67,15 @@ public class MainActivity extends FragmentActivity implements
 				.getSharedPreferences(mKey, MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 
+		// add balance/swipes for now...until we get the scraper working :)
+		mKey = getString(R.string.preference_key_balance);
+		mEditor.putString(mKey, "0.0");
+		mKey = getString(R.string.preference_key_swipes);
+		mEditor.putString(mKey, "0");
+		mKey = getString(R.string.preference_key_dba_initial);
+		mEditor.putString(mKey, "920.00");
+		mEditor.commit();
+		
 		mKey = getString(R.string.preference_key_username);
 		mUsername = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_password);
@@ -71,14 +83,7 @@ public class MainActivity extends FragmentActivity implements
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
 
-		// add balance/swipes for now...until we get the scraper working :)
-		mKey = getString(R.string.preference_key_balance);
-		mEditor.putString(mKey, "1.46");
-		mKey = getString(R.string.preference_key_swipes);
-		mEditor.putString(mKey, "3");
-		mKey = getString(R.string.preference_key_dba_initial);
-		mEditor.putString(mKey, "920.00");
-		mEditor.commit();
+
 
 		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
 
@@ -97,9 +102,11 @@ public class MainActivity extends FragmentActivity implements
 			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
 			mEditor.commit();
 			showWelcome();
+			//manageMyIDInBackground();
 		}
-		
-		updateData();
+		if(mUsername != "" && mPassword != ""){
+			manageMyIDInBackground();
+		}
 
 	}
 
@@ -116,14 +123,22 @@ public class MainActivity extends FragmentActivity implements
 		mPassword = mPrefs.getString(mKey, "");
 
 		ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername, mPassword);
-		scraper.getDBABalance();
-		scraper.getSwipeBalance();
+		mKey = getString(R.string.preference_key_balance);
+		mEditor.putString(mKey, scraper.getDBABalance());
+		mKey = getString(R.string.preference_key_swipes);
+		mEditor.putString(mKey, scraper.getSwipeBalance());
+		mKey = getString(R.string.preference_key_dba_initial);
+		mEditor.putString(mKey, scraper.getTotalDBA());
+		mEditor.commit();
 
+		// get the transaction history, delete all rows currently in db and
+		// replace with new entries from the web
 		Calendar[] startEndDates = Utils.getTermStartEnd();
 		try {
 			scraper.getTransactionHistoryPage(startEndDates[0],
 					startEndDates[1]);
-			ArrayList<TransactionEntry> entryList = scraper.getTransactionHistory();
+			ArrayList<TransactionEntry> entryList = scraper
+					.getTransactionHistory();
 			dbHelper.deleteAllEntries();
 			dbHelper.insertEntryList(entryList);
 		} catch (Exception e) {
@@ -323,5 +338,57 @@ public class MainActivity extends FragmentActivity implements
 			}
 			return null;
 		}
+	}
+
+	public void manageMyIDInBackground() {
+		new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				String mKey = getString(R.string.preference_name);
+				TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
+						context);
+				SharedPreferences mPrefs = context.getSharedPreferences(mKey,
+						MODE_PRIVATE);
+				SharedPreferences.Editor mEditor = mPrefs.edit();
+
+				mKey = getString(R.string.preference_key_username);
+				mUsername = mPrefs.getString(mKey, "");
+				mKey = getString(R.string.preference_key_password);
+				mPassword = mPrefs.getString(mKey, "");
+
+				ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername,
+						mPassword);
+				mKey = getString(R.string.preference_key_balance);
+				mEditor.putString(mKey, scraper.getDBABalance());
+				mKey = getString(R.string.preference_key_swipes);
+				mEditor.putString(mKey, scraper.getSwipeBalance());
+				mKey = getString(R.string.preference_key_dba_initial);
+				mEditor.putString(mKey, scraper.getTotalDBA());
+				mEditor.commit();
+				String success = "";
+				// get the transaction history, delete all rows currently in db
+				// and replace with new entries from the web
+				Calendar[] startEndDates = Utils.getTermStartEnd();
+				try {
+					scraper.getTransactionHistoryPage(startEndDates[0],
+							startEndDates[1]);
+					ArrayList<TransactionEntry> entryList = scraper
+							.getTransactionHistory();
+					Log.d("CS65","Size of entryList: " + entryList.size());
+					dbHelper.deleteAllEntries();
+					dbHelper.insertEntryList(entryList);
+					success = "YAY!";
+				} catch (Exception e) {
+					e.printStackTrace();
+					success = "boooo error!";
+				}
+				return success;
+			}
+
+			@Override
+			protected void onPostExecute(String success) {
+				Log.d("CS65", "Executing");
+			}
+		}.execute(null, null, null);
 	}
 }

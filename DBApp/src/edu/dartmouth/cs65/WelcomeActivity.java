@@ -15,7 +15,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import edu.dartmouth.cs65.MainActivity;
 import edu.dartmouth.cs65.R;
 
 public class WelcomeActivity extends Activity implements OnCheckedChangeListener {
@@ -103,7 +103,6 @@ public class WelcomeActivity extends Activity implements OnCheckedChangeListener
 
 		mEditor.commit();
 		
-
 		finish();
 	}
 	
