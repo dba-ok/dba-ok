@@ -1,6 +1,8 @@
 package edu.dartmouth.cs65.scraper;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -11,6 +13,8 @@ import org.jsoup.select.Elements;
 import ch.boye.httpclientandroidlib.HttpEntity;
 import ch.boye.httpclientandroidlib.HttpResponse;
 import ch.boye.httpclientandroidlib.NameValuePair;
+import ch.boye.httpclientandroidlib.ParseException;
+import ch.boye.httpclientandroidlib.client.ClientProtocolException;
 import ch.boye.httpclientandroidlib.client.CookieStore;
 import ch.boye.httpclientandroidlib.client.entity.UrlEncodedFormEntity;
 import ch.boye.httpclientandroidlib.client.methods.HttpGet;
@@ -28,20 +32,23 @@ import ch.boye.httpclientandroidlib.util.EntityUtils;
 public class ManageMyIDScraper{
 	private static final String LOGIN_PAGE = "https://dartmouth.managemyid.com/student/login.php";
 	private static final String WELCOME_PAGE = "https://dartmouth.managemyid.com/student/welcome.php";
-	private HttpEntity welcomeEntity;
+	private static final String HISTORY_PAGE = "https://dartmouth.managemyid.com/student/svc_history.php";
+	private static final String TRANSACTION_PAGE = "https://dartmouth.managemyid.com/student/svc_history_view.php";
+	private String welcomePage;
+	private HttpContext context;
 	
 	public ManageMyIDScraper(String username, String password){
 		try {
-			welcomeEntity = authenticate(username, password); //log in to welcome.php
+			authenticate(username, password); //login to welcome.php
 		} catch (IOException e) {
-			System.out.println("Authentication failed.");
+			System.out.println("Authentication failed due to IOException.");
 			e.printStackTrace();
 		} 
 	}
 	
-	public HttpEntity authenticate(String username, String password) throws IOException{
-		HttpEntity finalEntity;
+	public void authenticate(String username, String password) throws IOException{
 		String sesstok;
+		boolean success;
 		
 		//Set up cookie store to save cookies
 		DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -50,12 +57,12 @@ public class ManageMyIDScraper{
           ClientPNames.COOKIE_POLICY, CookiePolicy.BROWSER_COMPATIBILITY); 
         
         //Store Cookiestore in Context
-        HttpContext context = new BasicHttpContext();
-        context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+        HttpContext c = new BasicHttpContext();
+        c.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
         
         //GET request to ManageMyID's login page
         HttpGet getLogin = new HttpGet(LOGIN_PAGE);
-        HttpResponse loginResponse = httpclient.execute(getLogin, context);
+        HttpResponse loginResponse = httpclient.execute(getLogin, c);
         
         HttpEntity loginEntity = loginResponse.getEntity();
         
@@ -79,24 +86,30 @@ public class ManageMyIDScraper{
         
         postLogin.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
-        HttpResponse loginResponse2 = httpclient.execute(postLogin, context);
+        HttpResponse loginResponse2 = httpclient.execute(postLogin, c);
 
         HttpEntity loginEntity2 = loginResponse2.getEntity();
         EntityUtils.consume(loginEntity2);
         
         //GET request to welcome page 
         HttpGet getWelcome = new HttpGet(WELCOME_PAGE);
-        HttpResponse welcomeResponse = httpclient.execute(getWelcome, context);
+        HttpResponse welcomeResponse = httpclient.execute(getWelcome, c);
         HttpEntity welcomeEntity = welcomeResponse.getEntity();
-        finalEntity = welcomeEntity;
         
-        boolean success = authenticationSuccess(EntityUtils.toString(welcomeEntity)); //Check if we managed to log in correctly
-        System.out.println("User logged into ManageMyID: " + success);
+        //Define class variables before consuming entity
+        welcomePage = EntityUtils.toString(welcomeEntity);
+        context = c;
+        
         EntityUtils.consume(welcomeEntity);
         
-        return finalEntity;
+        //Check if we're successful
+        success = authenticationSuccess(welcomePage); //Check if we managed to log in correctly
+        System.out.println("User logged into ManageMyID: " + success);
     }
 	
+	/*
+	 * Checks if authentication worked
+	 */
 	private boolean authenticationSuccess(String html){
 		boolean authenticated = false;
 		Document webpage = Jsoup.parse(html);
@@ -112,7 +125,16 @@ public class ManageMyIDScraper{
 		return authenticated;
 	}
 	
-	//ManageMyID sometimes has a session token that you need to include when authenticating
+	/*
+	 * Gets the user's total DBA at the beginning of the term
+	 */
+	//public String getTotalDBA(){
+		
+	//}
+	
+	/*
+	 * Parse the session token from a ManageMyID webpage if it exists
+	 */
 	private String getSessionToken(String html){
 		String sesstok = "";
 		Document loginPage = Jsoup.parse(html);
@@ -129,7 +151,103 @@ public class ManageMyIDScraper{
 		return sesstok;
 	}
 	
-	public static void main(String[] args){
+	/*
+	 * Note: This code relies on the welcome.php HTML having the <td>balance_value<td> cell being after the
+	 * "Dining DBA" cell in one of the table elements. 
+	 */
+	public String getDBABalance(){
+		Document welcome = Jsoup.parse(welcomePage);
+		Elements cells = welcome.select("td");
+		String balance = "";
+
+		for (int i = 0; i < cells.size(); i++){
+			if (cells.get(i).text().equals("Dining DBA")){
+				balance = cells.get(i + 1).text();
+				break;
+			}
+		}
+		
+		return balance;
+	}
+	
+	/*
+	 * Note: This code relies on the fact that the Swipes Remaining cell in welcome.php is identifiable by its
+	 * "colspan" attribute. The cell doesn't have an id or name attribute. 
+	 */
+	public String getSwipeBalance(){
+		Document welcome = Jsoup.parse(welcomePage);
+		Elements cells = welcome.select("td");
+		String balance = "";
+
+		for (int i = 0; i < cells.size(); i++){
+			if (cells.get(i).attr("colspan").equals("2")){
+				balance = cells.get(i).text();
+				
+				break;
+			}
+		}
+		
+		return balance;
+	}
+	
+	public void getHistoryByDates(Calendar start, Calendar end) throws ClientProtocolException, IOException{
+		List <NameValuePair> params = new ArrayList <NameValuePair>();
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+
+		//Set parameters for svc_history_view.php
+		params.add(new BasicNameValuePair("FromMonth", convertToString(start.get(Calendar.MONTH))));
+		params.add(new BasicNameValuePair("FromDay", convertToString(start.get(Calendar.DAY_OF_MONTH))));
+		params.add(new BasicNameValuePair("FromYear", convertToString(start.get(Calendar.YEAR))));
+		params.add(new BasicNameValuePair("ToMonth", convertToString(end.get(Calendar.MONTH))));
+		params.add(new BasicNameValuePair("ToDay", convertToString(end.get(Calendar.DAY_OF_MONTH))));
+		params.add(new BasicNameValuePair("ToYear", convertToString(end.get(Calendar.YEAR))));
+		params.add(new BasicNameValuePair("plan", "S32"));
+		
+		String sesstok = getSessionToken(HISTORY_PAGE);
+		if (sesstok.length() > 0){
+			params.add(new BasicNameValuePair("__sesstok", sesstok));
+		}
+		
+		//POST to svc_history_view.php
+		HttpPost postTransaction = new HttpPost(TRANSACTION_PAGE);
+		postTransaction.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+		postTransaction.addHeader("Referer", HISTORY_PAGE);
+				
+		HttpResponse transactionResponse = httpclient.execute(postTransaction, context);
+		HttpEntity transactionEntity = transactionResponse.getEntity();
+		
+		System.out.println(EntityUtils.toString(transactionEntity));
+	}
+	
+	
+	/*
+	 * Converts Calendar values to strings, making adjustments for ManageMyId
+	 */
+	private static String convertToString(int value){
+		String param = Integer.toString(value);
+		String zero = "0";
+		
+		if (param.length() < 2){ //so May or "5" becomes "05"
+			param = zero + param;
+		}
+		
+		return param;
+	}
+	public static void main(String[] args) throws ParseException, IOException{
 		ManageMyIDScraper test = new ManageMyIDScraper("eva.w.xiao@dartmouth.edu", "testpassword");
+		//test.getDBABalance();
+		//test.getSwipeBalance();
+		Calendar FOURTEEN_SPRING_START = getCalendarForDate(3,24,2014);
+		Calendar FOURTEEN_SPRING_END = getCalendarForDate(6,3,2014);
+		test.getHistoryByDates(FOURTEEN_SPRING_START, FOURTEEN_SPRING_END);
+
+	}
+	
+	public static Calendar getCalendarForDate(int month,int day,int year){
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH,month);
+		c.set(Calendar.DAY_OF_MONTH,day);
+		c.set(Calendar.YEAR,year);
+		return c;
 	}
 }
