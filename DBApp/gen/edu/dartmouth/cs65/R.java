@@ -54,6 +54,7 @@ public final class R {
         public static final int EmailAddress=0x7f0a002e;
         public static final int EnterEmail=0x7f0a002f;
         public static final int EnterPassword=0x7f0a0031;
+        public static final int GetManageMyId=0x7f0a0034;
         public static final int IdealAvg=0x7f0a000a;
         public static final int IdealAvgNum=0x7f0a000b;
         public static final int Location=0x7f0a0010;
@@ -66,7 +67,7 @@ public final class R {
         public static final int UserAvg=0x7f0a0007;
         public static final int UserAvgNum=0x7f0a0008;
         public static final int Welcome=0x7f0a002c;
-        public static final int action_settings=0x7f0a0034;
+        public static final int action_settings=0x7f0a0035;
         public static final int back_button=0x7f0a0029;
         public static final int button_bar=0x7f0a0028;
         public static final int closedLocations=0x7f0a001d;
@@ -124,19 +125,19 @@ public final class R {
         /**   Strings for possible PreferenceActivity Back/Next buttons 
          */
         public static final int back_button_label=0x7f060000;
-        public static final int budget_interval_title=0x7f060048;
-        public static final int closing_collis_key=0x7f060034;
-        public static final int closing_foco_key=0x7f06003a;
-        public static final int closing_hop_key=0x7f06003d;
-        public static final int closing_kaf_key=0x7f060031;
-        public static final int closing_novack_key=0x7f060037;
-        public static final int closing_reminder_preference_key=0x7f06002e;
-        public static final int hello_world=0x7f06004c;
-        public static final int meal_reminder_preference_key=0x7f060028;
+        public static final int budget_interval_title=0x7f060049;
+        public static final int closing_collis_key=0x7f060035;
+        public static final int closing_foco_key=0x7f06003b;
+        public static final int closing_hop_key=0x7f06003e;
+        public static final int closing_kaf_key=0x7f060032;
+        public static final int closing_novack_key=0x7f060038;
+        public static final int closing_reminder_preference_key=0x7f06002f;
+        public static final int hello_world=0x7f06004d;
+        public static final int meal_reminder_preference_key=0x7f060029;
         public static final int next_button_label=0x7f060001;
         /**  PREFERENCES Strings 
          */
-        public static final int pref_category_notifications=0x7f060027;
+        public static final int pref_category_notifications=0x7f060028;
         public static final int preference_key_balance=0x7f060014;
         public static final int preference_key_collis_closing=0x7f060010;
         public static final int preference_key_dba_initial=0x7f060016;
@@ -154,47 +155,47 @@ public final class R {
         /**  Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] 
          */
         public static final int skip_button_label=0x7f060002;
-        public static final int summary_closing_collis=0x7f060036;
-        public static final int summary_closing_foco=0x7f06003c;
-        public static final int summary_closing_hop=0x7f06003f;
-        public static final int summary_closing_kaf=0x7f060033;
-        public static final int summary_closing_novack=0x7f060039;
-        public static final int summary_closing_reminder_checkbox=0x7f06002f;
-        public static final int summary_meal_reminder_checkbox=0x7f060029;
-        public static final int summary_yummy_reminder_checkbox=0x7f06002c;
-        public static final int title_activity_prefs=0x7f06004b;
+        public static final int summary_closing_collis=0x7f060037;
+        public static final int summary_closing_foco=0x7f06003d;
+        public static final int summary_closing_hop=0x7f060040;
+        public static final int summary_closing_kaf=0x7f060034;
+        public static final int summary_closing_novack=0x7f06003a;
+        public static final int summary_closing_reminder_checkbox=0x7f060030;
+        public static final int summary_meal_reminder_checkbox=0x7f06002a;
+        public static final int summary_yummy_reminder_checkbox=0x7f06002d;
+        public static final int title_activity_prefs=0x7f06004c;
         public static final int title_activity_welcome=0x7f060004;
-        public static final int title_closing=0x7f060030;
-        public static final int title_closing_collis=0x7f060035;
-        public static final int title_closing_foco=0x7f06003b;
-        public static final int title_closing_hop=0x7f06003e;
-        public static final int title_closing_kaf=0x7f060032;
-        public static final int title_closing_novack=0x7f060038;
-        public static final int title_meal_reminder_checkbox=0x7f06002a;
+        public static final int title_closing=0x7f060031;
+        public static final int title_closing_collis=0x7f060036;
+        public static final int title_closing_foco=0x7f06003c;
+        public static final int title_closing_hop=0x7f06003f;
+        public static final int title_closing_kaf=0x7f060033;
+        public static final int title_closing_novack=0x7f060039;
+        public static final int title_meal_reminder_checkbox=0x7f06002b;
         public static final int title_section1=0x7f060006;
         public static final int title_section2=0x7f060007;
         public static final int title_section3=0x7f060008;
         public static final int title_section4=0x7f060009;
         public static final int title_section5=0x7f06000a;
-        public static final int title_yummy_reminder_checkbox=0x7f06002d;
-        public static final int ui_balance_dba_title=0x7f060025;
-        public static final int ui_balance_swipes_title=0x7f060024;
-        public static final int ui_budget_idealavg_title=0x7f06004a;
+        public static final int title_yummy_reminder_checkbox=0x7f06002e;
+        public static final int ui_balance_dba_title=0x7f060026;
+        public static final int ui_balance_swipes_title=0x7f060025;
+        public static final int ui_budget_idealavg_title=0x7f06004b;
         /**  Budget 
          */
-        public static final int ui_budget_useravg_title=0x7f060049;
-        public static final int ui_locations_closed_title=0x7f060046;
-        public static final int ui_locations_collis_title=0x7f060041;
+        public static final int ui_budget_useravg_title=0x7f06004a;
+        public static final int ui_locations_closed_title=0x7f060047;
+        public static final int ui_locations_collis_title=0x7f060042;
         /**  Spinner for locations 
          */
-        public static final int ui_locations_dayofweek_title=0x7f060047;
-        public static final int ui_locations_foco_title=0x7f060042;
-        public static final int ui_locations_hop_title=0x7f060043;
-        public static final int ui_locations_kaf_title=0x7f060044;
-        public static final int ui_locations_novack_title=0x7f060045;
+        public static final int ui_locations_dayofweek_title=0x7f060048;
+        public static final int ui_locations_foco_title=0x7f060043;
+        public static final int ui_locations_hop_title=0x7f060044;
+        public static final int ui_locations_kaf_title=0x7f060045;
+        public static final int ui_locations_novack_title=0x7f060046;
         /**  Locations 
          */
-        public static final int ui_locations_open_title=0x7f060040;
+        public static final int ui_locations_open_title=0x7f060041;
         public static final int ui_menu_about=0x7f06001c;
         public static final int ui_menu_add=0x7f060019;
         public static final int ui_menu_feedback=0x7f06001b;
@@ -206,12 +207,13 @@ public final class R {
         public static final int ui_menu_share=0x7f06001d;
         public static final int ui_welcome_email_hint=0x7f060021;
         public static final int ui_welcome_email_title=0x7f060020;
+        public static final int ui_welcome_getmanagemyid_title=0x7f060024;
         public static final int ui_welcome_managemyid_title=0x7f060023;
         public static final int ui_welcome_password_title=0x7f060022;
-        public static final int ui_welcome_signin=0x7f060026;
+        public static final int ui_welcome_signin=0x7f060027;
         public static final int ui_welcome_signin_title=0x7f06001f;
         public static final int ui_welcome_welcome_title=0x7f06001e;
-        public static final int yummy_reminder_preference_key=0x7f06002b;
+        public static final int yummy_reminder_preference_key=0x7f06002c;
     }
     public static final class style {
         /** 

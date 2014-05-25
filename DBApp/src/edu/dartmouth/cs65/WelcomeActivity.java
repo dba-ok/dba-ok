@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.dartmouth.cs65.R;
@@ -27,6 +30,12 @@ public class WelcomeActivity extends Activity  {
 		setContentView(R.layout.welcome);
 		email = (EditText) findViewById(R.id.EnterEmail);
 		password =  (EditText) findViewById(R.id.EnterPassword);
+		
+		TextView textView =(TextView)findViewById(R.id.GetManageMyId);
+		textView.setClickable(true);
+		textView.setMovementMethod(LinkMovementMethod.getInstance());
+		String text = "<a href='https://dartmouth.managemyid.com/student/login.php'> Get one here </a>";
+		textView.setText(Html.fromHtml(text));
 
 	}
 	

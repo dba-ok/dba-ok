@@ -27,29 +27,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MyStatsFragment extends Fragment {
-	
-/*	public WebView wv; 
-	
-	public MyStatsFragment(){	
-	}
-	
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.mystats, container, false);
-    }
-    
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-		wv = (WebView) getView().findViewById(R.id.mystatswebview);
-	    wv.getSettings().setJavaScriptEnabled(true);
-	    wv.setBackgroundColor(Color.BLACK);
-	     
-		wv.loadUrl("file:///android_asset/chart/stats2.html");
-	} */
-	
+		
 	
     private final String TAG = getClass().getSimpleName();
 
