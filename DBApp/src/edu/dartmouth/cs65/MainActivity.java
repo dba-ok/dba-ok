@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import edu.dartmouth.cs65.scraper.ManageMyIDScraper;
 
 public class MainActivity extends FragmentActivity implements
@@ -68,13 +69,19 @@ public class MainActivity extends FragmentActivity implements
 				.getSharedPreferences(mKey, MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 
-		// add balance/swipes for now...until we get the scraper working :)
+		//if there is nothing in shared prefs for balance, swipes, initial bal, set manually. 
 		mKey = getString(R.string.preference_key_balance);
-		mEditor.putString(mKey, "0.0");
+		if(mPrefs.getString(mKey,"").equals("")){
+			mEditor.putString(mKey,"0.0");
+		}
 		mKey = getString(R.string.preference_key_swipes);
-		mEditor.putString(mKey, "0");
+		if(mPrefs.getString(mKey,"").equals("")){
+			mEditor.putString(mKey,"0");
+		}
 		mKey = getString(R.string.preference_key_dba_initial);
-		mEditor.putString(mKey, "920.00");
+		if(mPrefs.getString(mKey, "").equals("")){
+			mEditor.putString(mKey, "920.00");
+		}
 		mEditor.commit();
 
 		mKey = getString(R.string.preference_key_username);
@@ -397,6 +404,11 @@ public class MainActivity extends FragmentActivity implements
 
 			@Override
 			protected void onPostExecute(String success) {
+				if(success.equals("YAY!")){
+					Toast.makeText(getApplicationContext(), "Data has been updated!",
+					Toast.LENGTH_SHORT).show();
+
+				}
 				Log.d("CS65", "Executing");
 			}
 		}.execute(null, null, null);

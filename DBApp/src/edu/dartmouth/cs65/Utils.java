@@ -84,7 +84,7 @@ public class Utils {
 		// find out current term's start/end date
 		// figure out term's start day in year/
 		Calendar[] cal = getTermStartEnd();
-		int firstDay = cal[0].DAY_OF_YEAR;
+		int firstDay = cal[0].get(Calendar.DAY_OF_YEAR);
 
 		int week = 0;
 		for (TransactionEntry entry : entryList) {
@@ -96,6 +96,11 @@ public class Utils {
 			// find out which week in the term the transaction corresponds to
 			// increment the appropriate index in the weeklySpending arraylist
 			week = (entry.getDateTimeDay() - firstDay) / 7;
+			Log.d("WEEKLYSPENDING","entry day in year is " + entry.getDateTimeDay());
+			Log.d("WEEKLYSPENDING","first day of term in year is " + firstDay);
+			Log.d("WEEKLYSPENDING","week:  " + week);
+
+
 			weeklySpending.set(week,
 					weeklySpending.get(week) + entry.getAmount());
 		}
