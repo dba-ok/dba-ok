@@ -39,6 +39,10 @@ public class WelcomeActivity extends Activity  {
 
 	}
 	
+	public void onCheckboxClicked(View v){
+		
+	}
+	
 
 	public void onSignInClicked(View v) {
 		// save the user profile to shared preferences and save photo to
