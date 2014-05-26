@@ -69,17 +69,18 @@ public class MainActivity extends FragmentActivity implements
 				.getSharedPreferences(mKey, MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 
-		//if there is nothing in shared prefs for balance, swipes, initial bal, set manually. 
+		// if there is nothing in shared prefs for balance, swipes, initial bal,
+		// set manually.
 		mKey = getString(R.string.preference_key_balance);
-		if(mPrefs.getString(mKey,"").equals("")){
-			mEditor.putString(mKey,"0.0");
+		if (mPrefs.getString(mKey, "").equals("")) {
+			mEditor.putString(mKey, "0.0");
 		}
 		mKey = getString(R.string.preference_key_swipes);
-		if(mPrefs.getString(mKey,"").equals("")){
-			mEditor.putString(mKey,"0");
+		if (mPrefs.getString(mKey, "").equals("")) {
+			mEditor.putString(mKey, "0");
 		}
 		mKey = getString(R.string.preference_key_dba_initial);
-		if(mPrefs.getString(mKey, "").equals("")){
+		if (mPrefs.getString(mKey, "").equals("")) {
 			mEditor.putString(mKey, "920.00");
 		}
 		mEditor.commit();
@@ -104,7 +105,8 @@ public class MainActivity extends FragmentActivity implements
 		Log.d(TAG, " mUsername not blank: " + mUsername);
 		Log.d(TAG, "mPassword not blank: " + mPassword);
 
-		if (!welcomeScreenShown || (mUsername.equals("") || mPassword.equals(""))) {
+		if (!welcomeScreenShown
+				|| (mUsername.equals("") || mPassword.equals(""))) {
 			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
 			mEditor.commit();
 			showWelcome();
@@ -113,6 +115,11 @@ public class MainActivity extends FragmentActivity implements
 		if (!mUsername.equals("") && !mPassword.equals("")) {
 			manageMyIDInBackground();
 		}
+
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle oldState) {
 
 	}
 
@@ -328,11 +335,13 @@ public class MainActivity extends FragmentActivity implements
 
 				ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername,
 						mPassword);
-				Log.d(TAG, "scraper's loggedIn boolean value is:" + scraper.isLoggedIn());
-				//if (!scraper.isLoggedIn()){
-				//	String success = "invalid data";
-				//	return success;
-				//}
+				Log.d(TAG,
+						"scraper's loggedIn boolean value is:"
+								+ scraper.isLoggedIn());
+				if (!scraper.isLoggedIn()) {
+					String success = "invalid data";
+					return success;
+				}
 				mKey = getString(R.string.preference_key_balance);
 
 				String balance = "0.0";
@@ -373,14 +382,17 @@ public class MainActivity extends FragmentActivity implements
 
 			@Override
 			protected void onPostExecute(String success) {
-				if(success.equals("YAY!")){
-					Toast.makeText(getApplicationContext(), "Data has been updated!",
-					Toast.LENGTH_SHORT).show();
+				if (success.equals("YAY!")) {
+					Toast.makeText(getApplicationContext(),
+							"Data has been updated!", Toast.LENGTH_SHORT)
+							.show();
 
-				}
-				else if (success.equals("invalid data")){
-					Toast.makeText(getApplicationContext(), "Invalid username and/or password.",Toast.LENGTH_SHORT).show();
-					showWelcome();
+				} else if (success.equals("invalid data")) {
+					Toast.makeText(getApplicationContext(),
+							"Invalid username and/or password.",
+							Toast.LENGTH_SHORT).show();
+					logoutUser();
+					// showWelcome();
 				}
 				Log.d("CS65", "Executing");
 			}
@@ -391,48 +403,38 @@ public class MainActivity extends FragmentActivity implements
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
 	}
-	
-	
-	public void onLogoutClicked(View v){
+
+	public void onLogoutClicked(View v) {
 		String mKey = getString(R.string.preference_name);
-        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
-        
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mKey = getString(R.string.preference_logged_in);
-        mEditor.putBoolean(mKey, false);
-        mEditor.commit();
-        
+		SharedPreferences mPrefs = this.getSharedPreferences(mKey,
+				Context.MODE_PRIVATE);
+
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+		mKey = getString(R.string.preference_logged_in);
+		mEditor.putBoolean(mKey, false);
+		mEditor.commit();
+
 		logoutUser();
 		showWelcome();
-		
 	}
-	
-	private void logoutUser(){
-		boolean stayLoggedIn;
+
+	// logs the user out.
+	// overwrites username and password in shared prefs
+	private void logoutUser() {
 		String mKey = getString(R.string.preference_name);
-        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
-        
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mKey = getString(R.string.preference_logged_in);
-        stayLoggedIn = mPrefs.getBoolean(mKey, false);
-        Log.d(TAG, "Does the user want to stay logged in?" + stayLoggedIn);
-        
-        //Reset username and password in SharedPrefs to empty strings
-        if (!stayLoggedIn){
-        	mKey = getString(R.string.preference_key_username);
-        	mEditor.putString(mKey, "");
-        	
-        	mKey = getString(R.string.preference_key_password);
-        	mEditor.putString(mKey, "");
-        	
-        	mEditor.commit();
-        }
+		SharedPreferences mPrefs = this.getSharedPreferences(mKey,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor mEditor = mPrefs.edit();
+		mKey = getString(R.string.preference_key_username);
+		mEditor.putString(mKey, "");
+		mKey = getString(R.string.preference_key_password);
+		mEditor.putString(mKey, "");
+		mEditor.commit();
 	}
-	
+
 	@Override
-	public void onDestroy(){
+	public void onDestroy() {
 		logoutUser();
-        
 		super.onDestroy();
 	}
 }
