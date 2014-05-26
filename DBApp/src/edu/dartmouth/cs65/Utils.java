@@ -1,26 +1,25 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the Utils class. The Utils class has helpful functions for BudgetFragment and MyStatsFragment to calculate 
+ * information about the user's spending habits.
+ */
 package edu.dartmouth.cs65;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-/**
- * Useful functions for BudgetFragment and MyStatsFragment
- * 
- * @author kimberlystrauch
- * 
- */
 
 public class Utils {
 
 	/**
 	 * Function to figure out how much money has been spent at each dining
 	 * location Each location will be given an integer constant in Globals. This
-	 * integer constant value will be used to index into the returned arraylist
+	 * integer constant value will be used to index into the returned
+	 * ArrayedList
 	 */
 	public static ArrayList<Double> getLocationSpending(Context context) {
 		ArrayList<Double> locationSpending = new ArrayList<Double>();
@@ -36,7 +35,7 @@ public class Utils {
 
 		// if there's no data in the database, return the default zero arraylist
 		if (entryList.size() == 0) {
-			Log.d("DATABASE","NOTHING IN DATABASE AGH!");
+			Log.d("DATABASE", "NOTHING IN DATABASE AGH!");
 			return locationSpending;
 		}
 		Calendar[] cal = getTermStartEnd();
@@ -58,10 +57,7 @@ public class Utils {
 	}
 
 	/**
-	 * Function to figure out how much has been spent each week for MyStates
-	 * 
-	 * @param context
-	 * @return the weekly spending for the current term
+	 * Function to figure out how much has been spent each week for MyStats
 	 */
 	public static ArrayList<Double> getWeeklySpending(Context context) {
 		ArrayList<Double> weeklySpending = new ArrayList<Double>();
@@ -77,12 +73,11 @@ public class Utils {
 		// if database is empty, entryList will be of size 0, we want to return
 		// the default all-zero arraylist
 		if (entryList.size() == 0) {
-			Log.d("DATABASE","NOTHING IN DATABASE AGH!");
 			return weeklySpending;
 		}
 
-		// find out current term's start/end date
-		// figure out term's start day in year/
+		// find out current term's start/end date to figure out the term's start
+		// day (in year)
 		Calendar[] cal = getTermStartEnd();
 		int firstDay = cal[0].get(Calendar.DAY_OF_YEAR);
 
@@ -94,13 +89,9 @@ public class Utils {
 			}
 
 			// find out which week in the term the transaction corresponds to
-			// increment the appropriate index in the weeklySpending arraylist
 			week = (entry.getDateTimeDay() - firstDay) / 7;
-			Log.d("WEEKLYSPENDING","entry day in year is " + entry.getDateTimeDay());
-			Log.d("WEEKLYSPENDING","first day of term in year is " + firstDay);
-			Log.d("WEEKLYSPENDING","week:  " + week);
 
-
+			// increment the appropriate index in the weeklySpending arraylist
 			weeklySpending.set(week,
 					weeklySpending.get(week) + entry.getAmount());
 		}
@@ -110,19 +101,14 @@ public class Utils {
 
 	/**
 	 * Figure out how many days in the term has passed, based on the most recent
-	 * transaction entry
-	 * 
-	 * @param context
-	 * @return number of days in term that have elapsed
+	 * transaction entry and return the number of elapsed days
 	 */
 	public static int getDaysElapsed(Context context) {
 		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 				context);
 		ArrayList<TransactionEntry> entryList = dbHelper.fetchEntries();
 		Calendar[] cal = getTermStartEnd();
-		Log.d("CS65", "CALENDAR FIRST DAY: " + cal[0]);
 		int firstDay = cal[0].get(Calendar.DAY_OF_YEAR);
-		Log.d("CS65", "FIRST DAY: " + firstDay);
 		// access last entry in entry list
 		int lastDay;
 		if (entryList.size() > 0) {
@@ -131,10 +117,8 @@ public class Utils {
 		} else {
 			Calendar c = Calendar.getInstance();
 			lastDay = c.get(Calendar.DAY_OF_YEAR);
-			Log.d("CS65", "LAST DAY: " + lastDay);
 		}
 		int daysPassed = lastDay - firstDay + 1;
-		Log.d("CS65", "Days passed: " + daysPassed);
 		return daysPassed;
 	}
 
@@ -142,9 +126,8 @@ public class Utils {
 	 * Function for BudgetFragment to get a user's past average daily or weekly
 	 * spending
 	 * 
-	 * @param context
 	 * @param interval
-	 *            , either an integer corresponding to a weekly or daily budget
+	 *            : an integer corresponding to a weekly or daily budget
 	 * @return amt spent average per interval
 	 */
 	public static String getPastAverageSpending(Context context, int interval) {
@@ -183,8 +166,8 @@ public class Utils {
 	 * 
 	 * @param context
 	 * @param interval
-	 *            either per week or per day
-	 * @return amt, amount to spend per interval to keep balance afloat
+	 *            : either per week or per day
+	 * @return amt, amount to spend per interval to keep balance above zero
 	 */
 	public static String getProjectedAverageSpending(Context context,
 			int interval) {
@@ -225,25 +208,21 @@ public class Utils {
 		if (Globals.FOURTEEN_SPRING_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_SUMMER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SPRING;
-			// Log.d("CS65", "TERM IS: " + "14S");
+
 		} else if (Globals.FOURTEEN_SUMMER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FOURTEEN_FALL_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_SUMMER;
-			// Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (Globals.FOURTEEN_FALL_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_WINTER_START.getTimeInMillis()) {
 			term = Globals.FOURTEEN_FALL;
-			// Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (Globals.FIFTEEN_WINTER_START.getTimeInMillis() <= currTime
 				&& currTime < Globals.FIFTEEN_SPRING_START.getTimeInMillis()) {
 			term = Globals.FIFTEEN_WINTER;
-			// Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (Globals.FIFTEEN_SPRING_START.getTimeInMillis() <= currTime) {
 			term = Globals.FIFTEEN_SPRING;
-			// Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 
@@ -257,26 +236,22 @@ public class Utils {
 		if (term == Globals.FOURTEEN_SPRING) {
 			calendarDates[0] = Globals.FOURTEEN_SPRING_START;
 			calendarDates[1] = Globals.FOURTEEN_SPRING_END;
-			// Log.d("CS65", "TERM IS: " + "14S");
+
 		} else if (term.equals(Globals.FOURTEEN_SUMMER)) {
 			calendarDates[0] = Globals.FOURTEEN_SUMMER_START;
 			calendarDates[1] = Globals.FOURTEEN_SUMMER_END;
-			// Log.d("CS65", "TERM IS: " + "14X");
 
 		} else if (term.equals(Globals.FOURTEEN_FALL)) {
 			calendarDates[0] = Globals.FOURTEEN_FALL_START;
 			calendarDates[1] = Globals.FOURTEEN_FALL_END;
-			// Log.d("CS65", "TERM IS: " + "14F");
 
 		} else if (term.equals(Globals.FIFTEEN_WINTER)) {
 			calendarDates[0] = Globals.FIFTEEN_WINTER_START;
 			calendarDates[1] = Globals.FIFTEEN_WINTER_END;
-			// Log.d("CS65", "TERM IS: " + "15W");
 
 		} else if (term.equals(Globals.FIFTEEN_SPRING)) {
 			calendarDates[0] = Globals.FIFTEEN_SPRING_START;
 			calendarDates[1] = Globals.FIFTEEN_SPRING_END;
-			// Log.d("CS65", "TERM IS: " + "15S");
 
 		}
 

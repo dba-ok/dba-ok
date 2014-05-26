@@ -185,7 +185,6 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
-
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
