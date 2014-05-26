@@ -447,9 +447,10 @@ public class MainActivity extends FragmentActivity implements
 	    if (requestCode == REQUEST_CODE) {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
-	        	Toast.makeText(getApplicationContext(),
+	        	/*Toast.makeText(getApplicationContext(),
 						"in onActivityResult!", Toast.LENGTH_SHORT)
 						.show();
+						*/
 	        	Log.d("CS65","in onActivityResult, resultOK!");
 	        	manageMyIDInBackground();
 	        }

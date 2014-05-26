@@ -1,3 +1,10 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the MyStatsFragment class. The MyStats class displays user spending stats in the form of a pie chart and bar chart.
+ * The pie chart details the user's spending by DDS locations, and the bar chart displays the user's spending by week in the term. 
+ * MyStats uses the GoogleCharts API to create the charts and load them in a WebView.
+ */
 package edu.dartmouth.cs65;
 
 import java.io.ByteArrayOutputStream;
@@ -105,20 +112,6 @@ public class MyStatsFragment extends Fragment {
 		ewsnackbar = locationSpending.get(Globals.SNACKBAR_LOCATION_INT);
 		collismarket = locationSpending.get(Globals.COLLIS_MARKET_LOCATION_INT);
 		
-		/*
-	    foco = 3; 
-	    collis = 1; 
-	    hop = 1; 
-	    novack = 1; 
-	    kaf = 1; 
-	    ewsnackbar = 1; 
-	    collismarket = 1; 
-	    */
-		
-//	    ArrayList<Double> allAmounts = Utils.getLocationSpending(getActivity()); 
-//	    for (Double amount : allAmounts) {
-//	    	
-//	    }
 	    
 	    // put the dba by week usage here 
 		ArrayList<Double> weeklySpending =  Utils.getWeeklySpending(context);
@@ -133,18 +126,6 @@ public class MyStatsFragment extends Fragment {
 		week9 = weeklySpending.get(8);
 		week10 = weeklySpending.get(9);
 
-		/*
-	    week1 = 110; 
-	    week2 = 120; 
-	    week3 = 100; 
-	    week4 = 140; 
-	    week5 = 90; 
-	    week6 = 110; 
-	    week7 = 120; 
-	    week8 = 100; 
-	    week9 = 70; 
-	    week10 = 80; 
-	    */
 	    String content = "null";
 	    try {
 	        AssetManager assetManager = getActivity().getAssets();

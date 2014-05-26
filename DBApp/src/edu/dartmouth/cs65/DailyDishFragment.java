@@ -1,3 +1,9 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the DailyDishFragment class. The DailyDishFragment class uses a WebView widget to display the Dartmouth Dining Services
+ * menus from http://www.dartmouth.edu/dining/menus/. 
+ */
 package edu.dartmouth.cs65;
 
 import android.annotation.SuppressLint;
@@ -26,6 +32,7 @@ public class DailyDishFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
+		// load the DDS url in the webview
 		wv = (WebView) getView().findViewById(R.id.webPage);
 		wv.setWebViewClient(new MyBrowser());
 		wv.getSettings().setLoadsImagesAutomatically(true);
@@ -37,7 +44,7 @@ public class DailyDishFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		// inflate the layout
 		return inflater.inflate(R.layout.dailydish, container, false);
 	}
 
