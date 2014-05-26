@@ -100,7 +100,7 @@
 
     <!-- Budget -->
     <string name="ui_budget_useravg_title">Your Avg</string>
-    <string name="ui_budget_idealavg_title">Ideal Avg</string>
+    <string name="ui_budget_idealavg_title">Future Spending:</string>
     <string name="title_activity_prefs">PrefsActivity</string>
     <string name="hello_world">Hello world!</string>
 
