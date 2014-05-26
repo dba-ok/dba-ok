@@ -430,6 +430,14 @@ public class MainActivity extends FragmentActivity implements
 	
 	
 	public void onLogoutClicked(View v){
+		String mKey = getString(R.string.preference_name);
+        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+        
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mKey = getString(R.string.preference_logged_in);
+        mEditor.putBoolean(mKey, false);
+        mEditor.commit();
+        
 		logoutUser();
 		showWelcome();
 		
