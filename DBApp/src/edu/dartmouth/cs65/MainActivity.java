@@ -328,6 +328,11 @@ public class MainActivity extends FragmentActivity implements
 
 				ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername,
 						mPassword);
+				Log.d(TAG, "scraper's loggedIn boolean value is:" + scraper.isLoggedIn());
+				//if (!scraper.isLoggedIn()){
+				//	String success = "invalid data";
+				//	return success;
+				//}
 				mKey = getString(R.string.preference_key_balance);
 
 				String balance = "0.0";
@@ -373,6 +378,10 @@ public class MainActivity extends FragmentActivity implements
 					Toast.LENGTH_SHORT).show();
 
 				}
+				else if (success.equals("invalid data")){
+					Toast.makeText(getApplicationContext(), "Invalid username and/or password.",Toast.LENGTH_SHORT).show();
+					showWelcome();
+				}
 				Log.d("CS65", "Executing");
 			}
 		}.execute(null, null, null);
@@ -382,8 +391,23 @@ public class MainActivity extends FragmentActivity implements
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
 	}
-	@Override
-	public void onDestroy(){
+	
+	
+	public void onLogoutClicked(View v){
+		String mKey = getString(R.string.preference_name);
+        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+        
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mKey = getString(R.string.preference_logged_in);
+        mEditor.putBoolean(mKey, false);
+        mEditor.commit();
+        
+		logoutUser();
+		showWelcome();
+		
+	}
+	
+	private void logoutUser(){
 		boolean stayLoggedIn;
 		String mKey = getString(R.string.preference_name);
         SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
@@ -394,7 +418,7 @@ public class MainActivity extends FragmentActivity implements
         Log.d(TAG, "Does the user want to stay logged in?" + stayLoggedIn);
         
         //Reset username and password in SharedPrefs to empty strings
-        if (stayLoggedIn == false){
+        if (!stayLoggedIn){
         	mKey = getString(R.string.preference_key_username);
         	mEditor.putString(mKey, "");
         	
@@ -403,6 +427,11 @@ public class MainActivity extends FragmentActivity implements
         	
         	mEditor.commit();
         }
+	}
+	
+	@Override
+	public void onDestroy(){
+		logoutUser();
         
 		super.onDestroy();
 	}

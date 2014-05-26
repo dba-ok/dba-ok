@@ -86,6 +86,20 @@ public class WelcomeActivity extends Activity{
     }
     
     @Override
+	public void onBackPressed() {
+    	String mKey = getString(R.string.preference_name);
+        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
+
+        mKey = getString(R.string.preference_logged_in);
+        boolean loggedIn = mPrefs.getBoolean(mKey, false);
+        
+        if (loggedIn){
+        	super.onBackPressed();
+        }
+        
+    }
+    
+    @Override
     public void onDestroy(){
         String mKey = getString(R.string.preference_name);
         SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);

@@ -106,4 +106,6 @@
 
     <string name="stay_logged_in">Stay signed in</string>
     <string name="preference_logged_in">preference_logged_in</string>
+    
+    <string name="btn_logout">Logout</string>
 </resources>
