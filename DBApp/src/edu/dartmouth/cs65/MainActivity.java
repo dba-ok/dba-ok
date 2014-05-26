@@ -116,42 +116,6 @@ public class MainActivity extends FragmentActivity implements
 
 	}
 
-	public void updateData() {
-		String mKey = getString(R.string.preference_name);
-		TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(this);
-		SharedPreferences mPrefs = this
-				.getSharedPreferences(mKey, MODE_PRIVATE);
-		SharedPreferences.Editor mEditor = mPrefs.edit();
-
-		mKey = getString(R.string.preference_key_username);
-		mUsername = mPrefs.getString(mKey, "");
-		mKey = getString(R.string.preference_key_password);
-		mPassword = mPrefs.getString(mKey, "");
-
-		ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername, mPassword);
-		mKey = getString(R.string.preference_key_balance);
-		mEditor.putString(mKey, scraper.getDBABalance());
-		mKey = getString(R.string.preference_key_swipes);
-		mEditor.putString(mKey, scraper.getSwipeBalance());
-		mKey = getString(R.string.preference_key_dba_initial);
-		mEditor.putString(mKey, scraper.getTotalDBA());
-		mEditor.commit();
-
-		// get the transaction history, delete all rows currently in db and
-		// replace with new entries from the web
-		Calendar[] startEndDates = Utils.getTermStartEnd();
-		try {
-			scraper.getTransactionHistoryPage(startEndDates[0],
-					startEndDates[1]);
-			ArrayList<TransactionEntry> entryList = scraper
-					.getTransactionHistory();
-			dbHelper.deleteAllEntries();
-			dbHelper.insertEntryList(entryList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/***
 	 * On resume, cancel all notifications!
 	 */
