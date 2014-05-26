@@ -44,7 +44,9 @@ public class MainActivity extends FragmentActivity implements
 	private String mUsername;
 	private String mPassword;
 	private Context context;
-	private BalanceFragment bal; 
+	private BalanceFragment bal;
+	
+	private static final int REQUEST_CODE = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,18 +113,14 @@ public class MainActivity extends FragmentActivity implements
 			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
 			mEditor.commit();
 			showWelcome();
-			// manageMyIDInBackground();
 		}
+
 		if (!mUsername.equals("") && !mPassword.equals("")) {
 			manageMyIDInBackground();
 		}
 
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle oldState) {
-
-	}
 
 	/***
 	 * On resume, cancel all notifications!
@@ -146,7 +144,7 @@ public class MainActivity extends FragmentActivity implements
 	public void showWelcome() {
 		// this.removePages();
 		Intent i = new Intent(this, WelcomeActivity.class);
-		startActivity(i);
+		startActivityForResult(i, REQUEST_CODE);
 	}
 
 	public void startSettings() {
@@ -405,7 +403,7 @@ public class MainActivity extends FragmentActivity implements
 	// refresh data when refresh is clicked
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
-		
+
 	}
 
 	public void onLogoutClicked(View v) {
@@ -419,7 +417,7 @@ public class MainActivity extends FragmentActivity implements
 		mEditor.commit();
 
 		logoutUser();
-		//showWelcome();
+		// showWelcome();
 	}
 
 	// logs the user out.
@@ -439,7 +437,22 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	public void onDestroy() {
-		//logoutUser();
+		// logoutUser();
 		super.onDestroy();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // Check which request we're responding to
+	    if (requestCode == REQUEST_CODE) {
+	        // Make sure the request was successful
+	        if (resultCode == RESULT_OK) {
+	        	Toast.makeText(getApplicationContext(),
+						"in onActivityResult!", Toast.LENGTH_SHORT)
+						.show();
+	        	Log.d("CS65","in onActivityResult, resultOK!");
+	        	manageMyIDInBackground();
+	        }
+	    }
 	}
 }

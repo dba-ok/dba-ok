@@ -2,6 +2,7 @@ package edu.dartmouth.cs65;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
@@ -20,7 +21,8 @@ public class WelcomeActivity extends Activity{
     private EditText email;
     private EditText password;
     private static final String TAG = "WelcomeActvitiy.java";
-
+   // private static final int RESULT_OK = 1;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,9 @@ public class WelcomeActivity extends Activity{
         mEditor.commit();
         
 
+		//MainActivity.manageMyIDInBackground();
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
         finish();
     }
     
