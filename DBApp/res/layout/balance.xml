@@ -58,8 +58,9 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onRefreshClicked"
-        android:text="Refresh" />
+        android:text="Refresh"/>
+        <!-- android:onClick="onRefreshClicked" -->
+        <!-- ndroid:text="Refresh" /> -->
 
     <Button
         android:id="@+id/logout"

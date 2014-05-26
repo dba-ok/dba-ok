@@ -44,7 +44,8 @@ public class MainActivity extends FragmentActivity implements
 	private String mUsername;
 	private String mPassword;
 	private Context context;
-
+	private BalanceFragment bal; 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -271,6 +272,7 @@ public class MainActivity extends FragmentActivity implements
 			switch (position) {
 			case 0:
 				fragment = new BalanceFragment();
+				bal = (BalanceFragment) fragment;
 				break;
 			case 1:
 				fragment = new DailyDishFragment();
@@ -386,6 +388,7 @@ public class MainActivity extends FragmentActivity implements
 					Toast.makeText(getApplicationContext(),
 							"Data has been updated!", Toast.LENGTH_SHORT)
 							.show();
+					bal.setText();
 
 				} else if (success.equals("invalid data")) {
 					Toast.makeText(getApplicationContext(),
@@ -402,6 +405,7 @@ public class MainActivity extends FragmentActivity implements
 	// refresh data when refresh is clicked
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
+		
 	}
 
 	public void onLogoutClicked(View v) {
@@ -415,7 +419,7 @@ public class MainActivity extends FragmentActivity implements
 		mEditor.commit();
 
 		logoutUser();
-		showWelcome();
+		//showWelcome();
 	}
 
 	// logs the user out.
@@ -430,11 +434,12 @@ public class MainActivity extends FragmentActivity implements
 		mKey = getString(R.string.preference_key_password);
 		mEditor.putString(mKey, "");
 		mEditor.commit();
+		showWelcome();
 	}
 
 	@Override
 	public void onDestroy() {
-		logoutUser();
+		//logoutUser();
 		super.onDestroy();
 	}
 }
