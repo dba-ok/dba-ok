@@ -34,17 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.dartmouth.cs65.MainActivity" />
         </activity>
-
-        <receiver android:name=".NotificationSetter" >
-            <intent-filter>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".ReminderService" />
-
-        <receiver android:name=".NotificationReceiver" />
     </application>
 
 </manifest>
