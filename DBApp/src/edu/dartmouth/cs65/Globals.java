@@ -1,3 +1,8 @@
+/**
+ * DBA-OK
+ * 
+ * Useful constants for DBA-OK app .
+ */
 package edu.dartmouth.cs65;
 
 import java.util.Calendar;
