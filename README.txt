@@ -9,6 +9,8 @@ HOW IT WORKS
 5. Budget
 6. MyStats
 
+** All screenshots can be found in the 'Screenshots' directory **
+
 Logging In
 If you are using the app for the first time, you might see this welcome screen:
 
