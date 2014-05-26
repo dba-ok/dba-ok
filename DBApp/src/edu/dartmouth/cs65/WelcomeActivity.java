@@ -1,3 +1,9 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the welcome screen that pops up when the user first uses DBA-OK or if the user logs out. The file also
+ * saves the username and password entered by the user on "Sign In" clicked. 
+ */
 package edu.dartmouth.cs65;
 
 import android.app.Activity;
@@ -7,29 +13,25 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class WelcomeActivity extends Activity{
-    /*
-     * public WelcomeActivity() { }
-     */
-
     private EditText email;
     private EditText password;
-    private static final String TAG = "WelcomeActvitiy.java";
-   // private static final int RESULT_OK = 1;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+        
+        //Get the email and password EditText objects from the layout
         email = (EditText) findViewById(R.id.EnterEmail);
         password =  (EditText) findViewById(R.id.EnterPassword);
         
+        //Let the user navigate to the ManageMyID website if they don't have an account
         TextView textView =(TextView)findViewById(R.id.GetManageMyId);
         textView.setClickable(true);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -39,54 +41,38 @@ public class WelcomeActivity extends Activity{
     }
 
     public void onSignInClicked(View v) {
-        // save the user profile to shared preferences and save photo to
+        // Save the user profile to shared preferences and save photo to
         // internal storage and finish the activity
-        Toast.makeText(getApplicationContext(), "sign in pressed!", Toast.LENGTH_SHORT).show();
-
-        Log.d("CS65", "Sign in Button Pressed");
         String mKey = getString(R.string.preference_name);
 
         SharedPreferences mPrefs = this.getSharedPreferences(mKey,
                 Context.MODE_PRIVATE);
 
-        // PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        //mEditor.clear();
 
         mKey = getString(R.string.preference_key_welcome_screen);
         mEditor.putBoolean(mKey, true);
-
+        
+        //Save entered email to SharedPreferences
         mKey = getString(R.string.preference_key_username);
         String mValue = email.getText().toString();
         mEditor.putString(mKey, mValue);
-        Toast.makeText(getApplicationContext(), "Username saved: " + mValue,
-                Toast.LENGTH_SHORT).show();
 
+        //Save entered password to SharedPreferences
         mKey = getString(R.string.preference_key_password);
         mValue = password.getText().toString();
         mEditor.putString(mKey, mValue);
-        
-        String pwd =""; 
-        for(int i = 0; i < mValue.length(); i++){
-            pwd+="*";
-        }
-        
-        Toast.makeText(getApplicationContext(), "Password saved: " + pwd,
-                Toast.LENGTH_SHORT).show();
 
         mEditor.commit();
         
-
-		//MainActivity.manageMyIDInBackground();
         Intent returnIntent = new Intent();
         setResult(RESULT_OK, returnIntent);
-        finish();
+        finish(); 
     }
     
     @Override
 	public void onBackPressed() {
-    	
+    	//Do nothing if back button is pressed
     }
 
 }
