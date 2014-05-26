@@ -1,3 +1,11 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the MainActivity, which sets up the action bar and attaches various fragments to it. It also saves the user's
+ * ManageMyID username and password to SharedPreferences. It also defines different actions on the tabs like selecting or 
+ * deselecting them. Lastly, this activity defines the ManageMyID AsyncTask, which deals with all operations with ManageMyID
+ * while the UI is running. 
+ */
 package edu.dartmouth.cs65;
 
 import java.util.ArrayList;
@@ -27,14 +35,12 @@ import edu.dartmouth.cs65.scraper.ManageMyIDScraper;
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
-	/**
-	 * Adapter for the Pager
-	 */
+	// Adapter for the Pager
 	SectionsPagerAdapter mSectionsPagerAdapter;
 
-	/**
-	 * Necessary for swiping between fragments
-	 */
+	
+	 // Necessary for swiping between fragments
+	 
 	ViewPager mViewPager;
 	ActionBar mActionBar;
 	final String PREF_TAG = "PrefFrag";
@@ -55,7 +61,7 @@ public class MainActivity extends FragmentActivity implements
 
 		context = this;
 
-		// set up the actionbar and view pager
+		// Set up the actionbar and view pager
 		mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -65,14 +71,14 @@ public class MainActivity extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		// access the shared prefs
+		//Access the shared prefs
 		String mKey = getString(R.string.preference_name);
 
 		SharedPreferences mPrefs = this
 				.getSharedPreferences(mKey, MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 
-		// if there is nothing in shared prefs for balance, swipes, initial bal,
+		// If there is nothing in shared prefs for balance, swipes, initial bal,
 		// set manually.
 		mKey = getString(R.string.preference_key_balance);
 		if (mPrefs.getString(mKey, "").equals("")) {
@@ -87,7 +93,8 @@ public class MainActivity extends FragmentActivity implements
 			mEditor.putString(mKey, "920.00");
 		}
 		mEditor.commit();
-
+		
+		//Set up username and password keys in Shared Preferences
 		mKey = getString(R.string.preference_key_username);
 		mUsername = mPrefs.getString(mKey, "");
 		mKey = getString(R.string.preference_key_password);
@@ -95,26 +102,18 @@ public class MainActivity extends FragmentActivity implements
 		mKey = getString(R.string.preference_key_welcome_screen);
 		boolean welcomeScreenShown = mPrefs.getBoolean(mKey, false);
 
-		Log.d(TAG, "welcomeScreenShown =" + welcomeScreenShown);
-
 		this.setUpActionBar();
-		/*
-		 * Bundle extras = getIntent().getExtras(); if (extras != null) {
-		 * mEditor.putString(getString(R.string.preference_key_username),
-		 * extras.getString("username"));
-		 * mEditor.putString(getString(R.string.preference_key_password),
-		 * extras.getString("password")); mEditor.commit(); }
-		 */
-		Log.d(TAG, " mUsername not blank: " + mUsername);
-		Log.d(TAG, "mPassword not blank: " + mPassword);
 
+		//If the welcome screen hasn't been shown or the username and/or password fields
+		//empty, return to welcome screen
 		if (!welcomeScreenShown
 				|| (mUsername.equals("") || mPassword.equals(""))) {
-			mEditor.putBoolean(mKey, true); // welcome screen has been shown!
+			mEditor.putBoolean(mKey, true); // Welcome screen has now been shown!
 			mEditor.commit();
 			showWelcome();
 		}
 
+		//If username and password fields are not empty, start ManageMyID AsyncTask
 		if (!mUsername.equals("") && !mPassword.equals("")) {
 			manageMyIDInBackground();
 		}
@@ -122,7 +121,7 @@ public class MainActivity extends FragmentActivity implements
 	}
 
 
-	/***
+	/*
 	 * On resume, cancel all notifications!
 	 */
 	@Override
@@ -141,8 +140,10 @@ public class MainActivity extends FragmentActivity implements
 		return true;
 	}
 
+	/*
+	 * Start WelcomeActivity and bring the user back to the welcome screen
+	 */
 	public void showWelcome() {
-		// this.removePages();
 		Intent i = new Intent(this, WelcomeActivity.class);
 		startActivityForResult(i, REQUEST_CODE);
 	}
@@ -161,13 +162,11 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	public void onBackPressed() {
-		Log.d(TAG, "MAIN ACTIVITY: onBackPressed");
 		try {
 			final SettingsFragment fragment = (SettingsFragment) getSupportFragmentManager()
 					.findFragmentByTag(PREF_TAG);
-			// for either fragment, if back button is pressed, we want to set up
-			// the
-			// action bar!
+
+			//Set up action bar if back button is pressed on fragment
 			if (fragment.allowBackPressed()) {
 				super.onBackPressed();
 				this.setUpActionBar();
@@ -178,8 +177,8 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
-	/**
-	 * Sets up action bar and swipey-swipe interface :)
+	/*
+	 * Sets up action bar and horizontal swipe interface 
 	 */
 	public void setUpActionBar() {
 
@@ -236,7 +235,7 @@ public class MainActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 	}
 
-	/**
+	/*
 	 * This method removes the pages from ViewPager
 	 */
 	public void removePages() {
@@ -317,17 +316,23 @@ public class MainActivity extends FragmentActivity implements
 		}
 	}
 
+	/*
+	 * Sets up ManageMyID AsyncTask, which retrieves the remaining DBA and meal swipe balance, the total
+	 * DBA starting from the beginning of the term, and retrieves and inserts the user's transaction history
+	 * from the term into a SQLite databse.
+	 */
 	public void manageMyIDInBackground() {
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-				String mKey = getString(R.string.preference_name);
 				TransactionEntryDbHelper dbHelper = new TransactionEntryDbHelper(
 						context);
+				
+				String mKey = getString(R.string.preference_name);
 				SharedPreferences mPrefs = context.getSharedPreferences(mKey,
 						MODE_PRIVATE);
 				SharedPreferences.Editor mEditor = mPrefs.edit();
-
+				
 				mKey = getString(R.string.preference_key_username);
 				mUsername = mPrefs.getString(mKey, "");
 				mKey = getString(R.string.preference_key_password);
@@ -335,9 +340,8 @@ public class MainActivity extends FragmentActivity implements
 
 				ManageMyIDScraper scraper = new ManageMyIDScraper(mUsername,
 						mPassword);
-				Log.d(TAG,
-						"scraper's loggedIn boolean value is:"
-								+ scraper.isLoggedIn());
+				
+				//Username and password were invalid
 				if (!scraper.isLoggedIn()) {
 					String success = "invalid data";
 					return success;
@@ -347,6 +351,8 @@ public class MainActivity extends FragmentActivity implements
 				String balance = "0.0";
 				String swipes = "0";
 				String totalDBA = "920.00";
+				
+				//Get remaining meal swipes, DBA, and the total DBA from the start of the term
 				try {
 					balance = scraper.getDBABalance();
 					swipes = scraper.getSwipeBalance();
@@ -354,6 +360,8 @@ public class MainActivity extends FragmentActivity implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				//Save data into SharedPreferences
 				mEditor.putString(mKey, balance);
 				mKey = getString(R.string.preference_key_swipes);
 				mEditor.putString(mKey, swipes);
@@ -361,7 +369,8 @@ public class MainActivity extends FragmentActivity implements
 				mEditor.putString(mKey, totalDBA);
 				mEditor.commit();
 				String success = "";
-				// get the transaction history, delete all rows currently in db
+				
+				// Get the transaction history, delete all rows currently in db
 				// and replace with new entries from the web
 				Calendar[] startEndDates = Utils.getTermStartEnd();
 				try {
@@ -369,7 +378,7 @@ public class MainActivity extends FragmentActivity implements
 							startEndDates[1]);
 					ArrayList<TransactionEntry> entryList = scraper
 							.getTransactionHistory();
-					Log.d("ASYNCTASK", "Size of entryList: " + entryList.size());
+
 					dbHelper.deleteAllEntries();
 					dbHelper.insertEntryList(entryList);
 					success = "YAY!";
@@ -381,6 +390,9 @@ public class MainActivity extends FragmentActivity implements
 			}
 
 			@Override
+			/*
+			 * Checks the success message from the AsyncTask
+			 */
 			protected void onPostExecute(String success) {
 				if (success.equals("YAY!")) {
 					Toast.makeText(getApplicationContext(),
@@ -395,17 +407,20 @@ public class MainActivity extends FragmentActivity implements
 					logoutUser();
 					// showWelcome();
 				}
-				Log.d("CS65", "Executing");
 			}
 		}.execute(null, null, null);
 	}
 
-	// refresh data when refresh is clicked
+	// Refresh data when refresh is clicked
 	public void onRefreshClicked(View v) {
 		manageMyIDInBackground();
 
 	}
-
+	
+	/*
+	 * When the user clicks "Logout", set preference_logged_in to false
+	 * and call 'logoutUser()'
+	 */
 	public void onLogoutClicked(View v) {
 		String mKey = getString(R.string.preference_name);
 		SharedPreferences mPrefs = this.getSharedPreferences(mKey,
@@ -413,31 +428,34 @@ public class MainActivity extends FragmentActivity implements
 
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 		mKey = getString(R.string.preference_logged_in);
-		mEditor.putBoolean(mKey, false);
+		mEditor.putBoolean(mKey, false); //user is not logged in
 		mEditor.commit();
 
 		logoutUser();
-		// showWelcome();
 	}
 
-	// logs the user out.
-	// overwrites username and password in shared prefs
+	/*
+	 * Logs the user out and overwrites username and password
+	 * in SharedPreferences
+	 */
 	private void logoutUser() {
 		String mKey = getString(R.string.preference_name);
 		SharedPreferences mPrefs = this.getSharedPreferences(mKey,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
+		
 		mKey = getString(R.string.preference_key_username);
 		mEditor.putString(mKey, "");
 		mKey = getString(R.string.preference_key_password);
+		
 		mEditor.putString(mKey, "");
 		mEditor.commit();
-		showWelcome();
+		
+		showWelcome();//navigate back to welcome screen
 	}
 
 	@Override
 	public void onDestroy() {
-		// logoutUser();
 		super.onDestroy();
 	}
 	
@@ -447,11 +465,6 @@ public class MainActivity extends FragmentActivity implements
 	    if (requestCode == REQUEST_CODE) {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
-	        	/*Toast.makeText(getApplicationContext(),
-						"in onActivityResult!", Toast.LENGTH_SHORT)
-						.show();
-						*/
-	        	Log.d("CS65","in onActivityResult, resultOK!");
 	        	manageMyIDInBackground();
 	        }
 	    }

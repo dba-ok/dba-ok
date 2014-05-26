@@ -1,3 +1,11 @@
+/**
+ * DBA-OK
+ * 
+ * This file contains all Dartmouth dining locations saved as DiningLocation objects. It defines their hours of operations, which is
+ * provided manually. It can also return an ArrayList of open locations or closed locations, using the 'isOpen' function in
+ * the DiningLocation class.
+ */
+
 package edu.dartmouth.cs65;
 
 import java.util.ArrayList;
@@ -9,16 +17,17 @@ public class DiningLocations{
 	
 	public DiningLocations(){
 		locations = new ArrayList<DiningLocation>();
-		//locations.add(addFiftyThree());
 		populateArrayList();
-		Log.d("CS65","locations is size: " + locations.size());
 	}
 	
+	/*
+	 * Iterates through all DiningLocation objects and saves the ones that
+	 * are currently open in an ArrayList.
+	 */
 	public ArrayList<DiningLocation> getOpenLocations(int hour, int minute, int day){
 		ArrayList<DiningLocation> open = new ArrayList<DiningLocation>();
 		
 		for (DiningLocation location: locations){
-			Log.d("CS65", "LOCATION IS" + location.getName());
 			if (location.isOpen(hour, minute, day)){
 				open.add(location);
 			}
@@ -27,6 +36,10 @@ public class DiningLocations{
 		return open;
 	}
 	
+	/*
+	 * Iterates through all DiningLocation objects and saves the ones that
+	 * are currently closed in an ArrayList.
+	 */
 	public ArrayList<DiningLocation> getClosedLocations(int hour, int minute, int day){
 		ArrayList<DiningLocation> closed = new ArrayList<DiningLocation>();
 		
@@ -38,7 +51,9 @@ public class DiningLocations{
 		
 		return closed;
 	}
-	
+	/*
+	 * Add all DiningLocation objects to an ArrayList
+	 */
 	private void populateArrayList(){
 		locations.add(addFiftyThree());
 		locations.add(addCollis());
@@ -49,6 +64,9 @@ public class DiningLocations{
 		locations.add(addSnackBar());
 	}
 	
+	/*
+	 * Defines the hours of operation for '53 Commons 
+	 */
 	private DiningLocation addFiftyThree(){
 		DiningLocation fiftyThree = new DiningLocation("53 Commons");
 		String[] mondayFridayHours = {"7:30 am -10:30 am ", "11:00 am -3:00 pm", "5:00 pm -8:30 pm"};
@@ -61,6 +79,9 @@ public class DiningLocations{
 		return fiftyThree;
 	}
 	
+	/*
+	 * Defines the hours of operation for Collis Cafe, which includes Late Night Collis
+	 */
 	private DiningLocation addCollis(){
 		DiningLocation collis = new DiningLocation("Collis Cafe");
 		String[] mondayFridayHours = {"7:00 am -8:00 pm","9:30 pm-1:30 am"};
@@ -72,6 +93,9 @@ public class DiningLocations{
 		return collis;
 	}
 	
+	/*
+	 * Defines the hours of operation for Collis Market
+	 */
 	private DiningLocation addCollisMarket(){
 		DiningLocation collisMarket = new DiningLocation("Collis Market");
 		String[] mondayFridayHours = {"11:00 am -11:30 pm"};
@@ -83,6 +107,9 @@ public class DiningLocations{
 		return collisMarket;
 	}
 	
+	/*
+	 * Defines the hours of operation for Novack
+	 */
 	private DiningLocation addNovack(){
 		DiningLocation novack = new DiningLocation("Novack");
 		String[] mondayFridayHours = {"7:30 am -2:00 am"};
@@ -95,6 +122,9 @@ public class DiningLocations{
 		return novack;
 	}
 	
+	/*
+	 * Defines the hours of operation for Courtyard Cafe in the Hopkins Center
+	 */
 	private DiningLocation addCourtyardCafe(){
 		DiningLocation courtyard = new DiningLocation("Courtyard Cafe");
 		String[] allHours = {"11:00 am -12:30 am"};
@@ -103,6 +133,9 @@ public class DiningLocations{
 		return courtyard;
 	}
 	
+	/*
+	 * Defines the hours of operation for King Arthur Flour in Baker library
+	 */
 	private DiningLocation addKAF(){
 		DiningLocation KAF = new DiningLocation("King Arthur Flour");
 		String[] mondayFridayHours = {"8:00 am -8:00 pm"};
@@ -114,6 +147,9 @@ public class DiningLocations{
 		return KAF;
 	}
 	
+	/*
+	 * Defines the hours of operation for the East Wheelock snackbar
+	 */
 	private DiningLocation addSnackBar(){
 		DiningLocation snackBar = new DiningLocation("EW Snack Bar");
 		String[] mondayFridayHours = {"8:00 am -11:00 am","8:00 pm -2:00 am"};
