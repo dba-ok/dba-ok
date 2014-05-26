@@ -32,6 +32,9 @@ public class MyStatsFragment extends Fragment {
     public static final String ASSET_PATH = "file:///android_asset/";
 
     private WebView webView;
+    private Context context;
+    
+    // variables for pie chart of spending per location 
     private double foco; 
     private double collis; 
     private double hop; 
@@ -40,6 +43,7 @@ public class MyStatsFragment extends Fragment {
     private double ewsnackbar; 
     private double collismarket; 
     
+    // variables for bar chart of spending per week 
     private double week1; 
     private double week2; 
     private double week3; 
@@ -50,8 +54,7 @@ public class MyStatsFragment extends Fragment {
     private double week8; 
     private double week9; 
     private double week10; 
-    
-    private Context context;
+   
     
 	public MyStatsFragment(){	
 	}
@@ -67,18 +70,21 @@ public class MyStatsFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
+		// set the webview 
         webView = (WebView) getView().findViewById(R.id.web_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 //        webSettings.setBuiltInZoomControls(true);
 
-
+        // initialize the charts
         initPieButton();
         initColumnButton(); 
 
+        // show the pie chart by default 
         loadChart("pie");
 	}
 	
+	// initialize the button to load the pie chart 
 	 private void initPieButton() {
 	        Button pieButton = (Button) getView().findViewById(R.id.piebutton);
 	        pieButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +95,7 @@ public class MyStatsFragment extends Fragment {
 	        });
 	}
 	 
+	// initialize the button to load the bar chart 
 	private void initColumnButton() {
 	        Button columnButton = (Button) getView().findViewById(R.id.columnbutton);
 	        columnButton.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +107,10 @@ public class MyStatsFragment extends Fragment {
 	}
 
 	
+	// create the chart with data from one's manageMyId account 
 	private void loadChart(String chart) {
 	    
-	    // put the dba by location usage here 
+	    // dba by location usage here 
 		ArrayList<Double> locationSpending =  Utils.getLocationSpending(context);
 		foco = locationSpending.get(Globals.FOCO_LOCATION_INT);
 		collis = locationSpending.get(Globals.COLLIS_LOCATION_INT);
@@ -113,7 +121,7 @@ public class MyStatsFragment extends Fragment {
 		collismarket = locationSpending.get(Globals.COLLIS_MARKET_LOCATION_INT);
 		
 	    
-	    // put the dba by week usage here 
+	    // dba by week usage here 
 		ArrayList<Double> weeklySpending =  Utils.getWeeklySpending(context);
 		week1 = weeklySpending.get(0);
 		week2 = weeklySpending.get(1);
@@ -128,6 +136,7 @@ public class MyStatsFragment extends Fragment {
 
 	    String content = "null";
 	    try {
+	    	// use assetmanager to load the correct chart html 
 	        AssetManager assetManager = getActivity().getAssets();
 	        InputStream in = null; 
 	        if (chart.equals("pie")) {
@@ -142,6 +151,7 @@ public class MyStatsFragment extends Fragment {
 	        Log.e(TAG, "An error occurred.", e);
 	    }
 	
+	    // populate the chart with the correct strings 
 	    if (chart.equals("pie")) {
 		    String formattedContent = String.format(content, foco, collis, hop, novack, kaf, ewsnackbar, collismarket);
 		    webView.loadDataWithBaseURL(ASSET_PATH, formattedContent, "text/html", "utf-8", null);	    	
