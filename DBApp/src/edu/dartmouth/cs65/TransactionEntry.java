@@ -1,3 +1,12 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the TransactionEntry object, which will be stored in the SQLite Database. The TransactionEntry object
+ * stores a Calendar object with a particular date and time, a Dartmouth dining location (given a unique integer value),
+ * and a double amount -- the amount spent at the dining location. 
+ * 
+ * The functions in the class are getter and setter functions for the different values stored in the TransactionEntry object.
+ */
 package edu.dartmouth.cs65;
 
 import java.text.SimpleDateFormat;
@@ -34,18 +43,15 @@ public class TransactionEntry {
 		GregorianCalendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(this.getDateTimeinMillis());
 		SimpleDateFormat dateFormat;
+		
 		dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+		
 		return dateFormat.format(calendar.getTime());
 	}
 
-	// returns day in year
+	//Returns day in year
 	public int getDateTimeDay() {
 		return mDateTime.get(Calendar.DAY_OF_YEAR);
-		/*
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTimeInMillis(this.getDateTimeinMillis());
-		return calendar.DAY_OF_YEAR;
-		*/
 	}
 
 	public long getDateTimeinMillis() {
