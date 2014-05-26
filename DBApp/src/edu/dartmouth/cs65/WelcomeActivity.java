@@ -87,39 +87,7 @@ public class WelcomeActivity extends Activity{
     
     @Override
 	public void onBackPressed() {
-    	String mKey = getString(R.string.preference_name);
-        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
-
-        mKey = getString(R.string.preference_logged_in);
-        boolean loggedIn = mPrefs.getBoolean(mKey, false);
-        
-        if (loggedIn){
-        	super.onBackPressed();
-        }
-        
-    }
-    
-    @Override
-    public void onDestroy(){
-        String mKey = getString(R.string.preference_name);
-        SharedPreferences mPrefs = this.getSharedPreferences(mKey, Context.MODE_PRIVATE);
-        
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mKey = getString(R.string.preference_logged_in);
-        
-        CheckBox checkbox = (CheckBox) findViewById(R.id.checkbox_logged_in);
-        
-        if (checkbox.isChecked()){
-            mEditor.putBoolean(mKey, true);
-            Log.d(TAG, "User checked save username and password");
-        }
-        else{
-            mEditor.putBoolean(mKey, false);
-            Log.d(TAG, "User did not check save username and password");
-        }
-        
-        mEditor.commit();
-        super.onDestroy();
+    	
     }
 
 }
