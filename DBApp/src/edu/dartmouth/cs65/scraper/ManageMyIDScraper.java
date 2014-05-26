@@ -1,3 +1,10 @@
+/**
+ * DBA-OK
+ * 
+ * This file defines the ManageMyIDScraper class. The ManageMyIDScraper class logs into the ManageMyID website and scrapes the
+ * website for user transaction data. It also retrieves the user's remaining DBA and meal swipe balance, as well as the total
+ * amount of DBA that the user started with at the beginning of the term. 
+ */
 package edu.dartmouth.cs65.scraper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,15 +52,20 @@ public class ManageMyIDScraper{
 	private HttpContext context;
 	private HashMap<String, Integer> locationMap;
 	
+	/*
+	 * Creates a ManageMyIDScraper object which logs into ManageMyID using the
+	 * username and password parameters
+	 */
 	public ManageMyIDScraper(String username, String password){
 		try {
-			loggedIn = authenticate(username, password); //login to welcome.php
+			loggedIn = authenticate(username, password); 
 		} catch (IOException e) {
 			System.out.println("Authentication failed due to IOException.");
 			e.printStackTrace();
 		} 
 
-		//Temporary --  need to ask about Globals
+		//Create a map of locations and unique integers, which will be
+		//used in the database 
 		locationMap = new HashMap<String, Integer>();
 		locationMap.put("King Arthur Flour Coffee Bar", 0);
 		locationMap.put("Collis Cafe", 1);
@@ -64,6 +76,12 @@ public class ManageMyIDScraper{
 		
 	}
 	
+	/*
+	 * This function logs into the ManageMyID website using the username and password
+	 * parameters. It also saves the HTML of the welcome.php page. 
+	 * 
+	 * True means authentication was successful; false means it was not. 
+	 */
 	 private boolean authenticate(String username, String password) throws IOException{
 	        String sesstok;
 	        boolean success;
@@ -91,7 +109,7 @@ public class ManageMyIDScraper{
 	        //POST request to login page using username and password
 	        HttpPost postLogin = new HttpPost(LOGIN_PAGE);
 	        
-	        //Package username and password for POST request
+	        //Set up parameters needed for POST request (username, password, session token)
 	        List <NameValuePair> params = new ArrayList <NameValuePair>();
 	        
 	        if (sesstok.length() > 0){ //Add session token to params if it exists
@@ -100,7 +118,7 @@ public class ManageMyIDScraper{
 	        
 	        params.add(new BasicNameValuePair("user", username));
 	        params.add(new BasicNameValuePair("pwd", password));
-	        postLogin.addHeader("Referer", LOGIN_PAGE); //Add "Referer" field to POST header
+	        postLogin.addHeader("Referer", LOGIN_PAGE); 
 	        
 	        postLogin.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
@@ -114,7 +132,7 @@ public class ManageMyIDScraper{
 	        HttpResponse welcomeResponse = httpclient.execute(getWelcome, c);
 	        HttpEntity welcomeEntity = welcomeResponse.getEntity();
 	        
-	        //Define class variables before consuming entity
+	        //Save class variables before consuming entity
 	        welcomePage = EntityUtils.toString(welcomeEntity);
 	        context = c;
 	        
@@ -140,7 +158,7 @@ public class ManageMyIDScraper{
 		Elements links = webpage.select("a[href]");
 		
 		for (Element link: links){
-			if (link.text().equals("CURRENT BALANCE")){
+			if (link.text().equals("CURRENT BALANCE")){ 
 				authenticated = true;
 				break;
 			}
@@ -150,7 +168,7 @@ public class ManageMyIDScraper{
 	}
 	
 	/*
-	 * Gets the user's total DBA at the beginning of the term
+	 * Returns the total DBA that the user starts with at the beginning of the term. 
 	 */
 	public String getTotalDBA(){
 		String totalBalance = "";
@@ -184,6 +202,8 @@ public class ManageMyIDScraper{
 	/*
 	 * Note: This code relies on the welcome.php HTML having the <td>balance_value<td> cell being after the
 	 * "Dining DBA" cell in one of the table elements. 
+	 * 
+	 * Returns the remaining DBA that the user has
 	 */
 	public String getDBABalance(){
 		Document welcome = Jsoup.parse(welcomePage);
@@ -197,12 +217,14 @@ public class ManageMyIDScraper{
 			}
 		}
 		
-		return balance.substring(1);
+		return balance.substring(1); //removes '$' from String
 	}
 	
 	/*
 	 * Note: This code relies on the fact that the Swipes Remaining cell in welcome.php is identifiable by its
 	 * "colspan" attribute. The cell doesn't have an id or name attribute. 
+	 * 
+	 * Returns the number of remaining swipes that the user has 
 	 */
 	public String getSwipeBalance(){
 		Document welcome = Jsoup.parse(welcomePage);
@@ -249,7 +271,7 @@ public class ManageMyIDScraper{
 		HttpResponse transactionResponse = httpclient.execute(postTransaction, context);
 		HttpEntity transactionEntity = transactionResponse.getEntity();
 		
-		transactionPage = EntityUtils.toString(transactionEntity);
+		transactionPage = EntityUtils.toString(transactionEntity); //save transaction page's HTML
 		EntityUtils.consume(transactionEntity);
 	}
 	
@@ -321,7 +343,7 @@ public class ManageMyIDScraper{
 		time = splitDateTime[1];
 		c = Calendar.getInstance();
 		
-		month = Integer.parseInt(date.substring(0, 2)) - 1;
+		month = Integer.parseInt(date.substring(0, 2)) - 1; //android Calendar months starts at 0
 		day = Integer.parseInt(date.substring(3, 5));
 		year = Integer.parseInt(date.substring(6, 10));
 		
@@ -352,15 +374,6 @@ public class ManageMyIDScraper{
 		
 		return param;
 	}
-	
-	public static void main(String[] args) throws ParseException, IOException{
-		ManageMyIDScraper test = new ManageMyIDScraper("eva.w.xiao@dartmouth.edu", "testpassword");
-		test.getDBABalance();
-		test.getSwipeBalance();
 
-		test.getTransactionHistoryPage(Globals.FOURTEEN_SPRING_START, Globals.FOURTEEN_SPRING_END);
-		test.getTransactionHistory();
-		
-	}
 	
 }
